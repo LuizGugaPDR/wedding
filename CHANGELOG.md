@@ -2,6 +2,24 @@
 
 Todas as mudanças relevantes do Wedding OS. Uma entrada por sprint.
 
+## [0.7.3] — 2026-09-04 · Palavras legíveis o tempo todo
+
+### Changed
+- **As palavras nunca mais desbotam.** A máscara radial que as dissolvia ao chegar perto do
+  painel saiu inteira. Opacidade constante em toda a travessia, calibrada em **4,5:1** sobre
+  o ponto mais escuro do degradê: são para ler, não para adivinhar.
+- **A leitura do painel passou a ser garantida por uma coluna de gelo opaca** que corre a tela
+  de cima a baixo, na largura do painel. As palavras passam por trás e são cortadas por uma
+  aresta vertical contínua — divisão editorial, e não um card no meio da tela.
+- Corpo das palavras aumentado onde estava ilegível: de 9px para 12px no celular e de 13px
+  para 14px no tablet. As reduções de opacidade por breakpoint saíram: elas ficam igualmente
+  legíveis em qualquer tela.
+
+### Fixed
+- `scrollbar-gutter: stable both-edges` no cadeado. Sem isso a barra de rolagem empurrava o
+  painel 7px para a esquerda e ele saa do eixo da coluna, deixando texto sobre o degradê.
+- Fio coral e barra operacional receberam `z-index` próprio: a coluna cortava os dois ao meio.
+
 ## [0.7.2] — 2026-09-04 · Atmosfera da entrada
 
 ### Changed
@@ -14,7 +32,8 @@ Todas as mudanças relevantes do Wedding OS. Uma entrada por sprint.
   proporcional à duração, então no primeiro quadro as treze já estão espalhadas pelo caminho.
 - A zona limpa da máscara passou de 64% para **72% do raio** e cresceu em ambos os eixos.
   Agora que as palavras passam por cima do painel, é a máscara que garante o contraste do
-  texto — e não mais o fato de elas viverem só na periferia.
+  texto — e não mais o fato de elas viverem só na periferia. *(Substituído em 0.7.3 pela
+  coluna de gelo.)*
 - Corações do rastro do ponteiro de ~10px para **~20px**.
 
 ### Fixed

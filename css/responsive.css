@@ -163,14 +163,15 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
-  /* Em tela estreita o painel toma quase tudo: as frases longas encolhem para
-     caber no que sobra das bordas. */
+  /* Em tela estreita o painel toma quase tudo. As palavras passam por trás dele,
+     então não precisam caber nas bordas — só precisam continuar legíveis. */
   .lock__drift {
-    --drift-scale: 0.46;
+    --drift-scale: 0.62;
   }
 
-  .lock__word {
-    opacity: 0.2;
+  /* A coluna de gelo encosta nas bordas; o respiro interno diminui junto. */
+  .lock__panel {
+    padding-block: var(--space-lg);
   }
 
   /* Os três rótulos não cabem numa linha em 375px, e três linhas comem a dobra. */
@@ -235,11 +236,7 @@
 /* Faixa de tablet: a janela encolheu, as frases longas encolhem junto. */
 @media (min-width: 48em) and (max-width: 63.99em) {
   .lock__drift {
-    --drift-scale: 0.62;
-  }
-
-  .lock__word {
-    opacity: 0.26;
+    --drift-scale: 0.72;
   }
 }
 

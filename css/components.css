@@ -996,6 +996,9 @@ a.readout:focus-visible .readout__value {
   padding: calc(var(--chrome-height) + var(--space-xl)) var(--shell-pad) var(--space-2xl);
   border: 0;
   overflow-y: auto;
+  /* Calha reservada nos dois lados: sem isso a barra de rolagem empurra o painel
+     7px para a esquerda e ele sai do eixo da coluna de gelo, que é fixa ao viewport. */
+  scrollbar-gutter: stable both-edges;
   background-color: var(--color-bg);
   /**
    * Malha difusa, sem uma única linha. O clarão central vem primeiro de propósito:
@@ -1020,6 +1023,8 @@ a.readout:focus-visible .readout__value {
   content: '';
   position: fixed;
   inset: 0 0 auto;
+  /* Acima da coluna de gelo, que atravessa a tela de cima a baixo. */
+  z-index: 1;
   height: 2px;
   background-color: var(--color-coral);
   transition: height var(--dur-fast) var(--ease-out);
@@ -1029,40 +1034,32 @@ a.readout:focus-visible .readout__value {
   height: 5px;
 }
 
-/* Palavras da lista original derivando ao fundo. Textura, nunca leitura. */
+/* Coluna de gelo que corre a altura toda da tela. É ela que garante a leitura do
+   painel: as palavras passam por trás e são cortadas por uma aresta vertical
+   contínua — uma divisão editorial, e não um card parado no meio do nada. */
+.lock::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  translate: -50%;
+  width: min(34rem, 100%);
+  pointer-events: none;
+  background-color: var(--color-bg);
+}
+
+/* Palavras da lista original atravessando o fundo. Nunca desbotam: quem garante a
+   leitura do painel é a chapa opaca dele, não o apagamento delas. */
 .lock__drift {
-  /* A máscara apaga o que chega perto do painel: nenhuma palavra disputa leitura
-     com a pergunta. Os raios são os do painel (34rem de largura) mais folga, em rem
-     e nunca em vw — o painel não encolhe junto com a janela.
-     A zona 100% limpa é 72% do raio, e precisa cobrir o painel inteiro: as palavras
-     atravessam a tela toda e passam por cima dele.
-     Ficam em variáveis porque `min()` dentro de `radial-gradient` invalida a
-     declaração inteira no Chrome. */
-  --mask-rx: 32rem;
-  --mask-ry: 22rem;
   /* Inter ocupa mais largura que Bodoni no mesmo corpo. */
   --drift-scale: 0.82;
-  --drift-mask: radial-gradient(
-    ellipse var(--mask-rx) var(--mask-ry) at 50% 50%,
-    transparent 72%,
-    #000 100%
-  );
 
   position: fixed;
   inset: 0;
   overflow: hidden;
   /* A camada não intercepta nada; só as palavras respondem ao ponteiro. */
   pointer-events: none;
-  mask-image: var(--drift-mask);
-  -webkit-mask-image: var(--drift-mask);
-  transition: opacity var(--dur-slow) var(--ease-out);
-}
-
-/* Na verificação o painel cresce; a zona limpa cresce junto. */
-.lock:not([data-stage='locked']) .lock__drift {
-  --mask-ry: 36rem;
-
-  opacity: 0.45;
 }
 
 .lock__word {
@@ -1079,7 +1076,9 @@ a.readout:focus-visible .readout__value {
   white-space: nowrap;
   cursor: default;
   color: var(--color-olive-deep);
-  opacity: 0.3;
+  /* Medida sobre o degradê, no ponto mais escuro dele: 4,5:1. São para ler,
+     não para adivinhar. */
+  opacity: 0.92;
   animation: word-cross var(--drift-duration) linear var(--drift-delay) infinite;
   transition:
     color var(--dur-md) var(--ease-out),
@@ -1092,7 +1091,7 @@ a.readout:focus-visible .readout__value {
 
 .lock__word:hover {
   color: var(--color-coral-deep);
-  opacity: 0.8;
+  opacity: 1;
 }
 
 /* Impulso curto: só existe enquanto o ponteiro está em cima. */
@@ -1199,6 +1198,8 @@ a.readout:focus-visible .readout__value {
 .lock__bar {
   position: fixed;
   inset: 2px 0 auto;
+  /* Acima da coluna de gelo: ela não pode cortar a barra ao meio. */
+  z-index: 1;
   display: flex;
   justify-content: space-between;
   gap: var(--space-md);
@@ -1218,10 +1219,13 @@ a.readout:focus-visible .readout__value {
 
 .lock__panel {
   position: relative;
+  /* Acima da coluna de gelo, que é pintada por `.lock::after`. */
+  z-index: 1;
   display: grid;
   justify-items: center;
   gap: var(--space-md);
   width: min(34rem, 100%);
+  padding-block: var(--space-xl);
   text-align: center;
 }
 
