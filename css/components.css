@@ -964,6 +964,100 @@ a.readout:focus-visible .readout__value {
   color: var(--color-accent-deep);
 }
 
+/* ---- Guest Intelligence ---------------------------------------------------- */
+/* Camadas empilhadas, não cards: a escala do nome é que diz quem é gente de verdade. */
+
+.roster {
+  display: grid;
+  gap: var(--space-3xl);
+}
+
+.tier__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: var(--space-sm) var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: var(--border-ink);
+}
+
+.tier__label {
+  font-family: var(--font-display);
+  font-size: var(--display-sm);
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+}
+
+.tier__count {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-accent-deep);
+}
+
+.tier__note {
+  grid-column: 1 / -1;
+  max-width: 42ch;
+  font-size: var(--text-xs);
+  color: var(--color-text-dim);
+}
+
+.tier__list {
+  display: grid;
+}
+
+/* O delírio recua: nome menor e tom mais leve que o círculo interno. */
+.tier[data-tier='vip'] .guest__name {
+  font-size: var(--text-lg);
+}
+
+.tier[data-tier='improvavel'] .guest__name {
+  font-size: var(--text-md);
+  color: var(--color-text-dim);
+}
+
+.guest {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-xs) var(--space-md);
+  padding: var(--space-md) var(--space-2xs);
+  border-bottom: var(--border-hairline);
+  transition: padding var(--dur-md) var(--ease-out);
+}
+
+.guest:hover {
+  padding-left: var(--space-md);
+}
+
+.guest__name {
+  font-family: var(--font-display);
+  font-size: var(--display-sm);
+  line-height: 1.1;
+  letter-spacing: var(--tracking-tight);
+}
+
+/* Marca discreta de quem o casal digitou, para separar da lista original. */
+.guest[data-custom] .guest__name::after {
+  content: '\002B';
+  margin-left: 0.3em;
+  font-size: 0.55em;
+  vertical-align: super;
+  color: var(--color-accent-deep);
+}
+
+.guest__role {
+  grid-column: 1;
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-micro);
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+}
+
+.guest .status {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
 /* ---- Status ---------------------------------------------------------------- */
 /* Azul é acordo e operação; coral é conflito. Sem semáforo verde/vermelho. */
 
@@ -1010,6 +1104,19 @@ a.readout:focus-visible .readout__value {
 .status[data-status='pending'] {
   border-style: dashed;
   color: var(--color-text-faint);
+}
+
+.status[data-status='confirmado'] {
+  border-color: var(--color-info-line);
+  background-color: var(--color-info-soft);
+  color: var(--color-info);
+}
+
+/* Confirmado por um departamento que não existe: o tracejado é a piada. */
+.status[data-status='confirmado-delirio'] {
+  border-style: dashed;
+  border-color: var(--color-accent-line);
+  color: var(--color-accent-deep);
 }
 
 /* ---- Formulário e modal ----------------------------------------------------- */

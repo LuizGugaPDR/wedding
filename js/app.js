@@ -14,6 +14,7 @@ import {
   updateOverview,
 } from './dashboard.js';
 import { mountBoard, mountIdeaForm, renderDecisions } from './decisions.js';
+import { mountGuestForm, renderGuests } from './guests.js';
 import { magnetize, trackPointer, trailHearts } from './interactions.js';
 import { mountLock } from './lock.js';
 import { startRouter } from './router.js';
@@ -114,6 +115,7 @@ function boot() {
   mountUniverse({ onLocked: announceLocked });
   mountBoard();
   mountIdeaForm();
+  mountGuestForm();
 
   const viewLabel = $('[data-chrome-view]');
   startRouter({
@@ -129,6 +131,7 @@ function boot() {
     updateOverview();
     renderSchedule();
     renderDecisions();
+    renderGuests();
     mountReadouts();
   };
 

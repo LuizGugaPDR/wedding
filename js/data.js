@@ -250,7 +250,7 @@ export const universe = Object.freeze([
     index: '02',
     label: 'Guest Intelligence',
     note: 'Treze nomes, três camadas e um departamento de delírio.',
-    route: null,
+    route: 'guests',
   },
   {
     id: 'festival',
@@ -382,6 +382,7 @@ export const escapeRiskBands = Object.freeze([
 ]);
 
 export const guestStatus = Object.freeze({
+  confirmado: 'Confirmado',
   'convite-nao-enviado': 'Convite não enviado',
   'convite-enviado': 'Convite enviado',
   'aguardando-resposta': 'Aguardando resposta',
@@ -390,21 +391,48 @@ export const guestStatus = Object.freeze({
   'confirmado-delirio': 'Confirmado pelo departamento de delírio',
 });
 
-/** tier: inner (gente de verdade) · vip · improvavel (puro delírio). */
+/** As três camadas da lista, da gente que existe até o delírio puro. */
+export const guestTiers = Object.freeze([
+  {
+    id: 'inner',
+    index: '01',
+    label: 'Círculo interno',
+    note: 'Gente que existe, atende o telefone e provavelmente vai mesmo.',
+  },
+  {
+    id: 'vip',
+    index: '02',
+    label: 'Mesa VIP',
+    note: 'Nenhum convite foi enviado. A mesa segue reservada.',
+  },
+  {
+    id: 'improvavel',
+    index: '03',
+    label: 'Departamento de delírio',
+    note: 'Confirmados por uma autoridade que não existe.',
+  },
+]);
+
+/**
+ * tier: inner (gente de verdade) · vip · improvavel (puro delírio).
+ * Ninguém aqui foi convidado de verdade. Quem não é do círculo interno fica com
+ * `confirmado-delirio` de propósito: o repósitorio é público e nada pode soar
+ * como afirmação factual sobre pessoa real.
+ */
 export const guests = Object.freeze([
-  { id: 'savel', name: 'Savel', tier: 'inner', role: 'Portador das alianças', status: 'confirmado-delirio' },
-  { id: 'marcelo', name: 'Marcelo', tier: 'inner', role: 'Convidado de honra', status: 'convite-enviado' },
-  { id: 'japa-nk', name: 'Japa NK', tier: 'inner', role: 'Convidado de honra', status: 'convite-enviado' },
-  { id: 'nino', name: 'Nino e companhia', tier: 'inner', role: 'Delegação completa', status: 'aguardando-resposta' },
-  { id: 'neymar', name: 'Neymar', tier: 'vip', role: 'Mesa 01', status: 'convite-nao-enviado' },
-  { id: 'vini-jr', name: 'Vini Jr.', tier: 'vip', role: 'Mesa 01', status: 'convite-nao-enviado' },
-  { id: 'ronaldinho', name: 'Ronaldinho Gaúcho', tier: 'vip', role: 'Presença cerimonial', status: 'presenca-improvavel' },
-  { id: 'kaio-jorge', name: 'Kaio Jorge', tier: 'vip', role: 'Mesa 02', status: 'convite-nao-enviado' },
-  { id: 'snoop-dogg', name: 'Snoop Dogg', tier: 'improvavel', role: 'Convidado internacional', status: 'presenca-improvavel' },
-  { id: 'anitta', name: 'Anitta', tier: 'improvavel', role: 'Convidada e atração', status: 'negociacao-avancada' },
-  { id: 'padre-marcelo-rossi', name: 'Padre Marcelo Rossi', tier: 'improvavel', role: 'Celebrante pretendido', status: 'convite-nao-enviado' },
-  { id: 'ryan-sp', name: 'Ryan SP', tier: 'improvavel', role: 'Convidado e atração', status: 'aguardando-resposta' },
-  { id: 'wesley-alemao', name: 'Wesley Alemão', tier: 'improvavel', role: 'Convidado e atração', status: 'aguardando-resposta' },
+  { id: 'savel', name: 'Savel', tier: 'inner', role: 'Portador das alianças', status: 'confirmado' },
+  { id: 'marcelo', name: 'Marcelo', tier: 'inner', role: 'Convidado de honra', status: 'confirmado' },
+  { id: 'japa-nk', name: 'Japa NK', tier: 'inner', role: 'Convidado de honra', status: 'confirmado' },
+  { id: 'nino', name: 'Nino e companhia', tier: 'inner', role: 'Delegação completa', status: 'confirmado' },
+  { id: 'neymar', name: 'Neymar', tier: 'vip', role: 'Mesa 01', status: 'confirmado-delirio' },
+  { id: 'vini-jr', name: 'Vini Jr.', tier: 'vip', role: 'Mesa 01', status: 'confirmado-delirio' },
+  { id: 'ronaldinho', name: 'Ronaldinho Gaúcho', tier: 'vip', role: 'Presença cerimonial', status: 'confirmado-delirio' },
+  { id: 'kaio-jorge', name: 'Kaio Jorge', tier: 'vip', role: 'Mesa 02', status: 'confirmado-delirio' },
+  { id: 'snoop-dogg', name: 'Snoop Dogg', tier: 'improvavel', role: 'Convidado internacional', status: 'confirmado-delirio' },
+  { id: 'anitta', name: 'Anitta', tier: 'improvavel', role: 'Convidada e atração', status: 'confirmado-delirio' },
+  { id: 'padre-marcelo-rossi', name: 'Padre Marcelo Rossi', tier: 'improvavel', role: 'Celebrante pretendido', status: 'confirmado-delirio' },
+  { id: 'ryan-sp', name: 'Ryan SP', tier: 'improvavel', role: 'Convidado e atração', status: 'confirmado-delirio' },
+  { id: 'wesley-alemao', name: 'Wesley Alemão', tier: 'improvavel', role: 'Convidado e atração', status: 'confirmado-delirio' },
 ]);
 
 /** Line-up ficcional. Nenhuma apresentação foi contratada, negociada ou sequer mencionada aos artistas. */

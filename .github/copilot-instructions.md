@@ -80,7 +80,7 @@ index.html
 robots.txt
 /assets/{images,icons}
 /css/{tokens,base,layout,components,animations,responsive}.css
-/js/{app,router,lock,scroll,state,storage,interactions,countdown,dashboard,decisions,easter-eggs,data}.js
+/js/{app,router,lock,scroll,state,storage,interactions,countdown,dashboard,decisions,guests,easter-eggs,data}.js
 /docs/{PRODUCT,DESIGN,SPRINTS}.md
 /.github/copilot-instructions.md
 README.md

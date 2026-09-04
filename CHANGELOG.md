@@ -2,6 +2,27 @@
 
 Todas as mudanças relevantes do Wedding OS. Uma entrada por sprint.
 
+## [0.9.0] — 2026-09-04 · Sprint 4A · Guest Intelligence
+
+### Added
+- **Destino 02 virou tela.** As três camadas da lista — círculo interno, mesa VIP e
+  departamento de delírio — empilhadas com escala decrescente: quem existe de verdade ocupa
+  o maior corpo, o delírio recua.
+- **Cadastro de convidados.** `+ Novo convidado` abre um `<dialog>` com nome, camada e papel.
+  Quem entra nasce confirmado, ganha uma marca discreta e persiste em `state.roster`, no mesmo
+  padrão das ideias do Decision Engine.
+- `js/guests.js`, `guestTiers` e o status `confirmado`.
+
+### Changed
+- **Todos os convidados passaram a confirmados.** Quem não é do círculo interno ficou com
+  `Confirmado pelo departamento de delírio`, em pílula tracejada: o repósitorio é público e
+  nada pode soar como afirmação factual sobre pessoa real.
+
+### Fixed
+- Em telas estreitas o status deixa de ser pílula e vira texto solto — `Confirmado pelo
+  departamento de delírio` não cabe numa linha e de duas fica torto.
+- `.tier__label` e `.guest__name` encolhem em 320px, pelo mesmo motivo de `.universe__label`.
+
 ## [0.8.2] — 2026-09-04 · Rastro em toda a aplicação
 
 ### Changed

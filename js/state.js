@@ -3,7 +3,7 @@
  * Mutações passam obrigatoriamente por este módulo, que persiste e notifica assinantes.
  */
 
-import { decisions, easterEggs, priorities, VOTE } from './data.js';
+import { decisions, easterEggs, guests, priorities, VOTE } from './data.js';
 import * as storage from './storage.js';
 
 export const DECISION_STATUS = Object.freeze({
@@ -24,6 +24,7 @@ function factoryState() {
     schema: storage.SCHEMA,
     votes,
     ideas: [],
+    roster: [],
     secrets: [],
     // O acesso não mora aqui: o cadeado fecha a cada visita, de propósito.
     prefs: { visited: false },
@@ -32,6 +33,10 @@ function factoryState() {
 
 function isIdea(value) {
   return Boolean(value) && typeof value.id === 'string' && typeof value.title === 'string';
+}
+
+function isGuest(value) {
+  return Boolean(value) && typeof value.id === 'string' && typeof value.name === 'string';
 }
 
 /**
@@ -43,6 +48,8 @@ function mergePersisted(persisted) {
   if (!persisted) return next;
 
   if (Array.isArray(persisted.ideas)) next.ideas = persisted.ideas.filter(isIdea);
+  // Estados gravados antes do Guest Intelligence não têm `roster`: ficam com a lista fixa.
+  if (Array.isArray(persisted.roster)) next.roster = persisted.roster.filter(isGuest);
 
   if (persisted.votes) {
     const conhecidos = new Set([
@@ -146,6 +153,30 @@ export function allDecisions() {
       custom: true,
     })),
   ];
+}
+
+/**
+ * Convidado novo nasce confirmado: quem o casal digita aqui é gente que eles
+ * querem na festa, não negociação pendente.
+ */
+export function addGuest({ name, tier, role }) {
+  const guest = {
+    id: `guest-${Date.now().toString(36)}`,
+    name,
+    tier,
+    role,
+    status: 'confirmado',
+    custom: true,
+    createdAt: new Date().toISOString(),
+  };
+  get().roster.push(guest);
+  commit();
+  return guest;
+}
+
+/** Lista fixa mais os convidados do casal, todos no mesmo formato. */
+export function allGuests() {
+  return [...guests, ...get().roster];
 }
 
 export function discoverSecret(id) {

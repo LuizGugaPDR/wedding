@@ -56,7 +56,7 @@ Publicação: GitHub Pages a partir da branch principal, raiz do repositório �
 ```
 index.html
 css/     tokens · base · layout · components · animations · responsive
-js/      app · data · state · storage · router · lock · scroll · interactions · countdown · dashboard · decisions
+js/      app · data · state · storage · router · lock · scroll · interactions · countdown · dashboard · decisions · guests
 docs/    PRODUCT · DESIGN · SPRINTS
 ```
 
@@ -72,6 +72,7 @@ docs/    PRODUCT · DESIGN · SPRINTS
 | `js/countdown.js` | Contagem regressiva para 13.03.2027 e dias até o deadline. |
 | `js/dashboard.js` | Control Center e índice de destinos do hub. |
 | `js/decisions.js` | Conselho, motor de decisões e nova ideia. |
+| `js/guests.js` | Guest Intelligence: as três camadas e o cadastro de convidados. |
 | `css/tokens.css` | Única fonte de cor, espaço, raio, sombra e duração. |
 
 ## Navegação por destinos

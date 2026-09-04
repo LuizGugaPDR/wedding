@@ -356,6 +356,33 @@
 
       <section
         class="view shell"
+        id="guests"
+        data-view="guests"
+        data-view-label="Guest Intelligence"
+        tabindex="-1"
+      >
+        <div class="section__head">
+          <p class="eyebrow" data-reveal><span class="eyebrow__index">02</span> Guest Intelligence</p>
+          <h2 class="display" data-reveal style="--reveal-index: 1">Todo mundo confirmado.</h2>
+          <p class="lede" data-reveal style="--reveal-index: 2">
+            Três camadas, do círculo interno ao departamento de delírio. Nenhum convite foi
+            enviado a ninguém fora da primeira.
+          </p>
+        </div>
+
+        <div class="decisions__bar" data-reveal style="--reveal-index: 3">
+          <p class="micro tabular">
+            <span data-roster-count>—</span> · <span data-roster-custom>—</span>
+          </p>
+          <button class="btn" type="button" data-guest-open>+ Novo convidado</button>
+          <output class="micro" data-guest-feedback></output>
+        </div>
+
+        <div class="roster" data-roster data-reveal style="--reveal-index: 4"></div>
+      </section>
+
+      <section
+        class="view shell"
         id="decisions"
         data-view="decisions"
         data-view-label="Decision Engine"
@@ -384,6 +411,42 @@
         </section>
       </section>
     </main>
+
+    <dialog class="modal" data-guest-modal aria-labelledby="guest-title">
+      <form class="modal__form" method="dialog" data-guest-form>
+        <h2 class="modal__title" id="guest-title">Novo convidado</h2>
+        <p class="micro">Entra confirmado, na camada que você escolher.</p>
+
+        <label class="field">
+          <span class="field__label">Nome</span>
+          <input
+            class="field__input"
+            type="text"
+            name="name"
+            maxlength="60"
+            required
+            pattern=".*\S.*"
+            title="Escreva ao menos uma palavra."
+          />
+        </label>
+
+        <div class="field-row">
+          <label class="field">
+            <span class="field__label">Camada</span>
+            <select class="field__input" name="tier"></select>
+          </label>
+          <label class="field">
+            <span class="field__label">Papel</span>
+            <input class="field__input" type="text" name="role" maxlength="40" />
+          </label>
+        </div>
+
+        <div class="modal__actions">
+          <button class="btn" type="button" data-guest-cancel>Cancelar</button>
+          <button class="btn btn--primary" type="submit" value="create">Adicionar</button>
+        </div>
+      </form>
+    </dialog>
 
     <dialog class="modal" data-idea-modal aria-labelledby="idea-title">
       <form class="modal__form" method="dialog" data-idea-form>

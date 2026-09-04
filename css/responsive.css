@@ -53,8 +53,10 @@
   }
 
   /* Archivo Black é bem mais larga que a serifada anterior: em 320px o rótulo do
-     destino não cabe nem quebrado em duas linhas. */
-  .universe__label {
+     destino não cabe nem quebrado em duas linhas. Vale para toda display curta. */
+  .universe__label,
+  .tier__label,
+  .guest__name {
     font-size: var(--text-lg);
   }
 
@@ -194,6 +196,21 @@
   /* O voto desce para baixo do título: não cabe ao lado em tela estreita. */
   .decision {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .guest {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* "Confirmado pelo departamento de delírio" não cabe numa pílula de uma linha,
+     e de duas linhas ela fica torta: aqui o status vira texto solto. */
+  .guest .status {
+    grid-column: 1;
+    grid-row: auto;
+    padding: 0;
+    border: 0;
+    background: none;
+    white-space: normal;
   }
 
   .decision__note {

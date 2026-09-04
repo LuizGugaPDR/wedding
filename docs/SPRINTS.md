@@ -229,7 +229,38 @@ Nenhum conteúdo novo — só a fundação.
 
 ---
 
-## ⬜ Sprint 4 — Guest Intelligence + Festival 13.03
+## ✅ Sprint 4A — Guest Intelligence
+
+Destino 02 vira tela real: as três camadas da lista e o cadastro de convidados novos.
+
+- Todos os 13 nomes passaram a **confirmados**. Quem não é do círculo interno fica com
+  `Confirmado pelo departamento de delírio`: o repósitorio é público e nada pode soar
+  como afirmação factual sobre pessoa real.
+- `state.roster` guarda os convidados digitados pelo casal, no mesmo padrão das ideias.
+- Camadas empilhadas com escala decrescente — quem existe ocupa o maior corpo.
+
+**Aceite:**
+
+- [x] Destino 02 saiu de `Aguardando liberação` e virou link no hub
+- [x] Convidado novo entra na camada escolhida e sobrevive ao reload
+- [x] `RESET WEDDING OS` devolve os 13 originais
+- [x] Modal com foco preso, `Esc` fecha sem criar e o foco volta ao gatilho
+- [x] Contraste **5,20:1** no pior caso, 9 tamanhos
+- [x] Zero overflow horizontal de 320 a 1920
+- [x] Zero seletor sem elemento, zero classe sem regra, zero token fantasma
+- [x] Cadeado, votos, ideias, progresso e countdown intactos
+- [x] Console sem erros
+
+---
+
+## ⬜ Sprint 4B — Festival 13.03
+
+Pôster digital do line-up: 11 atrações em três palcos, `IG × KayBlack` no topo do cartaz.
+
+**Critérios:** composição de cartaz e não grade de horários; nenhuma apresentação pode soar
+contratada; After Stage visualmente separado.
+
+---
 
 ## ⬜ Sprint 5 — Wedding Experiences + Mapa
 
