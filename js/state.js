@@ -25,8 +25,8 @@ function factoryState() {
     votes,
     ideas: [],
     secrets: [],
-    // `unlocked` é o cadeado da entrada. Estado de fábrica é trancado.
-    prefs: { unlocked: false },
+    // O acesso não mora aqui: o cadeado fecha a cada visita, de propósito.
+    prefs: { visited: false },
   };
 }
 
@@ -87,11 +87,8 @@ export function subscribe(listener) {
 }
 
 export function reset() {
-  const unlocked = Boolean(get().prefs.unlocked);
   storage.clear();
   state = factoryState();
-  // Acesso não é dado do casamento: quem já entrou não é expulso por um reset.
-  state.prefs.unlocked = unlocked;
   commit();
   return state;
 }

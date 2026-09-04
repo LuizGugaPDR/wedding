@@ -126,3 +126,58 @@ export function trailHearts(escopo, palco) {
     ).addEventListener('finish', fim);
   });
 }
+
+const CADENCIA = 230;
+
+/**
+ * Chuva de corações caindo pela tela. Vive só enquanto a revelação está no ar.
+ *
+ * @param {Element} palco Camada onde os corações caem.
+ * @returns {() => void} Encerra a chuva e limpa o que sobrou.
+ */
+export function rainHearts(palco) {
+  if (reducedMotion.matches) return () => {};
+
+  const soltos = new Set();
+
+  const soltar = () => {
+    const heart = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    heart.setAttribute('class', 'heart heart--rain');
+    heart.setAttribute('viewBox', '0 0 24 24');
+    heart.style.left = `${Math.random() * 100}%`;
+    heart.style.width = `${0.5 + Math.random() * 0.55}rem`;
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', HEART);
+    heart.append(path);
+    palco.append(heart);
+    soltos.add(heart);
+
+    const deriva = (Math.random() * 2 - 1) * 60;
+    const giro = (Math.random() * 2 - 1) * 90;
+
+    const queda = heart.animate(
+      [
+        { opacity: 0, transform: 'translateY(-12vh) rotate(0deg)' },
+        { opacity: 0.7, offset: 0.12 },
+        { opacity: 0.7, offset: 0.85 },
+        { opacity: 0, transform: `translate(${deriva}px, 108vh) rotate(${giro}deg)` },
+      ],
+      { duration: 4200 + Math.random() * 2600, easing: 'linear' },
+    );
+
+    queda.addEventListener('finish', () => {
+      heart.remove();
+      soltos.delete(heart);
+    });
+  };
+
+  soltar();
+  const relogio = setInterval(soltar, CADENCIA);
+
+  return () => {
+    clearInterval(relogio);
+    for (const heart of soltos) heart.remove();
+    soltos.clear();
+  };
+}

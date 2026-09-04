@@ -358,7 +358,8 @@ export const access = Object.freeze({
     title: 'Os dois responsáveis por tudo isso.',
     note: 'Um perguntou. A outra demorou para responder.',
     fade: 1500,
-    hold: 1400,
+    // Dez segundos parados: é tempo de ler sem pressa, não de relance.
+    hold: 10000,
   }),
 });
 

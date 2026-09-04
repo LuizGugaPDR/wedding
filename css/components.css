@@ -1168,6 +1168,19 @@ a.readout:focus-visible .readout__value {
   color: var(--color-text-dim);
 }
 
+/* Chuva de corações sobre a revelação. Rala de propósito: a legenda continua legível. */
+.reveal__rain {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.heart--rain {
+  top: 0;
+  will-change: transform, opacity;
+}
+
 /* Barra operacional: dá escala à tela e diz que isto é um sistema, não um cartão. */
 .lock__bar {
   position: fixed;

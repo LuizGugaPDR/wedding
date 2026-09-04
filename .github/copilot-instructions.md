@@ -116,7 +116,7 @@ reset()    // RESET WEDDING OS — limpa tudo e volta ao estado inicial
 - Nenhum componente escreve em `localStorage` diretamente — sempre através de `storage.js`.
 - Mutações de estado disparam re-render/notificação (pub-sub simples é suficiente).
 - Persistir: decisões (aprovado/em análise/vetado/pendente), progresso, novas ideias,
-  Easter Eggs descobertos, acesso liberado, preferências locais.
+  Easter Eggs descobertos, preferências locais. **Acesso não se persiste.**
 - **Ideias novas são decisões de primeira classe**: entram em `allDecisions()`, contam no
   progresso e têm votos persistidos. `mergePersisted` precisa aceitar os ids delas.
 - Namespace de chaves: `weddingos:*`. Versionar o schema para não quebrar estados antigos.
@@ -224,8 +224,9 @@ e a senha mora em `data.js`, à vista. Não tratar como credencial nem tentar of
 - Esc não fecha o acesso; recua da verificação para a porta fechada.
 - Validação ignora espaços nas pontas e caixa, mas **mantém acento e pontuação**.
 - Recusa nunca usa `alert()` nem recarrega: feedback integrado, coral, curto.
-- `prefs.unlocked` persiste. `RESET WEDDING OS` **não** re-tranca; para isso existe
-  `BLOQUEAR WEDDING OS` no rodapé.
+- **O cadeado fecha a cada carregamento.** O acesso não persiste: recarregar volta a pedir
+  a senha. É assim de propósito — a entrada é o momento, e ele precisa acontecer toda vez.
+  `BLOQUEAR WEDDING OS` no rodapé devolve o cadeado no meio da sessão.
 
 ### Microinterações
 
@@ -311,8 +312,8 @@ Não expor informações pessoais desnecessárias no repositório.
 - [ ] Sem overflow horizontal em nenhuma rota
 - [ ] CSS varrido nos dois sentidos: nenhum seletor sem elemento **e** nenhuma classe sem regra
 - [ ] Estados persistem entre sessões
-- [ ] Cadeado: 1ª visita tranca, senha errada dá feedback, certa libera, refresh mantém
-- [ ] `BLOQUEAR WEDDING OS` devolve o cadeado e sobrevive ao refresh
+- [ ] Cadeado: toda visita tranca, senha errada dá feedback, certa libera
+- [ ] `BLOQUEAR WEDDING OS` devolve o cadeado no meio da sessão
 - [ ] `RESET WEDDING OS` funciona
 - [ ] Navegação: hub → destino → back → hub, e o botão voltar do navegador
 - [ ] Console sem erros

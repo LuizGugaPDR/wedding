@@ -88,12 +88,13 @@ Wedding OS não é uma página longa: é uma aplicação de views em tela cheia.
 ## Acesso privado
 
 Na primeira visita o sistema está trancado. O cadeado abre a verificação, que pede a senha do
-primeiro contato do casal. É encanto, não segurança: o repositório é público e a frase mora em
-`js/data.js`, à vista. A graça está na pergunta, não no segredo.
+primeiro contato do casal. É encanto, não segurança: o repositório é privado, mas a frase mora
+em `js/data.js`, à vista. A graça está na pergunta, não no segredo.
 
 A validação ignora espaços nas pontas e caixa, mas mantém acento e pontuação.
-O desbloqueio persiste em `weddingos:v1`; `BLOQUEAR WEDDING OS`, no rodapé, devolve o cadeado —
-é assim que dá para ensaiar a entrada antes de entregar o notebook.
+**O acesso não persiste**: recarregar a página volta a pedir a senha, porque a entrada é o
+momento e ele precisa acontecer toda vez. `BLOQUEAR WEDDING OS`, no rodapé, devolve o cadeado
+no meio da sessão — é assim que dá para ensaiar antes de entregar o notebook.
 
 ## Estado
 
@@ -103,8 +104,7 @@ chegam com seu valor de fábrica sem quebrar estados antigos. API: `hydrate()`, 
 - **Progresso** = decisões com os dois votos preenchidos ÷ total
 - **Compatibilidade** = concordância ponderada por peso, entre o que já foi decidido pelos dois
 
-`RESET WEDDING OS` limpa todas as chaves do namespace e restaura o estado de fábrica — menos o
-acesso: quem já entrou não é expulso por um reset de dados. Para isso existe `BLOQUEAR WEDDING OS`.
+`RESET WEDDING OS` limpa todas as chaves do namespace e restaura o estado de fábrica.
 
 ## Roadmap
 

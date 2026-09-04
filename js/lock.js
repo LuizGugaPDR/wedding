@@ -6,7 +6,7 @@
  */
 
 import { access } from './data.js';
-import { trailHearts } from './interactions.js';
+import { rainHearts, trailHearts } from './interactions.js';
 
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -93,13 +93,34 @@ export function mountLock({ onUnlock }) {
     foto.src = access.reveal.image;
   }
 
-  /** Surge devagar e some junto com o cadeado, de uma vez. */
+  /** Surge devagar, chove coração, e some junto com o cadeado, de uma vez. */
   async function revelar() {
     if (!retrato) return;
     reveal.hidden = false;
     await new Promise((resolve) => requestAnimationFrame(resolve));
     setStage('reveal');
-    await wait(reduzido.matches ? access.reveal.hold : access.reveal.fade + access.reveal.hold);
+
+    const pararChuva = rainHearts(document.querySelector('[data-lock-rain]'));
+    const espera = reduzido.matches
+      ? access.reveal.hold
+      : access.reveal.fade + access.reveal.hold;
+
+    // Dez segundos é tempo de ler; quem já leu não precisa esperar o relógio.
+    await Promise.race([wait(espera), pular()]);
+    pararChuva();
+  }
+
+  /** Resolve no primeiro clique ou tecla, para a revelação nunca prender ninguém. */
+  function pular() {
+    return new Promise((resolve) => {
+      const sair = () => {
+        reveal.removeEventListener('pointerdown', sair);
+        document.removeEventListener('keydown', sair);
+        resolve();
+      };
+      reveal.addEventListener('pointerdown', sair);
+      document.addEventListener('keydown', sair);
+    });
   }
 
   function clearFeedback() {

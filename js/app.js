@@ -86,10 +86,7 @@ function bindReset() {
 
 /** Permite ensaiar a entrada antes de entregar o notebook para ela. */
 function bindLockAgain(lock) {
-  $('[data-lock-again]').addEventListener('click', () => {
-    state.setPref('unlocked', false);
-    lock.engage(true);
-  });
+  $('[data-lock-again]').addEventListener('click', () => lock.engage(true));
 }
 
 function boot() {
@@ -97,7 +94,7 @@ function boot() {
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
   state.hydrate();
-  const returning = Boolean(state.get().prefs.unlocked);
+  const returning = Boolean(state.get().prefs.visited);
   document.body.toggleAttribute('data-returning', returning);
 
   renderEntry(returning);
@@ -132,9 +129,10 @@ function boot() {
   trackPointer();
   magnetize();
 
-  const lock = mountLock({ onUnlock: () => state.setPref('unlocked', true) });
+  const lock = mountLock({ onUnlock: () => state.setPref('visited', true) });
   bindLockAgain(lock);
-  lock.engage(!returning);
+  // O cadeado é a primeira coisa que ela vê — em toda visita, não só na primeira.
+  lock.engage(true);
 
   document.body.dataset.booted = 'true';
 }
