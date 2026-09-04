@@ -51,6 +51,10 @@
 
   --color-discovery: var(--color-butter);
 
+  /* Coral lavado. Só preenchimento de área grande: medido para a legenda da
+     revelação continuar em 4,5:1 mesmo com um coração inteiro atrás dela. */
+  --color-blush: #ffd9d2;
+
   --color-chrome-bg: rgb(238 240 234 / 90%);
 
   /**

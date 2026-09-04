@@ -1113,6 +1113,18 @@ a.readout:focus-visible .readout__value {
 /* Acesso privado. Sério demais para uma senha romântica — é essa a piada. */
 
 .lock {
+  /**
+   * A porta manteve as famílias originais. A black da Home não tem corte itálico,
+   * e o navegador inclinava o voto à força. Como todo o componente consome os
+   * tokens, trocar as duas variáveis aqui basta — inclusive para a revelação.
+   */
+  --font-display: 'Bodoni Moda', 'Times New Roman', times, serif;
+  --font-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --tracking-display: -0.045em;
+  /* Um degrau abaixo da escala geral: a porta não precisa gritar. */
+  --display-lg: clamp(2.5rem, 1.6rem + 5vw, 6.5rem);
+  --text-lg: clamp(1rem, 0.95rem + 0.4vw, 1.25rem);
+
   position: fixed;
   inset: 0;
   z-index: var(--z-lock);
@@ -1310,16 +1322,20 @@ a.readout:focus-visible .readout__value {
   color: var(--color-text-dim);
 }
 
-/* Chuva de corações sobre a revelação. Rala de propósito: a legenda continua legível. */
+/* Corações grandes atravessando a revelação. Ficam atrás da foto e da legenda:
+   dão cor ao gelo sem passar por cima do rosto de ninguém. */
 .reveal__rain {
   position: absolute;
   inset: 0;
+  z-index: -1;
   overflow: hidden;
   pointer-events: none;
 }
 
+/* Rosa lavado, e não coral cheio: o piso de contraste da legenda mora aqui. */
 .heart--rain {
   top: 0;
+  fill: var(--color-blush);
   will-change: transform, opacity;
 }
 

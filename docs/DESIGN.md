@@ -56,6 +56,11 @@ Não existe família mono. A sensação de "OS" vem de `letter-spacing: .18em` +
 `font-variant-numeric: tabular-nums` (classe `.tabular`) em labels de 10–11px.
 Números que mudam ao vivo — countdown, percentuais — usam sempre `.tabular` para não dançar.
 
+**A tela de acesso é a exceção.** Ela manteve `Bodoni Moda` + `Inter`, sobrescrevendo
+`--font-display` e `--font-ui` dentro de `.lock`. Todo o componente consome os tokens, então
+duas linhas bastam — e a revelação, que vive dentro do diálogo, vai junto. A porta também roda
+um degrau abaixo da escala geral: ela não precisa gritar.
+
 ## Layout
 
 Container único (`.shell`) e `.split` (7fr / 5fr) como composição assimétrica padrão.

@@ -2,6 +2,21 @@
 
 Todas as mudanças relevantes do Wedding OS. Uma entrada por sprint.
 
+## [0.8.1] — 2026-09-04 · Acertos da porta e da revelação
+
+### Changed
+- **A tela de acesso voltou para `Bodoni Moda` + `Inter`.** O redesign da Home não devia ter
+  chegado até ela. Como todo o componente consome tokens, bastou sobrescrever `--font-display`
+  e `--font-ui` dentro de `.lock` — a revelação, que vive no mesmo diálogo, foi junto.
+  De quebra some o itálico sintético do voto: Archivo Black não tem corte itálico.
+- A porta roda um degrau abaixo da escala geral: o `13.03` caiu de ~106px para ~90px em 1280,
+  e o voto de 23px para 20px.
+- **A chuva da revelação virou corações grandes.** De 8–17px para **47–116px**, em rosa lavado
+  (`--color-blush`) no lugar do coral cheio, caindo em 9 a 15s. Nove nascem já no meio da queda,
+  senão a foto aparecia com a tela ainda vazia.
+- Os corações passaram para trás da foto e da legenda (`z-index: -1`): dão cor ao gelo sem
+  cruzar o rosto de ninguém. A explosão continua em coral cheio.
+
 ## [0.8.0] — 2026-09-04 · Redesign da Home
 
 ### Changed

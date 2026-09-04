@@ -127,7 +127,7 @@ export function trailHearts(escopo, palco) {
   });
 }
 
-const CADENCIA = 230;
+const CADENCIA = 620;
 
 /** Ondas sucessivas: uma só rajada vira estouro de pipoca, três viram explosão. */
 const ONDAS = [0, 230, 500];
@@ -225,7 +225,8 @@ export function burstReveal(palco, foto) {
 }
 
 /**
- * Chuva de corações caindo pela tela. Vive só enquanto a revelação está no ar.
+ * Corações grandes atravessando a revelação. Raros de propósito: eles existem
+ * para dar cor ao gelo liso do fundo, não para virar chuva.
  *
  * @param {Element} palco Camada onde os corações caem.
  * @returns {() => void} Encerra a chuva e limpa o que sobrou.
@@ -235,12 +236,12 @@ export function rainHearts(palco) {
 
   const soltos = new Set();
 
-  const soltar = () => {
+  const soltar = (avancado) => {
     const heart = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     heart.setAttribute('class', 'heart heart--rain');
     heart.setAttribute('viewBox', '0 0 24 24');
     heart.style.left = `${Math.random() * 100}%`;
-    heart.style.width = `${0.5 + Math.random() * 0.55}rem`;
+    heart.style.width = `${2 + Math.random() * 3.5}rem`;
 
     const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     path.setAttribute('d', HEART);
@@ -248,18 +249,23 @@ export function rainHearts(palco) {
     palco.append(heart);
     soltos.add(heart);
 
-    const deriva = (Math.random() * 2 - 1) * 60;
-    const giro = (Math.random() * 2 - 1) * 90;
+    const deriva = (Math.random() * 2 - 1) * 150;
+    const giro = (Math.random() * 2 - 1) * 70;
+    const duracao = 9000 + Math.random() * 6000;
 
     const queda = heart.animate(
       [
-        { opacity: 0, transform: 'translateY(-12vh) rotate(0deg)' },
-        { opacity: 0.7, offset: 0.12 },
-        { opacity: 0.7, offset: 0.85 },
-        { opacity: 0, transform: `translate(${deriva}px, 108vh) rotate(${giro}deg)` },
+        { opacity: 0, transform: 'translateY(-24vh) rotate(0deg)' },
+        { opacity: 1, offset: 0.12 },
+        { opacity: 1, offset: 0.85 },
+        { opacity: 0, transform: `translate(${deriva}px, 116vh) rotate(${giro}deg)` },
       ],
-      { duration: 4200 + Math.random() * 2600, easing: 'linear' },
+      { duration: duracao, easing: 'linear' },
     );
+
+    // A revelação dura oito segundos: sem semear a queda no meio, a foto aparece
+    // com a tela ainda vazia e os corações só chegam quando ela já saiu.
+    if (avancado) queda.currentTime = Math.random() * duracao * 0.8;
 
     queda.addEventListener('finish', () => {
       heart.remove();
@@ -267,7 +273,7 @@ export function rainHearts(palco) {
     });
   };
 
-  soltar();
+  for (let i = 0; i < 9; i += 1) soltar(true);
   const relogio = setInterval(soltar, CADENCIA);
 
   return () => {
