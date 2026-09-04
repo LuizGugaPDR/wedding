@@ -6,7 +6,7 @@
  */
 
 import { access } from './data.js';
-import { rainHearts, trailHearts } from './interactions.js';
+import { burstReveal, rainHearts, trailHearts } from './interactions.js';
 
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -96,13 +96,17 @@ export function mountLock({ onUnlock }) {
     foto.src = access.reveal.image;
   }
 
-  /** Surge devagar, chove coração, e some junto com o cadeado, de uma vez. */
+  /** Explode, surge devagar, chove coração, e some junto com o cadeado, de uma vez. */
   async function revelar() {
     if (!retrato) return;
     reveal.hidden = false;
     await new Promise((resolve) => requestAnimationFrame(resolve));
     setStage('reveal');
 
+    const pararExplosao = burstReveal(
+      document.querySelector('[data-lock-burst]'),
+      access.reveal.image,
+    );
     const pararChuva = rainHearts(document.querySelector('[data-lock-rain]'));
     const espera = reduzido.matches
       ? access.reveal.hold
@@ -110,6 +114,7 @@ export function mountLock({ onUnlock }) {
 
     // Dez segundos é tempo de ler; quem já leu não precisa esperar o relógio.
     await Promise.race([wait(espera), pular()]);
+    pararExplosao();
     pararChuva();
   }
 

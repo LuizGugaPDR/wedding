@@ -129,6 +129,101 @@ export function trailHearts(escopo, palco) {
 
 const CADENCIA = 230;
 
+/** Ondas sucessivas: uma só rajada vira estouro de pipoca, três viram explosão. */
+const ONDAS = [0, 230, 500];
+
+/**
+ * Explosão do desbloqueio: corações e cópias da foto saindo do centro da tela.
+ * Acontece uma vez, dura poucos segundos e termina deixando a revelação sozinha.
+ *
+ * @param {Element} palco Camada onde as peças nascem.
+ * @param {string} foto URL da imagem já carregada pela revelação.
+ * @returns {() => void} Encerra a explosão e limpa o que sobrou.
+ */
+export function burstReveal(palco, foto) {
+  if (reducedMotion.matches) return () => {};
+
+  const vivos = new Set();
+  const agendados = [];
+  const estreito = window.innerWidth < 768;
+  // Meia diagonal: garante que a peça mais distante saia da tela em qualquer proporção.
+  const raio = Math.hypot(window.innerWidth, window.innerHeight) / 2;
+
+  const lancar = (peca, escalaFinal) => {
+    palco.append(peca);
+    vivos.add(peca);
+
+    const angulo = Math.random() * Math.PI * 2;
+    const alcance = raio * (0.5 + Math.random() * 0.6);
+    const x = Math.cos(angulo) * alcance;
+    const y = Math.sin(angulo) * alcance;
+    const giro = (Math.random() * 2 - 1) * 110;
+
+    const voo = peca.animate(
+      [
+        { opacity: 0, transform: 'translate(-50%, -50%) scale(0.15) rotate(0deg)' },
+        {
+          opacity: 1,
+          transform: `translate(calc(-50% + ${(x * 0.3).toFixed(1)}px), calc(-50% + ${(y * 0.3).toFixed(1)}px)) scale(1) rotate(${(giro * 0.3).toFixed(1)}deg)`,
+          offset: 0.2,
+        },
+        {
+          opacity: 0,
+          transform: `translate(calc(-50% + ${x.toFixed(1)}px), calc(-50% + ${y.toFixed(1)}px)) scale(${escalaFinal}) rotate(${giro.toFixed(1)}deg)`,
+        },
+      ],
+      { duration: 1500 + Math.random() * 700, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' },
+    );
+
+    voo.addEventListener('finish', () => {
+      peca.remove();
+      vivos.delete(peca);
+    });
+  };
+
+  const carta = () => {
+    const img = document.createElement('img');
+    img.className = 'lock__shard';
+    img.src = foto;
+    img.alt = '';
+    img.style.width = `${(estreito ? 3.5 : 5) + Math.random() * (estreito ? 4 : 9)}rem`;
+    lancar(img, 0.85);
+  };
+
+  const coracao = () => {
+    const heart = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    heart.setAttribute('class', 'heart heart--burst');
+    heart.setAttribute('viewBox', '0 0 24 24');
+    heart.style.width = `${0.8 + Math.random() * 1.5}rem`;
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', HEART);
+    heart.append(path);
+    lancar(heart, 0.5);
+  };
+
+  ONDAS.forEach((atraso, onda) => {
+    // A primeira onda é a maior: é ela que lê como explosão.
+    const peso = onda === 0 ? 1 : 0.55;
+    const cartas = Math.round((estreito ? 5 : 9) * peso);
+    const coracoes = Math.round((estreito ? 14 : 24) * peso);
+
+    const disparar = () => {
+      for (let i = 0; i < cartas; i += 1) carta();
+      for (let i = 0; i < coracoes; i += 1) coracao();
+    };
+
+    if (atraso === 0) disparar();
+    else agendados.push(setTimeout(disparar, atraso));
+  });
+
+  return () => {
+    for (const relogio of agendados) clearTimeout(relogio);
+    for (const peca of vivos) peca.remove();
+    vivos.clear();
+  };
+}
+
 /**
  * Chuva de corações caindo pela tela. Vive só enquanto a revelação está no ar.
  *

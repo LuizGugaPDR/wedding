@@ -2,6 +2,18 @@
 
 Todas as mudanças relevantes do Wedding OS. Uma entrada por sprint.
 
+## [0.7.4] — 2026-09-04 · Explosão do desbloqueio
+
+### Added
+- **A tela explode ao destrancar.** Cópias da foto do casal em tamanhos variados e corações
+  saem do centro em três ondas (0, 230 e 500ms), viajam até sair da tela e somem em ~2,7s.
+  A primeira onda é a maior: é ela que lê como explosão, as outras são o rastro. Termina
+  exatamente como antes — a foto sozinha no centro.
+- A camada da explosão vive **fora** da revelação: dentro dela nasceria junto com o fade de
+  1,5s e sairia lavada.
+- Contagem reduzida abaixo de 768px, e `prefers-reduced-motion` cancela a explosão inteira.
+  Pular a revelação no meio da explosão limpa todas as peças.
+
 ## [0.7.3] — 2026-09-04 · Palavras legíveis o tempo todo
 
 ### Changed

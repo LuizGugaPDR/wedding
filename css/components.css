@@ -1194,6 +1194,30 @@ a.readout:focus-visible .readout__value {
   will-change: transform, opacity;
 }
 
+/* Explosão do desbloqueio. Fica fora da revelação de propósito: dentro dela nasceria
+   junto com o fade de 1,5s e a explosão sairia lavada. */
+.lock__burst {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.lock__shard,
+.heart--burst {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  will-change: transform, opacity;
+}
+
+.lock__shard {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+}
+
 /* Barra operacional: dá escala à tela e diz que isto é um sistema, não um cartão. */
 .lock__bar {
   position: fixed;

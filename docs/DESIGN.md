@@ -78,7 +78,14 @@ Mover o ponteiro deixa um **rastro de corações** coral de ~20px, um a cada 52p
 no máximo dez ao mesmo tempo, cada um vivendo 900ms. É a única exceção ao "sem corações" da
 direção de arte, pedida para esta tela e restrita a ela.
 
-**Revelação.** Depois de `ACCESS GRANTED`, a foto do casal sobe em 1,5s sobre o gelo, com
+**Revelação.** Depois de `ACCESS GRANTED` a tela **explode**: cerca de 14 cópias da foto do casal,
+em tamanhos de 5 a 14rem, e ~37 corações saem do centro em três ondas (0, 230 e 500ms). A
+primeira onda é a maior — é ela que lê como explosão; as outras duas são o rastro. Cada peça
+viaja de meia a uma diagonal e meia, girando, e some fora da tela em ~1,5 a 2,2s.
+A camada (`.lock__burst`) fica **fora** da revelação de propósito: dentro dela nasceria junto
+com o fade de 1,5s e a explosão sairia lavada.
+
+Quando a poeira baixa, a foto do casal já subiu no centro, com
 `Evidência 001` acima e a legenda em Bodoni abaixo, sob uma chuva rala de corações. Fica parada
 por **7s** — tempo de ler sem pressa — e **some de uma vez**. No mesmo instante o OS entra em
 fade, com o chrome, o conteúdo e o rodapé escalonados: a foto sai em corte, o sistema chega
