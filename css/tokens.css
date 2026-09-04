@@ -32,6 +32,9 @@
   --color-text: var(--color-graphite);
   --color-text-dim: #5a6359;
   --color-text-faint: #646d62;
+  /* Secundário sobre a malha da Home: 6,1:1 no gelo. A versao clara reprova em
+     cima das manchas, onde o fundo já chega escurecido. */
+  --color-text-mesh: #525b51;
 
   --color-border: rgb(32 40 34 / 14%);
   --color-border-strong: rgb(32 40 34 / 30%);
@@ -61,27 +64,43 @@
   --mesh-blue: rgb(170 184 200 / 40%);
   --mesh-coral: rgb(255 107 94 / 21%);
 
+  /**
+   * Malha da Home. Mais saturada que a do acesso de propósito: a Hero tem que ter
+   * cor perceptível, não gelo quase uniforme. O `wash` é pintado por cima das
+   * manchas e lava a coluna do texto — é ele que segura o contraste.
+   */
+  --hero-peach: rgb(255 168 133 / 62%);
+  --hero-butter: rgb(255 209 92 / 46%);
+  --hero-sage: rgb(158 180 146 / 48%);
+  --hero-blue: rgb(154 185 216 / 50%);
+  --hero-wash: rgb(255 253 248 / 66%);
+
   --gradient-rule: linear-gradient(90deg, var(--color-accent-line), rgb(32 40 34 / 0%));
   --gradient-progress: linear-gradient(90deg, var(--color-coral), var(--color-olive));
 
   /* ---- Tipografia ------------------------------------------------------- */
-  --font-display: 'Bodoni Moda', 'Times New Roman', times, serif;
-  --font-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* Grotesk contemporânea nos dois papeis. A display é preta de verdade: os nomes
+     precisam de peso, não de elegancia fina. */
+  --font-display: 'Archivo Black', 'Arial Black', system-ui, sans-serif;
+  --font-ui: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   --text-2xs: 0.6875rem;
   --text-xs: 0.75rem;
   --text-md: 1rem;
   --text-lg: clamp(1.125rem, 1rem + 0.6vw, 1.5rem);
-  --display-sm: clamp(1.875rem, 1.4rem + 2.2vw, 3rem);
-  --display-md: clamp(2.75rem, 1.8rem + 4.4vw, 6rem);
-  --display-lg: clamp(3.75rem, 2rem + 8vw, 11rem);
-  /* Reservado ao 13.03: é elemento gráfico, não texto corrido. */
-  --display-hero: clamp(6rem, 17vw, 20rem);
+  --display-sm: clamp(1.75rem, 1.35rem + 1.9vw, 2.75rem);
+  --display-md: clamp(2.5rem, 1.7rem + 3.6vw, 5rem);
+  --display-lg: clamp(3rem, 1.8rem + 6vw, 8rem);
+  /* Archivo Black é muito mais larga que a serifada anterior: os nomes ganham
+     escala própria para "MEL PITICA" nunca quebrar em duas linhas. */
+  --display-names: clamp(2.5rem, 8.6vw, 7.5rem);
+  /* Reservado ao 13.03 gráfico do fundo. */
+  --display-mark: clamp(7rem, 21vw, 19rem);
 
   --tracking-micro: 0.16em;
   --tracking-wide: 0.06em;
   --tracking-tight: -0.02em;
-  --tracking-display: -0.045em;
+  --tracking-display: -0.03em;
 
   --leading-tight: 0.82;
   --leading-body: 1.6;

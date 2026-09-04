@@ -32,14 +32,8 @@
     padding-block: var(--space-lg) var(--space-xl);
   }
 
-  /* No mobile a Hero vira uma coluna e o 13.03 sai de trás dos nomes. */
-  .hero__grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-xs);
-  }
-
   .hero__names {
-    font-size: var(--display-md);
+    font-size: clamp(2.5rem, 13vw, 4.5rem);
   }
 
   .hero__tagline {
@@ -58,24 +52,18 @@
     font-size: var(--text-md);
   }
 
-  .hero__clock {
-    grid-column: 1;
-    grid-row: auto;
-    justify-items: start;
-    text-align: left;
-    margin-top: var(--space-xs);
+  /* Archivo Black é bem mais larga que a serifada anterior: em 320px o rótulo do
+     destino não cabe nem quebrado em duas linhas. */
+  .universe__label {
+    font-size: var(--text-lg);
   }
 
-  .hero__date {
-    inset: auto auto -0.06em -0.06em;
-    font-size: clamp(5rem, 40vw, 11rem);
-    opacity: 0.5;
-  }
-
-  .hero__seal {
+  .hero__mark {
     top: auto;
-    bottom: 0;
-    width: 4.5rem;
+    bottom: 2%;
+    right: -0.08em;
+    transform: none;
+    font-size: clamp(6rem, 38vw, 12rem);
   }
 
   .hero__actions {
@@ -198,10 +186,6 @@
     gap: var(--space-md) var(--space-xl);
   }
 
-  .countdown {
-    gap: var(--space-md);
-  }
-
   .board {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-xl);
@@ -233,6 +217,32 @@
   }
 }
 
+/**
+ * A coluna do countdown só cabe ao lado dos nomes a partir de ~1100px. Abaixo
+ * disso os quatro números estouram a própria coluna e invadem os nomes — daí o
+ * breakpoint próprio da Hero. Sem coluna à direita também acaba a folga onde o
+ * grafismo morava.
+ */
+@media (max-width: 68em) {
+  .hero__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-xs);
+  }
+
+  .hero__tag {
+    display: none;
+  }
+
+  .hero__clock {
+    grid-column: 1;
+    grid-row: auto;
+    justify-items: start;
+    align-content: start;
+    text-align: left;
+    margin-top: var(--space-xs);
+  }
+}
+
 /* Faixa de tablet: a janela encolheu, as frases longas encolhem junto. */
 @media (min-width: 48em) and (max-width: 63.99em) {
   .lock__drift {
@@ -255,6 +265,11 @@
     padding-block: var(--space-xs) var(--space-md);
   }
 
+  /* Janela baixa não tem folga: o grafismo sairia por cima do texto. */
+  .hero__tag {
+    display: none;
+  }
+
   .hero__grid {
     gap: var(--space-sm) var(--space-2xl);
   }
@@ -269,7 +284,7 @@
   }
 
   .hero__names {
-    font-size: var(--display-md);
+    font-size: clamp(2.5rem, 6.4vw, 5rem);
   }
 
   .hero__tagline {
@@ -277,7 +292,7 @@
   }
 
   .countdown__value {
-    font-size: var(--display-sm);
+    font-size: var(--text-lg);
   }
 
   .section__head {

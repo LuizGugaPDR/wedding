@@ -2,6 +2,40 @@
 
 Todas as mudanças relevantes do Wedding OS. Uma entrada por sprint.
 
+## [0.8.0] — 2026-09-04 · Redesign da Home
+
+### Changed
+- **Tipografia trocada nas duas famílias.** `Bodoni Moda` + `Inter` deram lugar a
+  **`Archivo Black`** (display) + **`Space Grotesk`** (UI). É uma troca de token, então vale
+  para o projeto inteiro — inclusive o `13.03` do cadeado.
+- **A Hero ganhou fundo de verdade.** Saíram o gelo quase uniforme e o contorno cortado: entram
+  quatro manchas radiais difusas (pêssego, manteiga, sálvia, azul gelo) com centros fora da
+  tela, cada uma numa profundidade, mais um `wash` claro por cima que segura a leitura do texto.
+- **O `13.03` virou grafismo preenchido** em coral a 15%, sobreposto à composição em vez de
+  cortado no rodapé.
+- **Os nomes viraram protagonistas** em escala própria (`--display-names`), duas linhas, peso
+  máximo. O `&` deixou de ser itálico — Archivo Black não tem corte itálico e o navegador
+  inclinava a força.
+- **O countdown virou informação de apoio**: corpo de UI, rótulo em cima, e reage ao hover
+  subindo dois pixels.
+- CTA com variante própria (`.cta--lead`): seta `→` num disco que troca de cor e desloca no
+  hover. O botão do cadeado continua com a aparência antiga.
+- A Home é a única view sem `.shell`: a largura passou a ser limitada pelo conteúdo, para a
+  camada gráfica sangrar de borda a borda sem `100vw`.
+
+### Added
+- Quatro pedaços da história como grafismo flutuante nas folgas da composição.
+- Parallax de ponteiro nas nove camadas gráficas, de 3 a 12px por profundidade. Estático no
+  celular e sob `prefers-reduced-motion`.
+
+### Fixed
+- Selo circular removido: colidia com os nomes em toda a faixa desktop.
+- `--color-text-mesh` para os rótulos micro da Hero: sobre as manchas a versao clara caia para
+  4,2:1.
+- `.universe__label` encolhe em 320px — Archivo Black não cabia nem quebrada em duas linhas.
+- Countdown com intervalo menor: com 1,5rem os quatro números estouravam a coluna da direita
+  entre 1088 e 1280px.
+
 ## [0.7.4] — 2026-09-04 · Explosão do desbloqueio
 
 ### Added

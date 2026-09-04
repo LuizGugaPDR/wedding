@@ -42,9 +42,15 @@ Não existe mais tema por seção — nenhuma tela é pintada de uma cor chapada
 
 ## Tipografia — duas famílias, sem exceção
 
-- **Display:** `Bodoni Moda` — contraste extremo, DNA de editorial de moda e convite de luxo.
-  Escolhida por evitar o clichê de `Playfair Display` em casamentos.
-- **UI:** `Inter` — neutra e legível.
+- **Display:** `Archivo Black` — grotesk preta de verdade. Os nomes precisam de peso, não de
+  elegancia fina; a serifada anterior deixava a Home com cara de convite editorial parado.
+- **UI:** `Space Grotesk` — contemporânea, com personalidade suficiente para o feel de "OS"
+  sem virar fonte de terminal.
+
+Archivo Black tem **um peso só e nenhum itálico**: nada no projeto pode pedir bold ou itálico
+dela, sob pena de o navegador sintetizar a força. Ela também é bem mais larga que a serifada
+anterior — daí os nomes terem escala própria (`--display-names`) e o rótulo dos destinos
+encolher em 320px.
 
 Não existe família mono. A sensação de "OS" vem de `letter-spacing: .18em` + uppercase +
 `font-variant-numeric: tabular-nums` (classe `.tabular`) em labels de 10–11px.
@@ -101,10 +107,24 @@ Na verificação a marca recua, a pergunta assume o peso editorial e entra o dos
 tentativas e a dica de que a senha termina em interrogação. O fio coral engrossa por um
 instante quando a senha é recusada.
 
-**Hero.** Grade assimétrica com sobreposição: os nomes em `--display-lg` na esquerda, o `13.03`
-em `--display-hero` como contorno coral sangrando no canto inferior direito, selo circular
-oliva no topo e countdown na coluna da direita. Ela **não** ocupa a tela inteira: o índice de
-destinos precisa espiar por baixo.
+**Hero.** É a **única view sem `.shell`**: quem limita a largura é o conteúdo, não a seção.
+Assim a camada gráfica sangra de borda a borda com `inset: 0` — em `100vw` ela passaria da
+largura útil pela barra de rolagem e criaria rolagem horizontal.
+
+O fundo tem quatro manchas radiais difusas (pêssego, manteiga, sálvia e azul gelo), cada uma
+na sua profundidade, e um `wash` claro pintado por cima delas que devolve contraste à coluna
+do texto sem apagar a cor das beiradas. Os centros ficam fora da tela: nenhuma vira um círculo
+visível.
+
+O `13.03` deixou de ser contorno cortado no rodapé e virou número **preenchido** em coral a 15%,
+grande, atravessado pela composição. Não disputa com os nomes porque não tem peso de tinta.
+Quatro pedaços da história (`Galo airspace`, `After protocol`, `150 convidados`,
+`Decisões questionáveis`) ficam nas folgas da composição, em corpo de rótulo e opacidade baixa —
+e somem quando a folga acaba (abaixo de 1088px ou em janela baixa).
+
+Os nomes são o protagonista em `--display-names`, duas linhas, peso máximo. O countdown é
+informação de apoio: corpo de UI e não de display, com rótulo em cima. A Hero **não** ocupa a
+tela inteira: o índice de destinos precisa espiar por baixo.
 
 **Wedding Universe.** Oito destinos como linhas tipográficas. Hover desloca a linha, colore o
 índice em coral, revela a descrição, mostra a seta e muda pouquíssimo o fundo. Destinos ainda

@@ -137,37 +137,135 @@
   position: relative;
   display: grid;
   align-content: center;
-  min-height: min(66svh, 40rem);
+  min-height: min(70svh, 44rem);
+  padding-block: var(--space-xl);
+}
+
+/**
+ * Camada gráfica. A Home é a única view sem `.shell`: quem limita a largura é o
+ * conteúdo, não a seção. Assim a malha sangra até as bordas com `inset: 0` — em
+ * `100vw` ela passaria da largura útil pela barra de rolagem.
+ */
+.hero__field {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   overflow: hidden;
+  pointer-events: none;
+  background-color: var(--color-bg);
+}
+
+/* Deslocamento por profundidade. Máximo de 14px: presença sem enjoo. */
+.hero__field [data-pointer-layer],
+.hero [data-pointer-layer] {
+  translate: calc(var(--pointer-x, 0) * var(--pointer-layer, 1) * 9px)
+    calc(var(--pointer-y, 0) * var(--pointer-layer, 1) * 7px);
+  transition: translate var(--dur-slow) var(--ease-out);
+}
+
+/**
+ * Quatro manchas difusas, uma por profundidade. São elas que dão cor e volume.
+ * `closest-side` mantém a borda sempre fora do alcance: nenhuma vira um círculo.
+ */
+.hero__blob {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.hero__blob--peach {
+  top: -46%;
+  left: -14%;
+  width: 62vw;
+  aspect-ratio: 1.15;
+  background-image: radial-gradient(closest-side, var(--hero-peach), transparent 78%);
+}
+
+.hero__blob--butter {
+  top: -34%;
+  right: -10%;
+  width: 48vw;
+  aspect-ratio: 1.3;
+  background-image: radial-gradient(closest-side, var(--hero-butter), transparent 76%);
+}
+
+.hero__blob--sage {
+  bottom: -52%;
+  left: 6%;
+  width: 54vw;
+  aspect-ratio: 1.4;
+  background-image: radial-gradient(closest-side, var(--hero-sage), transparent 76%);
+}
+
+.hero__blob--blue {
+  bottom: -40%;
+  right: -12%;
+  width: 58vw;
+  aspect-ratio: 1.2;
+  background-image: radial-gradient(closest-side, var(--hero-blue), transparent 78%);
+}
+
+/* Pintado por cima das manchas e por baixo do 13.03: é ele que devolve contraste
+   à coluna do texto sem apagar a cor das beiradas. */
+.hero__wash {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(62% 78% at 30% 50%, var(--hero-wash), transparent 76%);
+}
+
+/* O 13.03 virou elemento gráfico preenchido: grande, translúcido e atravessado
+   pela composição. Não disputa com os nomes porque não tem peso de tinta. */
+.hero__mark {
+  position: absolute;
+  top: 44%;
+  right: -0.06em;
+  transform: translateY(-50%);
+  font-family: var(--font-display);
+  font-size: var(--display-mark);
+  line-height: 0.76;
+  letter-spacing: var(--tracking-display);
+  color: var(--color-coral);
+  opacity: 0.15;
+}
+
+/* Pedaços da história como grafismo. Ficam nas folgas da composição. */
+.hero__tag {
+  position: absolute;
+  font-size: var(--text-2xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-micro);
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-text);
+  opacity: 0.34;
+}
+
+.hero__tag--a {
+  top: 4%;
+  right: 3%;
+}
+
+.hero__tag--b {
+  top: 11%;
+  right: 3%;
+}
+
+.hero__tag--c {
+  top: 18%;
+  right: 3%;
+}
+
+.hero__tag--d {
+  top: 25%;
+  right: 3%;
 }
 
 .hero__grid {
   position: relative;
+  z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr);
   align-content: center;
   gap: var(--space-md) var(--space-2xl);
-}
-
-/* O 13.03 é elemento gráfico: contorno coral, atravessado pelos nomes. */
-.hero__date {
-  position: absolute;
-  inset: auto 0 -0.14em auto;
-  z-index: 0;
-  font-family: var(--font-display);
-  font-size: var(--display-hero);
-  line-height: 0.7;
-  letter-spacing: var(--tracking-display);
-  color: transparent;
-  -webkit-text-stroke: 2px var(--color-coral);
-  pointer-events: none;
-  translate: calc(var(--pointer-x) * var(--pointer-layer, 1) * 14px)
-    calc(var(--pointer-y) * var(--pointer-layer, 1) * 10px);
-}
-
-.hero__grid > *:not(.hero__date):not(.hero__seal) {
-  position: relative;
-  z-index: 1;
 }
 
 .hero__eyebrow {
@@ -179,7 +277,7 @@
   font-weight: 500;
   letter-spacing: var(--tracking-micro);
   text-transform: uppercase;
-  color: var(--color-text-dim);
+  color: var(--color-text-mesh);
 }
 
 .hero__dot {
@@ -189,27 +287,32 @@
   background-color: var(--color-coral);
 }
 
+/* O protagonista. Duas linhas, peso máximo, sem nada competindo em tinta. */
 .hero__names {
   grid-column: 1 / -1;
   display: grid;
-  font-size: var(--display-lg);
-  line-height: var(--leading-tight);
+  justify-items: start;
+  font-size: var(--display-names);
+  line-height: 0.86;
   text-transform: uppercase;
 }
 
-.hero__amp {
-  font-style: italic;
-  text-transform: none;
-  color: var(--color-coral-deep);
+.hero__line {
+  display: flex;
+  align-items: baseline;
+  gap: 0.16em;
 }
 
-.hero__name:last-of-type {
-  padding-left: 0.14em;
+/* Sem itálico: a display é uma black sem corte itálico e o navegador inclinaria
+   a força. O & vira sinal gráfico coral, menor que os nomes. */
+.hero__amp {
+  font-size: 0.52em;
+  color: var(--color-coral-deep);
 }
 
 .hero__tagline {
   grid-column: 1;
-  max-width: 24ch;
+  max-width: 30ch;
   margin-top: var(--space-md);
   font-size: var(--text-lg);
   color: var(--color-text-dim);
@@ -229,50 +332,39 @@
   font-size: var(--text-2xs);
   letter-spacing: var(--tracking-micro);
   text-transform: uppercase;
-  color: var(--color-text-faint);
+  color: var(--color-text-mesh);
 }
 
 .hero__facts dd {
-  font-family: var(--font-display);
+  margin-top: var(--space-2xs);
   font-size: var(--text-lg);
+  font-weight: 600;
   letter-spacing: var(--tracking-tight);
 }
 
+/* Informação de apoio: rótulo em cima, números em corpo de UI e não de display.
+   O countdown não pode disputar atenção com os nomes. */
 .hero__clock {
   grid-column: 2;
-  grid-row: 3 / span 2;
+  grid-row: 3 / span 3;
   display: grid;
-  gap: var(--space-sm);
-  align-content: start;
+  gap: var(--space-xs);
+  align-content: end;
   justify-items: end;
   text-align: right;
 }
 
+.hero__clock-label,
 .hero__deadline {
   font-size: var(--text-2xs);
   letter-spacing: var(--tracking-micro);
   text-transform: uppercase;
-  color: var(--color-text-faint);
+  color: var(--color-text-mesh);
 }
 
 .hero__actions {
   grid-column: 1;
   margin-top: var(--space-lg);
-}
-
-.hero__seal {
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  right: 0;
-  width: clamp(6rem, 9vw, 8.5rem);
-  color: var(--color-olive-deep);
-  fill: currentcolor;
-  font-size: 9.5px;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  translate: calc(var(--pointer-x) * var(--pointer-layer, 1) * 14px)
-    calc(var(--pointer-y) * var(--pointer-layer, 1) * 10px);
 }
 
 /* ---- CTA ------------------------------------------------------------------- */
@@ -309,6 +401,34 @@
 
 .cta:hover .cta__arrow {
   transform: translateX(0.35rem);
+}
+
+/* Variante da Home. A seta mora num disco próprio: dá ao botão um ponto de foco
+   em vez de um retângulo corporativo com texto dentro. */
+.cta--lead {
+  padding: var(--space-sm) var(--space-sm) var(--space-sm) var(--space-xl);
+  font-weight: 700;
+}
+
+.cta--lead .cta__arrow {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-graphite);
+  color: var(--color-ice);
+  font-size: var(--text-md);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    transform var(--dur-md) var(--ease-out);
+}
+
+.cta--lead:hover .cta__arrow {
+  background-color: var(--color-coral);
+  color: var(--color-graphite);
+  transform: translateX(0.2rem);
 }
 
 /* ---- Wedding Universe (hub) ------------------------------------------------ */
@@ -574,7 +694,9 @@ a.readout:focus-visible .readout__value {
 
 .countdown {
   display: flex;
-  gap: var(--space-lg);
+  /* Estreito de propósito: com 1,5rem os quatro números estouram a coluna da
+     direita entre 1088 e 1280px. */
+  gap: var(--space-md);
 }
 
 .countdown__unit {
@@ -582,20 +704,27 @@ a.readout:focus-visible .readout__value {
   gap: var(--space-2xs);
   justify-items: start;
   min-width: 3.5ch;
+  transition: translate var(--dur-md) var(--ease-out);
 }
 
+/* Reação discreta: o bloco inteiro sobe dois pixels, sem trocar de cor. */
+.hero__clock:hover .countdown__unit {
+  translate: 0 -2px;
+}
+
+/* Corpo de UI, e não de display: em Archivo Black o countdown roubaria os nomes. */
 .countdown__value {
-  font-family: var(--font-display);
   font-size: var(--display-sm);
+  font-weight: 700;
   line-height: 1;
-  letter-spacing: var(--tracking-display);
+  letter-spacing: var(--tracking-tight);
 }
 
 .countdown__label {
   font-size: var(--text-2xs);
   letter-spacing: var(--tracking-micro);
   text-transform: uppercase;
-  color: var(--color-text-dim);
+  color: var(--color-text-mesh);
 }
 
 /* ---- Cronograma ----------------------------------------------------------- */
