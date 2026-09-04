@@ -155,6 +155,8 @@ export function mountLock({ onUnlock }) {
 
     await revelar();
 
+    // Marca antes de fechar: o OS precisa já nascer com a animação aplicada.
+    document.body.dataset.entering = 'true';
     shield(false);
     reveal.hidden = true;
     lock.removeAttribute('data-open');
@@ -163,6 +165,7 @@ export function mountLock({ onUnlock }) {
     input.value = '';
     running = false;
     onUnlock();
+    setTimeout(() => delete document.body.dataset.entering, 1200);
   }
 
   function deny() {

@@ -8,12 +8,15 @@ Todas as mudanças relevantes do Wedding OS. Uma entrada por sprint.
 - **O cadeado fecha a cada carregamento.** O acesso deixou de persistir: recarregar volta a
   pedir a senha. A entrada é o momento da experiência e precisa acontecer toda vez.
   `prefs.unlocked` saiu do estado; sobrou `prefs.visited`, só para o ritmo de entrada.
-- A revelação passou de 1,4s para **10s** parada — tempo de ler a legenda sem pressa.
+- A revelação passou de 1,4s para **7s** parada — tempo de ler a legenda sem pressa.
+- O fundo do cadeado deixou de ser gelo liso: ganhou malha técnica que anda devagar e três
+  anéis de sonar saindo de trás do cadeado, que aceleram durante a verificação.
 
 ### Added
 - Chuva de corações durante a revelação: um a cada 230ms, queda de 4 a 7s, deriva e giro
   aleatórios. Encerra e limpa junto com a etapa.
-- Clique ou tecla encerram a revelação antes dos 10s: quem já leu não espera o relógio.
+- Clique ou tecla encerram a revelação antes do tempo: quem já leu não espera o relógio.
+- Entrada do OS em fade escalonado (chrome, conteúdo, rodapé) no instante em que a foto sai.
 
 ## [0.7.0] — 2026-09-04 · Sprint 3.6 · Experience Foundation
 

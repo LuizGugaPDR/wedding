@@ -73,9 +73,15 @@ direção de arte, pedida para esta tela e restrita a ela.
 
 **Revelação.** Depois de `ACCESS GRANTED`, a foto do casal sobe em 1,5s sobre o gelo, com
 `Evidência 001` acima e a legenda em Bodoni abaixo, sob uma chuva rala de corações. Fica parada
-por **10s** — tempo de ler sem pressa — e **some de uma vez**, junto com o fechamento do cadeado:
-entra devagar, sai em corte seco. Um clique ou uma tecla encerra antes, para nunca prender
-ninguém. A imagem é o único ativo remoto do projeto: se não carregar, a etapa inteira é pulada.
+por **7s** — tempo de ler sem pressa — e **some de uma vez**. No mesmo instante o OS entra em
+fade, com o chrome, o conteúdo e o rodapé escalonados: a foto sai em corte, o sistema chega
+inteiro. Um clique ou uma tecla encerra antes, para nunca prender ninguém. A imagem é o único
+ativo remoto do projeto: se não carregar, a etapa inteira é pulada.
+
+**Campo técnico.** O fundo do cadeado não é papel em branco: uma malha fina de oliva a 13%
+anda uma célula a cada 46s e três anéis de sonar nascem atrás do cadeado, morrendo antes de
+tocar a borda. Na verificação o sonar dobra de velocidade — o sistema está procurando alguém.
+Futurista pelo desenho, não por neon: continua tudo gelo, oliva e coral.
 
 Na verificação a marca recua, a pergunta assume o peso editorial e entra o dossiê: registro,
 tentativas e a dica de que a senha termina em interrogação. O fio coral engrossa por um

@@ -1006,6 +1006,59 @@ a.readout:focus-visible .readout__value {
   display: none;
 }
 
+/**
+ * Campo técnico: malha fina que respira e sonar saindo de trás do cadeado.
+ * É o que tira o fundo do estado de papel em branco sem apelar para neon.
+ */
+.lock__field {
+  --grid-step: 3.5rem;
+  --grid-line: rgb(104 116 91 / 13%);
+
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(90deg, var(--grid-line) 0 1px, transparent 1px var(--grid-step)),
+    repeating-linear-gradient(0deg, var(--grid-line) 0 1px, transparent 1px var(--grid-step));
+  animation: field-drift 46s linear infinite;
+}
+
+/* Anel de sonar: nasce atrás do cadeado e morre antes de tocar a borda. */
+.lock__ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 17rem;
+  aspect-ratio: 1;
+  border: 1px solid var(--color-accent);
+  border-radius: 50%;
+  translate: -50% -50%;
+  opacity: 0;
+  animation: sonar 9s linear infinite;
+}
+
+.lock__ring:nth-child(2) {
+  animation-delay: 3s;
+}
+
+.lock__ring:nth-child(3) {
+  animation-delay: 6s;
+}
+
+/* Na verificação o sonar acelera: o sistema está procurando alguém. */
+.lock[data-stage='auth'] .lock__ring {
+  animation-duration: 4.5s;
+}
+
+.lock[data-stage='auth'] .lock__ring:nth-child(2) {
+  animation-delay: 1.5s;
+}
+
+.lock[data-stage='auth'] .lock__ring:nth-child(3) {
+  animation-delay: 3s;
+}
+
 /* Fio de alerta no topo. É o único coral chapado da tela trancada. */
 .lock::before {
   content: '';
