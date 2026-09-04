@@ -170,7 +170,7 @@
   }
 
   .lock__word {
-    opacity: 0.26;
+    opacity: 0.2;
   }
 
   /* Os três rótulos não cabem numa linha em 375px, e três linhas comem a dobra. */
@@ -239,7 +239,7 @@
   }
 
   .lock__word {
-    opacity: 0.34;
+    opacity: 0.26;
   }
 }
 
