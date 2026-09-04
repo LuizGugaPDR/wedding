@@ -112,22 +112,24 @@
   transform: translateY(1px);
 }
 
+/* Terracota cheia não aceita texto por cima (2,6:1). O botão primário usa a
+   terracota escura com creme, que mede 6,6:1. */
 .btn--primary {
-  --btn-fg: var(--color-graphite);
-  --btn-bg: var(--color-coral);
-  --btn-border: var(--color-coral);
+  --btn-fg: var(--color-cream);
+  --btn-bg: var(--color-terracotta-deep);
+  --btn-border: var(--color-terracotta-deep);
 }
 
 .btn--primary:hover {
-  --btn-fg: var(--color-ice);
-  --btn-bg: var(--color-graphite);
-  --btn-border: var(--color-graphite);
+  --btn-fg: var(--color-cream);
+  --btn-bg: var(--color-forest);
+  --btn-border: var(--color-forest);
 }
 
 .btn--danger:hover {
-  --btn-border: var(--color-coral-deep);
-  --btn-bg: var(--color-coral-deep);
-  --btn-fg: var(--color-ice);
+  --btn-border: var(--color-coffee);
+  --btn-bg: var(--color-coffee);
+  --btn-fg: var(--color-cream);
 }
 
 /* ---- Hero ------------------------------------------------------------------ */
@@ -180,12 +182,12 @@
   background-image: radial-gradient(closest-side, var(--hero-peach), transparent 78%);
 }
 
-.hero__blob--butter {
+.hero__blob--terracotta {
   top: -34%;
   right: -10%;
   width: 48vw;
   aspect-ratio: 1.3;
-  background-image: radial-gradient(closest-side, var(--hero-butter), transparent 76%);
+  background-image: radial-gradient(closest-side, var(--hero-terracotta), transparent 76%);
 }
 
 .hero__blob--sage {
@@ -196,12 +198,12 @@
   background-image: radial-gradient(closest-side, var(--hero-sage), transparent 76%);
 }
 
-.hero__blob--blue {
+.hero__blob--leaf {
   bottom: -40%;
   right: -12%;
   width: 58vw;
   aspect-ratio: 1.2;
-  background-image: radial-gradient(closest-side, var(--hero-blue), transparent 78%);
+  background-image: radial-gradient(closest-side, var(--hero-leaf), transparent 78%);
 }
 
 /* Pintado por cima das manchas e por baixo do 13.03: é ele que devolve contraste
@@ -223,7 +225,7 @@
   font-size: var(--display-mark);
   line-height: 0.76;
   letter-spacing: var(--tracking-display);
-  color: var(--color-coral);
+  color: var(--color-terracotta);
   opacity: 0.15;
 }
 
@@ -284,7 +286,7 @@
   width: 0.5rem;
   height: 0.5rem;
   border-radius: var(--radius-pill);
-  background-color: var(--color-coral);
+  background-color: var(--color-terracotta);
 }
 
 /* O protagonista. Duas linhas, peso máximo, sem nada competindo em tinta. */
@@ -304,10 +306,10 @@
 }
 
 /* Sem itálico: a display é uma black sem corte itálico e o navegador inclinaria
-   a força. O & vira sinal gráfico coral, menor que os nomes. */
+   a força. O & vira sinal gráfico terracota, menor que os nomes. */
 .hero__amp {
   font-size: 0.52em;
-  color: var(--color-coral-deep);
+  color: var(--color-terracotta-deep);
 }
 
 .hero__tagline {
@@ -376,8 +378,8 @@
   padding: var(--space-md) var(--space-xl);
   border: 0;
   border-radius: var(--radius-pill);
-  background-color: var(--color-coral);
-  color: var(--color-graphite);
+  background-color: var(--color-terracotta-deep);
+  color: var(--color-cream);
   font-size: var(--text-xs);
   font-weight: 600;
   letter-spacing: var(--tracking-micro);
@@ -391,8 +393,8 @@
 }
 
 .cta:hover {
-  background-color: var(--color-graphite);
-  color: var(--color-ice);
+  background-color: var(--color-forest);
+  color: var(--color-cream);
 }
 
 .cta__arrow {
@@ -416,8 +418,8 @@
   width: 2.25rem;
   height: 2.25rem;
   border-radius: var(--radius-pill);
-  background-color: var(--color-graphite);
-  color: var(--color-ice);
+  background-color: var(--color-forest);
+  color: var(--color-cream);
   font-size: var(--text-md);
   transition:
     background-color var(--dur-fast) var(--ease-out),
@@ -426,8 +428,8 @@
 }
 
 .cta--lead:hover .cta__arrow {
-  background-color: var(--color-coral);
-  color: var(--color-graphite);
+  background-color: var(--color-peach);
+  color: var(--color-forest);
   transform: translateX(0.2rem);
 }
 
@@ -484,7 +486,7 @@
 
 .universe__row:hover .universe__index,
 .universe__row:focus-visible .universe__index {
-  color: var(--color-coral-deep);
+  color: var(--color-terracotta-deep);
 }
 
 .universe__label {
@@ -532,7 +534,7 @@
 .universe__arrow {
   grid-area: 1 / 4;
   justify-self: end;
-  color: var(--color-coral-deep);
+  color: var(--color-terracotta-deep);
   opacity: 0;
   translate: -0.4rem 0;
   transition:
@@ -658,7 +660,7 @@
 
 /* Sistema conectado: a métrica que abre outra tela avisa que abre. */
 .readout__go {
-  color: var(--color-coral-deep);
+  color: var(--color-terracotta-deep);
   opacity: 0;
   translate: -0.3rem 0;
   transition:
@@ -674,14 +676,14 @@ a.readout:focus-visible .readout__go {
 
 a.readout:hover .readout__value,
 a.readout:focus-visible .readout__value {
-  color: var(--color-coral-deep);
+  color: var(--color-terracotta-deep);
 }
 
 .readout[data-tone='accent'] .readout__value {
   color: var(--color-accent-deep);
 }
 
-/* Único lugar da tela onde a manteiga aparece: o marcador de descoberta. */
+/* Único lugar da tela onde o pêssego aparece: o marcador de descoberta. */
 .readout[data-tone='discovery'] .readout__label::before {
   content: '';
   width: 6px;
@@ -761,7 +763,7 @@ a.readout:focus-visible .readout__value {
   position: absolute;
   inset: 0 auto 0 0;
   width: 0;
-  background-color: var(--color-coral);
+  background-color: var(--color-terracotta);
   transition: width var(--dur-slow) var(--ease-out);
 }
 
@@ -1255,8 +1257,8 @@ a.readout:focus-visible .readout__value {
   background-image:
     radial-gradient(82% 80% at 50% 46%, var(--mesh-glow), transparent 84%),
     radial-gradient(90% 80% at -6% -8%, var(--mesh-peach), transparent 76%),
-    radial-gradient(88% 78% at 106% 2%, var(--mesh-blue), transparent 76%),
-    radial-gradient(84% 76% at 104% 104%, var(--mesh-coral), transparent 74%),
+    radial-gradient(88% 78% at 106% 2%, var(--mesh-leaf), transparent 76%),
+    radial-gradient(84% 76% at 104% 104%, var(--mesh-terracotta), transparent 74%),
     radial-gradient(92% 82% at -8% 108%, var(--mesh-sage), transparent 78%);
   color: var(--color-text);
 }
@@ -1271,10 +1273,10 @@ a.readout:focus-visible .readout__value {
   content: '';
   position: fixed;
   inset: 0 0 auto;
-  /* Acima da coluna de gelo, que atravessa a tela de cima a baixo. */
+  /* Acima da coluna de creme, que atravessa a tela de cima a baixo. */
   z-index: 1;
   height: 2px;
-  background-color: var(--color-coral);
+  background-color: var(--color-terracotta);
   transition: height var(--dur-fast) var(--ease-out);
 }
 
@@ -1282,7 +1284,7 @@ a.readout:focus-visible .readout__value {
   height: 5px;
 }
 
-/* Coluna de gelo que corre a altura toda da tela. É ela que garante a leitura do
+/* Coluna de creme que corre a altura toda da tela. É ela que garante a leitura do
    painel: as palavras passam por trás e são cortadas por uma aresta vertical
    contínua — uma divisão editorial, e não um card parado no meio do nada. */
 .lock::after {
@@ -1323,7 +1325,7 @@ a.readout:focus-visible .readout__value {
   letter-spacing: var(--tracking-wide);
   white-space: nowrap;
   cursor: default;
-  color: var(--color-olive-deep);
+  color: var(--color-moss);
   /* Medida sobre o degradê, no ponto mais escuro dele: 4,5:1. São para ler,
      não para adivinhar. */
   opacity: 0.92;
@@ -1338,7 +1340,7 @@ a.readout:focus-visible .readout__value {
 }
 
 .lock__word:hover {
-  color: var(--color-coral-deep);
+  color: var(--color-terracotta-deep);
   opacity: 1;
 }
 
@@ -1371,7 +1373,7 @@ a.readout:focus-visible .readout__value {
 .heart {
   position: absolute;
   width: clamp(0.95rem, 1.4vw, 1.35rem);
-  fill: var(--color-coral);
+  fill: var(--color-terracotta);
   will-change: transform, opacity;
 }
 
@@ -1406,7 +1408,7 @@ a.readout:focus-visible .readout__value {
   font-weight: 600;
   letter-spacing: var(--tracking-micro);
   text-transform: uppercase;
-  color: var(--color-coral-deep);
+  color: var(--color-terracotta-deep);
 }
 
 .reveal__photo {
@@ -1496,12 +1498,12 @@ a.readout:focus-visible .readout__value {
 }
 
 .lock__bar-mid {
-  color: var(--color-coral-deep);
+  color: var(--color-terracotta-deep);
 }
 
 .lock__panel {
   position: relative;
-  /* Acima da coluna de gelo, que é pintada por `.lock::after`. */
+  /* Acima da coluna de creme, que é pintada por `.lock::after`. */
   z-index: 1;
   display: grid;
   justify-items: center;
@@ -1516,7 +1518,7 @@ a.readout:focus-visible .readout__value {
   font-size: var(--display-lg);
   line-height: 0.82;
   letter-spacing: var(--tracking-display);
-  color: var(--color-coral-deep);
+  color: var(--color-terracotta-deep);
   transition: font-size var(--dur-slow) var(--ease-out);
 }
 
@@ -1536,7 +1538,7 @@ a.readout:focus-visible .readout__value {
 }
 
 .lock__seal:hover {
-  color: var(--color-coral-deep);
+  color: var(--color-terracotta-deep);
 }
 
 .lock-icon {
@@ -1565,7 +1567,7 @@ a.readout:focus-visible .readout__value {
 
 .lock-icon__keyhole {
   stroke-width: 4;
-  stroke: var(--color-coral);
+  stroke: var(--color-terracotta);
 }
 
 /* Aberto: a haste gira para fora e trava lá. */
@@ -1610,7 +1612,7 @@ a.readout:focus-visible .readout__value {
   font-weight: 600;
   letter-spacing: var(--tracking-micro);
   text-transform: uppercase;
-  color: var(--color-coral-deep);
+  color: var(--color-terracotta-deep);
 }
 
 /* A frase é o coração da entrada: ela ganha o peso editorial. */
@@ -1649,7 +1651,7 @@ a.readout:focus-visible .readout__value {
 }
 
 .lock__indicator[data-live] {
-  color: var(--color-coral-deep);
+  color: var(--color-terracotta-deep);
 }
 
 .lock__form {
@@ -1686,7 +1688,7 @@ a.readout:focus-visible .readout__value {
 }
 
 .lock__input:focus {
-  border-color: var(--color-coral);
+  border-color: var(--color-terracotta);
   outline: none;
 }
 
@@ -1701,7 +1703,7 @@ a.readout:focus-visible .readout__value {
   font-weight: 600;
   letter-spacing: var(--tracking-micro);
   text-transform: uppercase;
-  color: var(--color-coral-deep);
+  color: var(--color-terracotta-deep);
 }
 
 .lock__reason {

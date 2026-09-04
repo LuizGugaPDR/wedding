@@ -2,85 +2,96 @@
  * Design tokens — única fonte de valores do Wedding OS.
  * Componentes NUNCA declaram cor, espaço, raio, sombra ou duração literais.
  *
- * Direção: ICE WEDDING. Base gelo, grafite de subtom esverdeado no texto,
- * coral como energia, oliva como estado estável, manteiga só em detalhe.
+ * Direção: LARANJA QUEIMADO E VERDE — a mesma base cromática do cardápio do
+ * casamento. Creme do papel na base, verde floresta no texto, terracota como
+ * energia, musgo como estado estável, pêssego só em detalhe.
  */
 
 :root {
   color-scheme: light;
 
   /* ---- Paleta ----------------------------------------------------------- */
-  --color-ice: #eef0ea;
-  --color-ice-deep: #e4e8de;
-  --color-graphite: #202822;
-  --color-coral: #ff5548;
-  --color-coral-deep: #b3382a;
-  --color-olive: #68745b;
-  --color-olive-deep: #4d5844;
-  --color-butter: #ffd447;
+  /* As dez cores do cardápio, mais o creme do papel em que ele foi impresso. */
+  --color-cream: #f6efe3;
+  --color-cream-deep: #efe6d6;
+
+  --color-peach: #f0b183;
+  --color-terracotta: #e3792f;
+  --color-burnt: #bf5b04;
+  --color-terracotta-deep: #8a3e10;
+  --color-coffee: #5c2a0a;
+
+  --color-mint: #d7e0c4;
+  --color-sage: #a9be8b;
+  --color-leaf: #7c9a5b;
+  --color-moss: #4b5320;
+  --color-forest: #2f3d1e;
 
   /**
-   * Contrastes medidos sobre gelo (#EEF0EA). Piso do projeto: 4.5:1 para texto.
-   * graphite 13.2 · dim 5.4 · faint 4.7 · coral-deep 5.2 · olive-deep 6.5.
-   * coral puro mede 2.8 — só preenchimento e desenho, nunca texto.
-   * Sobre coral usa-se grafite (4.8); sobre manteiga, grafite (10.6).
-   * A oliva de texto é mais escura que a de fundo: sobre o próprio tint de 14%
-   * a versão clara caía para 4.2:1.
+   * Contrastes medidos sobre o creme (#F6EFE3). Piso do projeto: 4.5:1 para texto.
+   * coffee 10.3 · forest 10.2 · moss 7.2 · terracotta-deep 6.6 · dim 5.2 · faint 4.7.
+   * terracotta pura mede 2.6 e burnt 3.9: preenchimento e desenho, nunca texto.
+   * Nenhuma cor de texto passa sobre terracotta pura — por isso fundo de botão
+   * usa terracotta-deep com creme por cima (6.6), e não a terracota cheia.
+   * Os secundários são derivados da família verde: a paleta é de acento e não
+   * traz tom de texto de apoio.
    */
-  --color-bg: var(--color-ice);
-  --color-bg-deep: var(--color-ice-deep);
-  --color-text: var(--color-graphite);
-  --color-text-dim: #5a6359;
-  --color-text-faint: #646d62;
-  /* Secundário sobre a malha da Home: 6,1:1 no gelo. A versao clara reprova em
-     cima das manchas, onde o fundo já chega escurecido. */
-  --color-text-mesh: #525b51;
+  --color-bg: var(--color-cream);
+  --color-bg-deep: var(--color-cream-deep);
+  --color-text: var(--color-forest);
+  --color-text-dim: #5b6844;
+  --color-text-faint: #616f4a;
+  /* Secundário sobre a malha da Home, onde o fundo já chega escurecido. O musgo
+     da paleta mede 7,2:1 no creme e é o único verde com folga para isso. */
+  --color-text-mesh: var(--color-moss);
 
-  --color-border: rgb(32 40 34 / 14%);
-  --color-border-strong: rgb(32 40 34 / 30%);
+  /* Tints e fios derivam da própria paleta, para não existir um segundo lugar
+     onde a mesma cor está escrita à mão. */
+  --color-border: color-mix(in srgb, var(--color-forest) 16%, transparent);
+  --color-border-strong: color-mix(in srgb, var(--color-forest) 32%, transparent);
 
-  --color-accent: var(--color-coral);
-  --color-accent-deep: var(--color-coral-deep);
-  --color-accent-soft: rgb(255 85 72 / 12%);
-  --color-accent-line: rgb(255 85 72 / 44%);
+  --color-accent: var(--color-terracotta);
+  --color-accent-deep: var(--color-terracotta-deep);
+  --color-accent-soft: color-mix(in srgb, var(--color-terracotta) 14%, transparent);
+  --color-accent-line: color-mix(in srgb, var(--color-terracotta) 46%, transparent);
 
-  /* Oliva ocupa o papel de acordo e operação. Sem semáforo, sem azul de tela. */
-  --color-info: var(--color-olive-deep);
-  --color-info-soft: rgb(104 116 91 / 14%);
-  --color-info-line: rgb(104 116 91 / 42%);
+  /* O verde ocupa o papel de acordo e operação. Sem semáforo.
+     O verde clarinho já é a superfície de acordo: musgo sobre ele mede 6,0:1. */
+  --color-info: var(--color-moss);
+  --color-info-soft: var(--color-mint);
+  --color-info-line: color-mix(in srgb, var(--color-leaf) 52%, transparent);
 
-  --color-discovery: var(--color-butter);
+  --color-discovery: var(--color-peach);
 
-  /* Coral lavado. Só preenchimento de área grande: medido para a legenda da
-     revelação continuar em 4,5:1 mesmo com um coração inteiro atrás dela. */
-  --color-blush: #ffd9d2;
+  /* Pêssego lavado. Só preenchimento de área grande: medido para a legenda da
+     revelação continuar em 4,9:1 mesmo com um coração inteiro atrás dela. */
+  --color-blush: #fae6d6;
 
-  --color-chrome-bg: rgb(238 240 234 / 90%);
+  --color-chrome-bg: color-mix(in srgb, var(--color-cream) 90%, transparent);
+
+  --gradient-rule: linear-gradient(90deg, var(--color-accent-line), transparent);
+  --gradient-progress: linear-gradient(90deg, var(--color-burnt), var(--color-moss));
 
   /**
    * Malha do acesso. Os centros ficam fora da tela de propósito: assim nenhuma cor
    * tem um núcleo visível e não dá para dizer onde uma começa e a outra termina.
-   * Origens: peach #F2B8A2 · sage #A9B5A0 · blue grey #AAB8C8 · coral #FF6B5E.
    */
-  --mesh-glow: rgb(255 253 250 / 52%);
-  --mesh-peach: rgb(242 184 162 / 46%);
-  --mesh-sage: rgb(169 181 160 / 32%);
-  --mesh-blue: rgb(170 184 200 / 40%);
-  --mesh-coral: rgb(255 107 94 / 21%);
+  --mesh-glow: rgb(255 250 242 / 52%);
+  --mesh-peach: color-mix(in srgb, var(--color-peach) 44%, transparent);
+  --mesh-sage: color-mix(in srgb, var(--color-sage) 32%, transparent);
+  --mesh-leaf: color-mix(in srgb, var(--color-leaf) 28%, transparent);
+  --mesh-terracotta: color-mix(in srgb, var(--color-terracotta) 20%, transparent);
 
   /**
    * Malha da Home. Mais saturada que a do acesso de propósito: a Hero tem que ter
-   * cor perceptível, não gelo quase uniforme. O `wash` é pintado por cima das
+   * cor perceptível, não creme quase uniforme. O `wash` é pintado por cima das
    * manchas e lava a coluna do texto — é ele que segura o contraste.
    */
-  --hero-peach: rgb(255 168 133 / 62%);
-  --hero-butter: rgb(255 209 92 / 46%);
-  --hero-sage: rgb(158 180 146 / 48%);
-  --hero-blue: rgb(154 185 216 / 50%);
-  --hero-wash: rgb(255 253 248 / 66%);
-
-  --gradient-rule: linear-gradient(90deg, var(--color-accent-line), rgb(32 40 34 / 0%));
-  --gradient-progress: linear-gradient(90deg, var(--color-coral), var(--color-olive));
+  --hero-peach: color-mix(in srgb, var(--color-peach) 62%, transparent);
+  --hero-terracotta: color-mix(in srgb, var(--color-terracotta) 38%, transparent);
+  --hero-sage: color-mix(in srgb, var(--color-sage) 52%, transparent);
+  --hero-leaf: color-mix(in srgb, var(--color-leaf) 44%, transparent);
+  --hero-wash: rgb(255 250 242 / 66%);
 
   /* ---- Tipografia ------------------------------------------------------- */
   /* Grotesk contemporânea nos dois papeis. A display é preta de verdade: os nomes

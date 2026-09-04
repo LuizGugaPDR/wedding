@@ -2,10 +2,11 @@
 
 ## Conceito
 
-> **Ice Wedding.** Gelo sofisticado, editorial de moda, sistema operacional privado.
+> **Laranja queimado e verde.** A mesma base cromática do cardápio do casamento, virada
+> em sistema operacional privado.
 
-A identidade é clara e fria na medida certa. Gelo como ar, coral como energia, oliva como
-estado estável. O humor continua vindo do contraste entre a seriedade do sistema e o absurdo
+A identidade é quente e terrosa. Creme como ar, terracota como energia, musgo como estado
+estável. O humor continua vindo do contraste entre a seriedade do sistema e o absurdo
 do conteúdo — mas agora o sistema tem porta, e a porta pede uma senha ridícula.
 
 | Camada | Função | Onde aparece |
@@ -20,25 +21,29 @@ Todos os valores vivem em `css/tokens.css`. Nenhum componente declara cor litera
 
 | Token | Valor | Função |
 | --- | --- | --- |
-| `--color-ice` | `#EEF0EA` | Base. ~65% da área. Nunca branco puro |
-| `--color-ice-deep` | `#E4E8DE` | Superfície de hover e vinheta |
-| `--color-graphite` | `#202822` | Texto. Subtom esverdeado, nunca preto |
-| `--color-coral` | `#FF5548` | Energia. **Só preenchimento e desenho** |
-| `--color-coral-deep` | `#B3382A` | Coral quando é texto |
-| `--color-olive` | `#68745B` | Tint e desenho secundário |
-| `--color-olive-deep` | `#4D5844` | Oliva quando é texto |
-| `--color-butter` | `#FFD447` | Descoberta. Micro-detalhe apenas |
+| `--color-cream` | `#F6EFE3` | Base. ~65% da área. O papel do cardápio |
+| `--color-cream-deep` | `#EFE6D6` | Superfície de hover e vinheta |
+| `--color-forest` | `#2F3D1E` | Texto. Verde floresta, nunca preto |
+| `--color-terracotta` | `#E3792F` | Energia. **Só preenchimento e desenho** |
+| `--color-terracotta-deep` | `#8A3E10` | Terracota quando é texto ou fundo de botão |
+| `--color-burnt` | `#BF5B04` | Laranja queimado. Desenho e gradiente |
+| `--color-coffee` | `#5C2A0A` | Marrom café. Fundo escuro de ação destrutiva |
+| `--color-mint` | `#D7E0C4` | Superfície de acordo |
+| `--color-sage` | `#A9BE8B` | Tint e desenho secundário |
+| `--color-leaf` | `#7C9A5B` | Fio e mancha secundária |
+| `--color-moss` | `#4B5320` | Verde quando é texto |
+| `--color-peach` | `#F0B183` | Descoberta. Micro-detalhe apenas |
 
-Proporção de arte: ~65% gelo, 20% grafite, 10% coral, 5% oliva e contextuais.
+Proporção de arte: ~65% creme, 20% verde floresta, 10% terracota, 5% pêssego e contextuais.
 
 ### Cores têm função, não decoram
 
-- **Coral** — ação, identidade, conflito, alerta, senha. `Negoçiação` e `veto` são coral.
-- **Oliva** — acordo, operação, navegação. `Aprovação unânime` é oliva.
-- **Manteiga** — descoberta. Hoje aparece em um ponto só: o marcador de segredos.
+- **Terracota** — ação, identidade, conflito, alerta, senha. `Negoçiação` e `veto` são terracota.
+- **Verde** — acordo, operação, navegação. `Aprovação unânime` é musgo sobre verde clarinho.
+- **Pêssego** — descoberta. Hoje aparece em um ponto só: o marcador de segredos.
 
-Sem verde e sem vermelho de semáforo: o par coral/oliva cumpre o papel sem virar dashboard.
-Não existe mais tema por seção — nenhuma tela é pintada de uma cor chapada saturada.
+O par terracota/verde cumpre o papel de sinalização sem virar semáforo de dashboard.
+Não existe tema por seção — nenhuma tela é pintada de uma cor chapada saturada.
 
 ## Tipografia — duas famílias, sem exceção
 
@@ -237,20 +242,21 @@ visíveis como uma página longa. O convite nunca desaparece atrás de uma porta
 Foco visível com o accent, `.skip-link`, `<button>` real para ações e `<a>` para navegação,
 `aria-label` descritivo onde o texto visível não basta. Trocar de view move o foco para a view.
 
-Contraste medido sobre gelo `#EEF0EA`:
+Contraste medido sobre creme `#F6EFE3`:
 
 | Token | Contraste | AA |
 | --- | --- | --- |
-| `--color-graphite` `#202822` | 13.2:1 | ✓ |
-| `--color-olive-deep` `#4D5844` | 6.5:1 | ✓ |
+| `--color-forest` `#2F3D1E` | 10.2:1 | ✓ |
+| `--color-moss` `#4B5320` | 7.2:1 | ✓ |
 | `--color-text-dim` `#5A6359` | 5.4:1 | ✓ |
-| `--color-coral-deep` `#B3382A` | 5.2:1 | ✓ |
+| `--color-terracotta-deep` `#8A3E10` | 6.6:1 | ✓ |
 | `--color-text-faint` `#646D62` | 4.7:1 | ✓ |
-| `--color-coral` `#FF5548` | 2.8:1 | só preenchimento e desenho |
+| `--color-terracotta` `#E3792F` | 2.6:1 | só preenchimento e desenho |
 
-Sobre coral usa-se `graphite` (4.8:1). Sobre manteiga, `graphite` (10.6:1).
+**Nenhuma cor de texto passa sobre a terracota cheia** — nem creme, nem floresta, nem café.
+Por isso fundo de botão usa `terracotta-deep` com creme por cima (6,6:1), e não a cor cheia.
 
-**Medir sobre o tint, não sobre a base.** `Aprovação unânime` é oliva sobre um tint de oliva a
-14%. Contra o gelo puro a oliva clara passava; contra o próprio tint ela caiu para 4.2:1.
-Por isso a oliva de texto (`#4D5844`) é mais escura que a oliva de fundo (`#68745B`).
+**Medir sobre o tint, não sobre a base.** `Aprovação unânime` é musgo sobre verde clarinho, e
+mede 6,0:1 — medido sobre o clarinho, não sobre o creme. Sobre a malha da Home, mais saturada,
+até o secundário derivado caa para 4,2:1: por isso os rótulos micro da Hero usam o musgo.
 

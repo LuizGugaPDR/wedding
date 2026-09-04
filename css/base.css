@@ -90,8 +90,8 @@ ol {
 }
 
 ::selection {
-  background-color: var(--color-accent);
-  color: var(--color-graphite);
+  background-color: var(--color-peach);
+  color: var(--color-forest);
 }
 
 /* Números que mudam ao vivo não podem "dançar". */
@@ -105,8 +105,8 @@ ol {
   top: var(--space-md);
   z-index: var(--z-modal);
   padding: var(--space-xs) var(--space-md);
-  background-color: var(--color-graphite);
-  color: var(--color-ice);
+  background-color: var(--color-forest);
+  color: var(--color-cream);
   border-radius: var(--radius-sm);
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-wide);

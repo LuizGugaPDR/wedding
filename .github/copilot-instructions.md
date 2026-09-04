@@ -147,13 +147,17 @@ Todo estilo consome tokens de `css/tokens.css`. Nenhum valor hardcoded em compon
 
 | Token | Valor | Função |
 | --- | --- | --- |
-| `--color-ice` | `#EEF0EA` | Base. Nunca branco puro |
-| `--color-graphite` | `#202822` | Texto. Subtom esverdeado, nunca preto |
-| `--color-coral` | `#FF5548` | Energia. **Só preenchimento e desenho** |
-| `--color-coral-deep` | `#B3382A` | Coral quando é texto |
-| `--color-olive` | `#68745B` | Tint e desenho secundário |
-| `--color-olive-deep` | `#4D5844` | Oliva quando é texto |
-| `--color-butter` | `#FFD447` | Descoberta. Micro-detalhe apenas |
+| `--color-cream` | `#F6EFE3` | Base. O papel do cardápio. Nunca branco puro |
+| `--color-forest` | `#2F3D1E` | Texto. Verde floresta, nunca preto |
+| `--color-terracotta` | `#E3792F` | Energia. **Só preenchimento e desenho** |
+| `--color-terracotta-deep` | `#8A3E10` | Terracota quando é texto ou fundo de botão |
+| `--color-burnt` | `#BF5B04` | Laranja queimado. Desenho e gradiente |
+| `--color-coffee` | `#5C2A0A` | Marrom café. Fundo escuro de ação destrutiva |
+| `--color-mint` | `#D7E0C4` | Superfície de acordo |
+| `--color-sage` | `#A9BE8B` | Tint e desenho secundário |
+| `--color-leaf` | `#7C9A5B` | Fio e mancha secundária |
+| `--color-moss` | `#4B5320` | Verde quando é texto |
+| `--color-peach` | `#F0B183` | Descoberta. Micro-detalhe apenas |
 
 **Cor tem função, não decora.** Coral = ação, conflito, alerta, senha.
 Oliva = acordo, operação, navegação. Manteiga = descoberta.

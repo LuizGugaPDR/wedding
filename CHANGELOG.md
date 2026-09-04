@@ -2,6 +2,22 @@
 
 Todas as mudanças relevantes do Wedding OS. Uma entrada por sprint.
 
+## [0.10.0] — 2026-09-04 · Paleta do cardápio
+
+### Changed
+- **A paleta inteira passou a ser a do cardápio do casamento**: laranja queimado e verde.
+  Saiu o ICE WEDDING. O creme do papel virou a base, o verde floresta virou o texto, a
+  terracota assumiu o papel de energia e o musgo o de acordo.
+- Os tokens base foram **renomeados**, e não só revalorados: `--color-coral` guardando um
+  laranja queimado envenenaria toda leitura futura do projeto.
+- **Terracota cheia não aceita texto** (2,6:1) — nem creme, nem floresta, nem café. Por isso
+  fundo de botão passou a ser terracota escura com creme por cima (6,6:1), e não a cor cheia.
+- Tints e fios agora derivam da paleta via `color-mix`, em vez de repetir o mesmo RGB
+  escrito à mão em dois lugares.
+- `--color-text-mesh` virou o musgo da paleta: sobre a malha nova, mais saturada, o tom
+  anterior caa para 4,2:1 nos rótulos do countdown.
+- Corações da revelação em pêssego lavado no lugar do rosa.
+
 ## [0.9.0] — 2026-09-04 · Sprint 4A · Guest Intelligence
 
 ### Added

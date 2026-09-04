@@ -79,7 +79,7 @@ body[data-returning] [data-reveal] {
 }
 
 .lock[data-denied] .lock__input {
-  border-color: var(--color-coral);
+  border-color: var(--color-terracotta);
 }
 
 @keyframes alert-pulse {
