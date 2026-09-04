@@ -14,7 +14,7 @@ import {
   updateOverview,
 } from './dashboard.js';
 import { mountBoard, mountIdeaForm, renderDecisions } from './decisions.js';
-import { magnetize, trackPointer } from './interactions.js';
+import { magnetize, trackPointer, trailHearts } from './interactions.js';
 import { mountLock } from './lock.js';
 import { startRouter } from './router.js';
 import { observeReveals, revealAll } from './scroll.js';
@@ -55,6 +55,16 @@ function bindExplore() {
 function announceLocked(destino) {
   $('[data-hub-alert]').textContent =
     `${destino.label} · aguardando liberação. Control Center é o único destino aberto.`;
+}
+
+/**
+ * Rastro do ponteiro em toda a aplicação. São duas camadas porque o cadeado é um
+ * `<dialog>` modal: enquanto ele está aberto, nada do documento aparece por cima.
+ */
+function bindTrail() {
+  const naPorta = $('[data-lock-trail]');
+  const noOS = $('[data-trail]');
+  trailHearts(document, () => (document.body.hasAttribute('data-locked') ? naPorta : noOS));
 }
 
 /* ---- Chrome ---------------------------------------------------------------- */
@@ -128,6 +138,7 @@ function boot() {
   observeReveals();
   trackPointer();
   magnetize();
+  bindTrail();
 
   const lock = mountLock({ onUnlock: () => state.setPref('visited', true) });
   bindLockAgain(lock);

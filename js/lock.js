@@ -6,7 +6,7 @@
  */
 
 import { access } from './data.js';
-import { burstReveal, rainHearts, trailHearts } from './interactions.js';
+import { burstReveal, rainHearts } from './interactions.js';
 
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -35,7 +35,6 @@ export function mountLock({ onUnlock }) {
   mountDrift();
   mountDossier();
   mountReveal();
-  trailHearts(lock, document.querySelector('[data-lock-trail]'));
 
   /** Palavras da lista derivando ao fundo. Decorativo: fica fora da árvore de acessibilidade. */
   function mountDrift() {

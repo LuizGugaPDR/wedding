@@ -72,13 +72,15 @@ const PASSO = 52;
 const TETO = 10;
 
 /**
- * Rastro de corações atrás do ponteiro. Exceção deliberada à direção de arte, pedida
- * para a tela de acesso e restrita a ela: o coração some antes de virar decoração.
+ * Rastro de corações atrás do ponteiro. Exceção deliberada à direção de arte: o
+ * coração some antes de virar decoração.
  *
- * @param {Element} escopo Área que escuta o ponteiro.
- * @param {Element} palco Camada onde os corações nascem.
+ * @param {Element|Document} escopo Área que escuta o ponteiro.
+ * @param {() => Element | null} palcoAtual Resolve a camada de destino a cada coração.
+ *   É função porque o cadeado é `<dialog>` e vive na top layer: enquanto ele está
+ *   aberto, nada do documento aparece por cima dele.
  */
-export function trailHearts(escopo, palco) {
+export function trailHearts(escopo, palcoAtual) {
   if (reducedMotion.matches || !finePointer.matches) return;
 
   let ultimo = null;
@@ -91,6 +93,9 @@ export function trailHearts(escopo, palco) {
     if (ultimo && Math.hypot(ponto.x - ultimo.x, ponto.y - ultimo.y) < PASSO) return;
     ultimo = ponto;
     if (vivos >= TETO) return;
+
+    const palco = palcoAtual();
+    if (!palco) return;
 
     const heart = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     heart.setAttribute('class', 'heart');

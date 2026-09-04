@@ -133,9 +133,10 @@ A interface é clara e fria na medida certa. Contemporânea e confortável, nunc
   landing SaaS, roxo genérico, neon cyberpunk, glassmorphism, gradientes espalhados, rosa de
   casamento, corações, cards para tudo, sombras pesadas, bordas arredondadas gigantes,
   grid de três cards.
-- **Única exceção ao "sem corações":** o rastro do ponteiro na tela de acesso, pedido
-  explicitamente pelo usuário. Coral, ~10px, some em 900ms e vive só dentro do cadeado.
-  Não estender para nenhuma outra tela.
+- **Única exceção ao "sem corações":** o rastro do ponteiro, pedido explicitamente pelo
+  usuário. Coral, ~20px, some em 900ms, no máximo dez ao mesmo tempo. Vale em **todas as
+  telas**, não só no cadeado. Coração fora do rastro, da explosão do desbloqueio e da
+  revelação continua proibido.
 - Composição editorial: escala tipográfica enorme, assimetria intencional, sobreposição,
   formas gráficas (círculos, selos, contornos, fios) — nunca com cara de Canva.
 - Proporção: ~65% gelo, 20% grafite, 10% coral, 5% oliva/manteiga e contextuais.

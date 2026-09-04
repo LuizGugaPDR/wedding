@@ -2,6 +2,17 @@
 
 Todas as mudanças relevantes do Wedding OS. Uma entrada por sprint.
 
+## [0.8.2] — 2026-09-04 · Rastro em toda a aplicação
+
+### Changed
+- **O rastro de corações deixou de viver só no cadeado** e acompanha o ponteiro em todas as
+  telas. São duas camadas porque o cadeado é um `<dialog>` modal na top layer, onde nada do
+  documento aparece por cima: `trailHearts` passou a receber uma função que resolve o destino
+  a cada coração, em vez de um elemento fixo.
+- A ligação saiu de `lock.js` para `app.js`: o rastro não é mais assunto da porta.
+- Teto de dez corações, um a cada 52px percorridos e saída em 900ms seguem iguais. Nada em
+  toque ou sob `prefers-reduced-motion`.
+
 ## [0.8.1] — 2026-09-04 · Acertos da porta e da revelação
 
 ### Changed

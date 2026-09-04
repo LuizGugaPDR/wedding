@@ -156,4 +156,6 @@
   --z-chrome: 100;
   --z-modal: 300;
   --z-lock: 400;
+  /* Acima de tudo: o rastro acompanha o cursor e some sozinho. */
+  --z-trail: 500;
 }

@@ -87,7 +87,11 @@ sai do eixo da coluna.
 
 Mover o ponteiro deixa um **rastro de corações** coral de ~20px, um a cada 52px percorridos,
 no máximo dez ao mesmo tempo, cada um vivendo 900ms. É a única exceção ao "sem corações" da
-direção de arte, pedida para esta tela e restrita a ela.
+direção de arte, e vale em **todas as telas**.
+
+São duas camadas, e não uma: o cadeado é um `<dialog>` modal e vive na top layer, onde nada do
+documento aparece por cima. `trailHearts` recebe uma **função** que resolve o destino a cada
+coração — a de dentro do diálogo enquanto a porta está fechada, a global depois disso.
 
 **Revelação.** Depois de `ACCESS GRANTED` a tela **explode**: cerca de 14 cópias da foto do casal,
 em tamanhos de 5 a 14rem, e ~37 corações saem do centro em três ondas (0, 230 e 500ms). A

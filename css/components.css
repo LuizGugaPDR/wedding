@@ -1247,12 +1247,18 @@ a.readout:focus-visible .readout__value {
 }
 
 /* Rastro do ponteiro. Fica acima de tudo porque acompanha o cursor, e some sozinho. */
-.lock__trail {
+.trail {
   position: fixed;
   inset: 0;
-  z-index: 1;
+  z-index: var(--z-trail);
   overflow: hidden;
   pointer-events: none;
+}
+
+/* Dentro do cadeado a camada é outra: `<dialog>` modal vive na top layer e nada do
+   documento aparece por cima dele. Aqui basta ficar sobre o painel. */
+.lock__trail {
+  z-index: 1;
 }
 
 .heart {
