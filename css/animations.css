@@ -118,33 +118,6 @@ body[data-returning] [data-reveal] {
   }
 }
 
-/* Superfície do cadeado: a malha anda uma célula inteira e recomeça, sem emenda. */
-@keyframes field-drift {
-  from {
-    background-position: 0 0;
-  }
-
-  to {
-    background-position: var(--grid-step) var(--grid-step);
-  }
-}
-
-@keyframes sonar {
-  0% {
-    scale: 0.32;
-    opacity: 0;
-  }
-
-  18% {
-    opacity: 0.3;
-  }
-
-  100% {
-    scale: 3.4;
-    opacity: 0;
-  }
-}
-
 /* Entrada do OS depois do desbloqueio: a foto sai em corte, o sistema chega inteiro. */
 @keyframes os-enter {
   from {
@@ -203,18 +176,11 @@ body[data-entering] .os-footer {
   .lock__indicator[data-live]::before,
   .lock__word,
   .lock__word-boost,
-  .lock__field,
-  .lock__ring,
   body[data-entering] .os-chrome,
   body[data-entering] #main,
   body[data-entering] .os-footer,
   .decision.is-changed {
     animation: none;
-  }
-
-  /* A malha fica; só o sonar sai de cena, porque sem movimento vira anel parado. */
-  .lock__ring {
-    display: none;
   }
 
   .lock-icon__shackle {

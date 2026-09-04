@@ -998,90 +998,21 @@ a.readout:focus-visible .readout__value {
   overflow-y: auto;
   background-color: var(--color-bg);
   /**
-   * Malha em camadas, do topo para o fundo. O claro central vem primeiro de
-   * propósito: ele lava a região do painel, então nenhum tom da malha chega
-   * a escurecer o texto — o contraste só melhora em relação ao gelo puro.
+   * Malha difusa, sem uma única linha. O clarão central vem primeiro de propósito:
+   * ele lava a região do painel, então nenhum tom chega a escurecer o texto.
    */
   background-image:
-    radial-gradient(64% 56% at 50% 44%, var(--mesh-glow), transparent 80%),
-    radial-gradient(58% 54% at 4% 10%, var(--mesh-peach), transparent 80%),
-    radial-gradient(62% 56% at 96% 18%, var(--mesh-blue), transparent 82%),
-    radial-gradient(58% 52% at 88% 94%, var(--mesh-coral), transparent 80%),
-    radial-gradient(64% 58% at 8% 96%, var(--mesh-sage), transparent 82%),
-    linear-gradient(180deg, var(--color-bg-deep), var(--color-bg) 46%);
+    radial-gradient(78% 72% at 50% 46%, var(--mesh-glow), transparent 82%),
+    radial-gradient(90% 80% at -6% -8%, var(--mesh-peach), transparent 76%),
+    radial-gradient(88% 78% at 106% 2%, var(--mesh-blue), transparent 76%),
+    radial-gradient(84% 76% at 104% 104%, var(--mesh-coral), transparent 74%),
+    radial-gradient(92% 82% at -8% 108%, var(--mesh-sage), transparent 78%);
   color: var(--color-text);
 }
 
 /* Sem `open` o diálogo some — inclusive quando os módulos nunca chegam a rodar. */
 .lock:not([open]) {
   display: none;
-}
-
-/**
- * Campo técnico: malha fina que respira e sonar saindo de trás do cadeado.
- * A grade fica no limite do perceptível — presença, não wireframe.
- */
-.lock__field {
-  --grid-step: 3.5rem;
-
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  background-image:
-    repeating-linear-gradient(90deg, var(--mesh-grid) 0 1px, transparent 1px var(--grid-step)),
-    repeating-linear-gradient(0deg, var(--mesh-grid) 0 1px, transparent 1px var(--grid-step));
-  animation: field-drift 46s linear infinite;
-}
-
-/* Ruído parado, fora da grade que anda: grão não pode cintilar. */
-.lock__field::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: var(--texture-noise);
-  background-size: 160px 160px;
-  opacity: 0.035;
-}
-
-/* Anel de sonar: banda difusa, não fio técnico. Nasce atrás do cadeado. */
-.lock__ring {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 17rem;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    transparent 60%,
-    var(--mesh-ring) 72%,
-    transparent 84%
-  );
-  translate: -50% -50%;
-  opacity: 0;
-  animation: sonar 9s linear infinite;
-}
-
-.lock__ring:nth-child(2) {
-  animation-delay: 3s;
-}
-
-.lock__ring:nth-child(3) {
-  animation-delay: 6s;
-}
-
-/* Na verificação o sonar acelera: o sistema está procurando alguém. */
-.lock[data-stage='auth'] .lock__ring {
-  animation-duration: 4.5s;
-}
-
-.lock[data-stage='auth'] .lock__ring:nth-child(2) {
-  animation-delay: 1.5s;
-}
-
-.lock[data-stage='auth'] .lock__ring:nth-child(3) {
-  animation-delay: 3s;
 }
 
 /* Fio de alerta no topo. É o único coral chapado da tela trancada. */
