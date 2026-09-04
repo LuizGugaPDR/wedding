@@ -96,14 +96,15 @@ body[data-returning] [data-reveal] {
   animation: alert-pulse 1.6s var(--ease-out) infinite alternate;
 }
 
-/* Deriva das palavras da lista: curso curto, em vaivém contínuo. */
-@keyframes word-drift {
+/* Travessia das palavras: entra por uma borda, sai pela outra. Começa e termina
+   fora da tela, então o laço nunca mostra o salto de volta. */
+@keyframes word-cross {
   from {
-    translate: -50% -50%;
+    translate: 100vw -50%;
   }
 
   to {
-    translate: calc(-50% + var(--drift-shift)) calc(-50% - 1.4rem);
+    translate: -100% -50%;
   }
 }
 

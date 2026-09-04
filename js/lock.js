@@ -43,9 +43,12 @@ export function mountLock({ onUnlock }) {
       ...access.drift.map((word) => {
         const item = document.createElement('span');
         item.className = 'lock__word';
-        item.style.cssText = `--drift-top:${word.top}%;--drift-left:${word.left}%;--drift-size:${word.size}rem;--drift-shift:${word.shift}rem;--drift-duration:${word.duration}s;--drift-delay:${word.delay}s`;
+        // Atraso negativo: a palavra já nasce no meio do percurso, senão a tela começa vazia.
+        const inicio = -(word.duration * word.offset).toFixed(1);
+        item.style.cssText = `--drift-top:${word.top}%;--drift-size:${word.size}rem;--drift-shift:${word.shift}rem;--drift-duration:${word.duration}s;--drift-delay:${inicio}s`;
+        if (word.shift < 0) item.dataset.reverse = '';
 
-        // A deriva lenta mora no pai e o impulso do hover no filho: dois `translate`
+        // A travessia mora no pai e o impulso do hover no filho: dois `translate`
         // que se compõem, em vez de um só que saltaria ao trocar de duração.
         const boost = document.createElement('span');
         boost.className = 'lock__word-boost';

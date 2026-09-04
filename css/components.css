@@ -1002,7 +1002,7 @@ a.readout:focus-visible .readout__value {
    * ele lava a região do painel, então nenhum tom chega a escurecer o texto.
    */
   background-image:
-    radial-gradient(78% 72% at 50% 46%, var(--mesh-glow), transparent 82%),
+    radial-gradient(82% 80% at 50% 46%, var(--mesh-glow), transparent 84%),
     radial-gradient(90% 80% at -6% -8%, var(--mesh-peach), transparent 76%),
     radial-gradient(88% 78% at 106% 2%, var(--mesh-blue), transparent 76%),
     radial-gradient(84% 76% at 104% 104%, var(--mesh-coral), transparent 74%),
@@ -1034,16 +1034,18 @@ a.readout:focus-visible .readout__value {
   /* A máscara apaga o que chega perto do painel: nenhuma palavra disputa leitura
      com a pergunta. Os raios são os do painel (34rem de largura) mais folga, em rem
      e nunca em vw — o painel não encolhe junto com a janela.
+     A zona 100% limpa é 72% do raio, e precisa cobrir o painel inteiro: as palavras
+     atravessam a tela toda e passam por cima dele.
      Ficam em variáveis porque `min()` dentro de `radial-gradient` invalida a
      declaração inteira no Chrome. */
-  --mask-rx: 30rem;
-  --mask-ry: 18rem;
+  --mask-rx: 32rem;
+  --mask-ry: 22rem;
   /* Inter ocupa mais largura que Bodoni no mesmo corpo. */
   --drift-scale: 0.82;
   --drift-mask: radial-gradient(
     ellipse var(--mask-rx) var(--mask-ry) at 50% 50%,
-    transparent 64%,
-    #000 98%
+    transparent 72%,
+    #000 100%
   );
 
   position: fixed;
@@ -1058,7 +1060,7 @@ a.readout:focus-visible .readout__value {
 
 /* Na verificação o painel cresce; a zona limpa cresce junto. */
 .lock:not([data-stage='locked']) .lock__drift {
-  --mask-ry: 31rem;
+  --mask-ry: 36rem;
 
   opacity: 0.45;
 }
@@ -1066,7 +1068,7 @@ a.readout:focus-visible .readout__value {
 .lock__word {
   position: absolute;
   top: var(--drift-top);
-  left: var(--drift-left);
+  left: 0;
   pointer-events: auto;
   /* Inter, e não Bodoni itálico: em corpo pequeno o contraste de hastes da display
      fecha as letras e as frases longas viram borrão. */
@@ -1078,11 +1080,14 @@ a.readout:focus-visible .readout__value {
   cursor: default;
   color: var(--color-olive-deep);
   opacity: 0.3;
-  translate: -50% -50%;
-  animation: word-drift var(--drift-duration) var(--ease-out) var(--drift-delay) infinite alternate;
+  animation: word-cross var(--drift-duration) linear var(--drift-delay) infinite;
   transition:
     color var(--dur-md) var(--ease-out),
     opacity var(--dur-md) var(--ease-out);
+}
+
+.lock__word[data-reverse] {
+  animation-direction: reverse;
 }
 
 .lock__word:hover {
@@ -1112,7 +1117,7 @@ a.readout:focus-visible .readout__value {
 
 .heart {
   position: absolute;
-  width: clamp(0.7rem, 1vw, 0.95rem);
+  width: clamp(0.95rem, 1.4vw, 1.35rem);
   fill: var(--color-coral);
   will-change: transform, opacity;
 }

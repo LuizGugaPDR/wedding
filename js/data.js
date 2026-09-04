@@ -305,23 +305,24 @@ export const access = Object.freeze({
   vow: 'Dois anões tequileiros garantem que você sabe a resposta.',
 
   /**
-   * Palavras da lista original derivando ao fundo da tela trancada. Puro enfeite:
-   * a máscara radial de `.lock__drift` apaga o que chega perto do painel.
+   * Palavras da lista original atravessando a tela. `offset` (0–1) é o ponto do
+   * percurso em que cada uma já está no carregamento — sem isso a tela começaria
+   * vazia. `shift` negativo inverte o sentido da travessia.
    */
   drift: Object.freeze([
-    { text: 'Galo Doido', top: 12, left: 22, size: 2.3, shift: 3.8, duration: 9, delay: 0 },
-    { text: 'Dark room', top: 15, left: 76, size: 2.1, shift: -3.5, duration: 11, delay: 1 },
-    { text: 'Gelo de coco', top: 26, left: 10, size: 1.7, shift: -2.9, duration: 8, delay: 2.5 },
-    { text: 'Tirolesa', top: 24, left: 90, size: 1.8, shift: 3, duration: 10, delay: 3.5 },
-    { text: 'Rinha de anão vs drag queen', top: 38, left: 16, size: 1.5, shift: 3.2, duration: 12, delay: 1.5 },
-    { text: 'Alvin e os Esquilos', top: 40, left: 86, size: 1.55, shift: -3.4, duration: 9, delay: 2 },
-    { text: 'Bali Quente', top: 52, left: 8, size: 1.9, shift: -3.7, duration: 11, delay: 4 },
-    { text: 'Copão de whisky e gin', top: 55, left: 91, size: 1.5, shift: 3.5, duration: 8, delay: 5.5 },
-    { text: 'Anão tequileiro (duas unidades)', top: 66, left: 15, size: 1.4, shift: 2.7, duration: 10, delay: 1.5 },
-    { text: 'Savel com as alianças', top: 68, left: 87, size: 1.5, shift: -3.2, duration: 12, delay: 4.5 },
-    { text: 'Espaço kids com monitoras', top: 80, left: 24, size: 1.55, shift: -3, duration: 9, delay: 5 },
-    { text: '@mariah_luizaa0 nossa diva cuida do pet', top: 84, left: 74, size: 1.25, shift: 2.6, duration: 11, delay: 2 },
-    { text: 'Caipirinha catapora caipora curupira', top: 92, left: 46, size: 1.35, shift: 3.6, duration: 10, delay: 3 },
+    { text: 'Galo Doido', top: 12, size: 2.3, shift: 3.8, duration: 118, offset: 0.10 },
+    { text: 'Dark room', top: 19, size: 2.1, shift: -3.5, duration: 142, offset: 0.62 },
+    { text: 'Gelo de coco', top: 26, size: 1.7, shift: -2.9, duration: 96, offset: 0.33 },
+    { text: 'Tirolesa', top: 33, size: 1.8, shift: 3, duration: 131, offset: 0.78 },
+    { text: 'Rinha de anão vs drag queen', top: 40, size: 1.5, shift: 3.2, duration: 155, offset: 0.21 },
+    { text: 'Alvin e os Esquilos', top: 47, size: 1.55, shift: -3.4, duration: 109, offset: 0.55 },
+    { text: 'Bali Quente', top: 54, size: 1.9, shift: -3.7, duration: 124, offset: 0.88 },
+    { text: 'Copão de whisky e gin', top: 61, size: 1.5, shift: 3.5, duration: 148, offset: 0.42 },
+    { text: 'Anão tequileiro (duas unidades)', top: 68, size: 1.4, shift: 2.7, duration: 103, offset: 0.15 },
+    { text: 'Savel com as alianças', top: 75, size: 1.5, shift: -3.2, duration: 137, offset: 0.70 },
+    { text: 'Espaço kids com monitoras', top: 82, size: 1.55, shift: -3, duration: 165, offset: 0.28 },
+    { text: '@mariah_luizaa0 nossa diva cuida do pet', top: 89, size: 1.25, shift: 2.6, duration: 152, offset: 0.49 },
+    { text: 'Caipirinha catapora caipora curupira', top: 96, size: 1.35, shift: 3.6, duration: 115, offset: 0.83 },
   ]),
 
   /** Dossiê da verificação. Sério demais para uma senha romântica — é essa a piada. */

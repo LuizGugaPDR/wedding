@@ -58,16 +58,21 @@ tipográfico gigante.
 
 **Lock screen.** Barra operacional fixa no topo (`WEDDING OS · PRIVATE ACCESS · SESSION`),
 fio coral de 2px na borda superior, `13.03` em Bodoni grande, cadeado em SVG e uma frase que
-já entrega o tom da lista. Ao fundo, treze palavras da lista original derivam devagar — textura,
-nunca leitura, e por isso `aria-hidden`. Elas usam **Inter, não Bodoni**: em corpo pequeno o
-contraste de hastes da display fecha as letras. Passar o mouse acende a palavra em coral e liga
-um segundo impulso mais rápido: a deriva lenta mora no pai, o impulso no filho, e os dois
-`translate` se compõem sem salto.
+já entrega o tom da lista. Ao fundo, treze palavras da lista original **atravessam a tela sem
+parar** — textura, nunca leitura, e por isso `aria-hidden`. Cada uma cruza a largura inteira em
+96 a 165 segundos, metade para cada lado (`animation-direction: reverse`), num movimento lento o
+bastante para nunca disputar atenção. O `animation-delay` é **negativo** e proporcional à duração:
+no primeiro quadro as treze já estão espalhadas pelo caminho, sem fila de espera na borda.
+Elas usam **Inter, não Bodoni**: em corpo pequeno o contraste de hastes da display fecha as
+letras. Passar o mouse acende a palavra em coral e liga um segundo impulso mais rápido: a
+travessia mora no pai, o impulso no filho, e os dois `translate` se compõem sem salto.
 
 Uma máscara radial mantém o miolo limpo. Os raios são os do painel, **em rem e nunca em vw**:
-o painel tem largura fixa e não encolhe junto com a janela.
+o painel tem largura fixa e não encolhe junto com a janela. Como as palavras agora passam por
+cima do painel, a zona 100% limpa é 72% do raio e precisa cobri-lo inteiro — é ela que segura
+o contraste do texto, não a sorte de posicionamento.
 
-Mover o ponteiro deixa um **rastro de corações** coral de ~10px, um a cada 52px percorridos,
+Mover o ponteiro deixa um **rastro de corações** coral de ~20px, um a cada 52px percorridos,
 no máximo dez ao mesmo tempo, cada um vivendo 900ms. É a única exceção ao "sem corações" da
 direção de arte, pedida para esta tela e restrita a ela.
 

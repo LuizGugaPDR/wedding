@@ -2,6 +2,26 @@
 
 Todas as mudanças relevantes do Wedding OS. Uma entrada por sprint.
 
+## [0.7.2] — 2026-09-04 · Atmosfera da entrada
+
+### Changed
+- **O fundo do cadeado virou um degradê contínuo.** Saíram a grade técnica, o ruído e os três
+  anéis de sonar: cinco manchas radiais suaves (clarão, pêssego, sage, azul e coral) com os
+  centros **fora da tela**, para que nenhuma vire um círculo visível. Nada mais anda sozinho
+  ao fundo.
+- **As palavras atravessam a tela sem parar.** O vaivém de 8 a 12s deu lugar a uma travessia
+  contínua de 96 a 165 segundos, metade em cada sentido. O `animation-delay` é negativo e
+  proporcional à duração, então no primeiro quadro as treze já estão espalhadas pelo caminho.
+- A zona limpa da máscara passou de 64% para **72% do raio** e cresceu em ambos os eixos.
+  Agora que as palavras passam por cima do painel, é a máscara que garante o contraste do
+  texto — e não mais o fato de elas viverem só na periferia.
+- Corações do rastro do ponteiro de ~10px para **~20px**.
+
+### Fixed
+- Contraste do painel recalculado sobre o fundo real composto (degradê + palavra × máscara),
+  considerando que o painel **rola sobre o degradê fixo** e que o texto pode ocupar qualquer
+  altura da tela. Pior caso 4,68:1 em dez viewports, de 320 a 1920.
+
 ## [0.7.1] — 2026-09-04 · Ajustes da entrada
 
 ### Changed
@@ -9,8 +29,7 @@ Todas as mudanças relevantes do Wedding OS. Uma entrada por sprint.
   pedir a senha. A entrada é o momento da experiência e precisa acontecer toda vez.
   `prefs.unlocked` saiu do estado; sobrou `prefs.visited`, só para o ritmo de entrada.
 - A revelação passou de 1,4s para **7s** parada — tempo de ler a legenda sem pressa.
-- O fundo do cadeado deixou de ser gelo liso: ganhou malha técnica que anda devagar e três
-  anéis de sonar saindo de trás do cadeado, que aceleram durante a verificação.
+- O fundo do cadeado deixou de ser gelo liso.
 
 ### Added
 - Chuva de corações durante a revelação: um a cada 230ms, queda de 4 a 7s, deriva e giro

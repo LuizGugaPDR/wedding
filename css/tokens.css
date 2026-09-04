@@ -55,7 +55,7 @@
    * tem um núcleo visível e não dá para dizer onde uma começa e a outra termina.
    * Origens: peach #F2B8A2 · sage #A9B5A0 · blue grey #AAB8C8 · coral #FF6B5E.
    */
-  --mesh-glow: rgb(255 253 250 / 44%);
+  --mesh-glow: rgb(255 253 250 / 52%);
   --mesh-peach: rgb(242 184 162 / 46%);
   --mesh-sage: rgb(169 181 160 / 32%);
   --mesh-blue: rgb(170 184 200 / 40%);
