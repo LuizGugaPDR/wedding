@@ -59,7 +59,7 @@ tipográfico gigante.
 **Lock screen.** Barra operacional fixa no topo (`WEDDING OS · PRIVATE ACCESS · SESSION`),
 fio coral de 2px na borda superior, `13.03` em Bodoni grande, cadeado em SVG e uma frase que
 já entrega o tom da lista. Ao fundo, treze palavras da lista original **atravessam a tela sem
-parar e sem nunca desbotar** — cada uma cruza a largura inteira em 96 a 165 segundos, metade
+parar e sem nunca desbotar** — cada uma cruza a largura inteira em 43 a 73 segundos, metade
 para cada lado (`animation-direction: reverse`). O `animation-delay` é **negativo** e proporcional
 à duração: no primeiro quadro as treze já estão espalhadas pelo caminho, sem fila na borda.
 Elas usam **Inter, não Bodoni**: em corpo pequeno o contraste de hastes da display fecha as

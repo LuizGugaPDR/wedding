@@ -14,6 +14,8 @@ Todas as mudanças relevantes do Wedding OS. Uma entrada por sprint.
 - Corpo das palavras aumentado onde estava ilegível: de 9px para 12px no celular e de 13px
   para 14px no tablet. As reduções de opacidade por breakpoint saíram: elas ficam igualmente
   legíveis em qualquer tela.
+- Travessia acelerada: de 96–165s para **43–73s**, ou seja de ~11–17 px/s para ~24–38 px/s.
+  No ritmo anterior o movimento era quase subliminar.
 
 ### Fixed
 - `scrollbar-gutter: stable both-edges` no cadeado. Sem isso a barra de rolagem empurrava o
@@ -28,7 +30,7 @@ Todas as mudanças relevantes do Wedding OS. Uma entrada por sprint.
   centros **fora da tela**, para que nenhuma vire um círculo visível. Nada mais anda sozinho
   ao fundo.
 - **As palavras atravessam a tela sem parar.** O vaivém de 8 a 12s deu lugar a uma travessia
-  contínua de 96 a 165 segundos, metade em cada sentido. O `animation-delay` é negativo e
+  contínua, metade em cada sentido. O `animation-delay` é negativo e
   proporcional à duração, então no primeiro quadro as treze já estão espalhadas pelo caminho.
 - A zona limpa da máscara passou de 64% para **72% do raio** e cresceu em ambos os eixos.
   Agora que as palavras passam por cima do painel, é a máscara que garante o contraste do
