@@ -1,0 +1,125 @@
+/**
+ * Design tokens — única fonte de valores do Wedding OS.
+ * Componentes NUNCA declaram cor, espaço, raio, sombra ou duração literais.
+ *
+ * Direção: ICE WEDDING. Base gelo, grafite de subtom esverdeado no texto,
+ * coral como energia, oliva como estado estável, manteiga só em detalhe.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* ---- Paleta ----------------------------------------------------------- */
+  --color-ice: #eef0ea;
+  --color-ice-deep: #e4e8de;
+  --color-graphite: #202822;
+  --color-coral: #ff5548;
+  --color-coral-deep: #b3382a;
+  --color-olive: #68745b;
+  --color-olive-deep: #4d5844;
+  --color-butter: #ffd447;
+
+  /**
+   * Contrastes medidos sobre gelo (#EEF0EA). Piso do projeto: 4.5:1 para texto.
+   * graphite 13.2 · dim 5.4 · faint 4.7 · coral-deep 5.2 · olive-deep 6.5.
+   * coral puro mede 2.8 — só preenchimento e desenho, nunca texto.
+   * Sobre coral usa-se grafite (4.8); sobre manteiga, grafite (10.6).
+   * A oliva de texto é mais escura que a de fundo: sobre o próprio tint de 14%
+   * a versão clara caía para 4.2:1.
+   */
+  --color-bg: var(--color-ice);
+  --color-bg-deep: var(--color-ice-deep);
+  --color-text: var(--color-graphite);
+  --color-text-dim: #5a6359;
+  --color-text-faint: #646d62;
+
+  --color-border: rgb(32 40 34 / 14%);
+  --color-border-strong: rgb(32 40 34 / 30%);
+
+  --color-accent: var(--color-coral);
+  --color-accent-deep: var(--color-coral-deep);
+  --color-accent-soft: rgb(255 85 72 / 12%);
+  --color-accent-line: rgb(255 85 72 / 44%);
+
+  /* Oliva ocupa o papel de acordo e operação. Sem semáforo, sem azul de tela. */
+  --color-info: var(--color-olive-deep);
+  --color-info-soft: rgb(104 116 91 / 14%);
+  --color-info-line: rgb(104 116 91 / 42%);
+
+  --color-discovery: var(--color-butter);
+
+  --color-chrome-bg: rgb(238 240 234 / 90%);
+
+  --gradient-rule: linear-gradient(90deg, var(--color-accent-line), rgb(32 40 34 / 0%));
+  --gradient-progress: linear-gradient(90deg, var(--color-coral), var(--color-olive));
+
+  /* ---- Tipografia ------------------------------------------------------- */
+  --font-display: 'Bodoni Moda', 'Times New Roman', times, serif;
+  --font-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --text-2xs: 0.6875rem;
+  --text-xs: 0.75rem;
+  --text-md: 1rem;
+  --text-lg: clamp(1.125rem, 1rem + 0.6vw, 1.5rem);
+  --display-sm: clamp(1.875rem, 1.4rem + 2.2vw, 3rem);
+  --display-md: clamp(2.75rem, 1.8rem + 4.4vw, 6rem);
+  --display-lg: clamp(3.75rem, 2rem + 8vw, 11rem);
+  /* Reservado ao 13.03: é elemento gráfico, não texto corrido. */
+  --display-hero: clamp(6rem, 17vw, 20rem);
+
+  --tracking-micro: 0.16em;
+  --tracking-wide: 0.06em;
+  --tracking-tight: -0.02em;
+  --tracking-display: -0.045em;
+
+  --leading-tight: 0.82;
+  --leading-body: 1.6;
+
+  /* ---- Espaço ----------------------------------------------------------- */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6.5rem;
+
+  /* ---- Forma ------------------------------------------------------------ */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-pill: 999px;
+
+  --border-hairline: 1px solid var(--color-border);
+  --border-ink: 1px solid var(--color-text);
+
+  /* ---- Movimento -------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --dur-fast: 160ms;
+  --dur-md: 320ms;
+  --dur-slow: 640ms;
+
+  /* Transição entre views. Uma única linguagem: sai subindo, entra subindo. */
+  --dur-view-out: 200ms;
+  --dur-view-in: 380ms;
+
+  --transition-control: color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+
+  /* ---- Layout ----------------------------------------------------------- */
+  --shell-max: 1600px;
+  --shell-pad: clamp(1.25rem, 4vw, 5rem);
+  --chrome-height: 3.5rem;
+
+  /* Ponteiro normalizado (-1 a 1), escrito por js/interactions.js. */
+  --pointer-x: 0;
+  --pointer-y: 0;
+
+  /* ---- Camadas ---------------------------------------------------------- */
+  --z-chrome: 100;
+  --z-modal: 300;
+  --z-lock: 400;
+}

@@ -1,0 +1,161 @@
+/**
+ * Quatro padrões de movimento. Nenhum outro deve ser criado sem substituir um destes.
+ * 1. reveal  — entrada de bloco ao surgir no viewport, reversível ao voltar
+ * 2. stagger — reveal em cascata via --reveal-index
+ * 3. view    — troca de destino: sai subindo, entra subindo. Única linguagem de rota.
+ * 4. alert   — resposta de sistema: recusa de senha e indicador vivo do acesso
+ *
+ * Hover vive nos componentes, via --transition-control. `scene` foi aposentado
+ * junto com a navegação por rolagem.
+ */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 1.25rem, 0);
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+  transition-delay: calc(var(--reveal-index, 0) * 70ms);
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Quem já entrou não assiste à abertura inteira de novo. */
+body[data-returning] [data-reveal] {
+  transition-delay: 0s;
+}
+
+/* ---- 3: view -------------------------------------------------------------- */
+/* `data-view-state` é escrito por js/router.js durante a troca de destino. */
+
+.js .view[data-view-state='leaving'] {
+  opacity: 0;
+  translate: 0 -0.75rem;
+  transition:
+    opacity var(--dur-view-out) var(--ease-out),
+    translate var(--dur-view-out) var(--ease-out);
+}
+
+.js .view[data-view-state='entering'] {
+  opacity: 0;
+  translate: 0 1.25rem;
+}
+
+.js .view[data-view-state='active'] {
+  opacity: 1;
+  translate: 0 0;
+  transition:
+    opacity var(--dur-view-in) var(--ease-out),
+    translate var(--dur-view-in) var(--ease-out);
+}
+
+/* ---- 4: alert ------------------------------------------------------------- */
+
+@keyframes access-denied {
+  0%,
+  100% {
+    translate: 0;
+  }
+
+  20% {
+    translate: -7px;
+  }
+
+  45% {
+    translate: 6px;
+  }
+
+  70% {
+    translate: -3px;
+  }
+}
+
+.lock[data-denied] .lock__panel {
+  animation: access-denied 380ms var(--ease-out);
+}
+
+.lock[data-denied] .lock__input {
+  border-color: var(--color-coral);
+}
+
+@keyframes alert-pulse {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0.25;
+  }
+}
+
+.lock__indicator[data-live]::before {
+  animation: alert-pulse 1.6s var(--ease-out) infinite alternate;
+}
+
+/* Deriva das palavras da lista: curso curto, em vaivém contínuo. */
+@keyframes word-drift {
+  from {
+    translate: -50% -50%;
+  }
+
+  to {
+    translate: calc(-50% + var(--drift-shift)) calc(-50% - 1.4rem);
+  }
+}
+
+/* Resposta ao ponteiro: mesma direção da deriva, vinte vezes mais rápida. */
+@keyframes word-boost {
+  from {
+    translate: 0 0;
+  }
+
+  to {
+    translate: calc(var(--drift-shift) * 0.5) -0.4rem;
+  }
+}
+
+/* Veredito mudou: um pulso curto no fio da linha, sem mover nada de lugar. */
+@keyframes decision-settled {
+  from {
+    box-shadow: inset 0 1px 0 0 var(--color-accent);
+  }
+
+  to {
+    box-shadow: inset 0 1px 0 0 transparent;
+  }
+}
+
+.decision.is-changed {
+  animation: decision-settled var(--dur-slow) var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  /* A troca de destino vira corte seco: o conteúdo já chegou. */
+  .js .view[data-view-state] {
+    opacity: 1;
+    translate: 0;
+    transition: none;
+  }
+
+  .lock[data-denied] .lock__panel,
+  .lock__indicator[data-live]::before,
+  .lock__word,
+  .lock__word-boost,
+  .decision.is-changed {
+    animation: none;
+  }
+
+  .lock-icon__shackle {
+    transition: none;
+  }
+}

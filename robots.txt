@@ -1,0 +1,4 @@
+# Wedding OS é uma piada privada de um casal, publicada apenas para acesso por link.
+# Não deve ser indexado por mecanismos de busca.
+User-agent: *
+Disallow: /

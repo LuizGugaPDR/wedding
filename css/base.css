@@ -1,0 +1,145 @@
+/* Reset enxuto + fundações tipográficas e de acessibilidade. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--chrome-height) + var(--space-lg));
+}
+
+body {
+  min-height: 100svh;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-ui);
+  font-size: var(--text-md);
+  font-weight: 400;
+  line-height: var(--leading-body);
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  /* `clip` em vez de `hidden`: não cria contexto de rolagem, mais seguro com sticky. */
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+/* Com o cadeado na tela nada rola atrás dele. */
+body[data-locked] {
+  overflow: hidden;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-tight);
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: var(--color-accent-line);
+  text-underline-offset: 0.25em;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-xs);
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-graphite);
+}
+
+/* Números que mudam ao vivo não podem "dançar". */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--space-md);
+  top: var(--space-md);
+  z-index: var(--z-modal);
+  padding: var(--space-xs) var(--space-md);
+  background-color: var(--color-graphite);
+  color: var(--color-ice);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  transform: translateY(-200%);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

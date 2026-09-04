@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Wedding OS · 13.03</title>
+    <meta name="description" content="Sistema de planejamento de um casamento que ainda não foi aprovado por unanimidade." />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#eef0ea" />
+
+    <!-- Marca a presença de JS antes da primeira pintura: sem isso, nada pode ficar escondido. -->
+    <script>
+      document.documentElement.classList.add('js');
+      // Vigia: se os módulos não sinalizarem boot, o conteúdo não pode ficar preso em opacity 0.
+      setTimeout(function () {
+        if (document.body && !document.body.dataset.booted) {
+          document.querySelectorAll('[data-reveal]').forEach(function (el) {
+            el.classList.add('is-revealed');
+          });
+        }
+      }, 1500);
+    </script>
+
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23eef0ea'/%3E%3Crect x='7' y='14' width='18' height='13' rx='2' fill='%23ff5548'/%3E%3Cpath d='M11 14v-4a5 5 0 0 1 10 0v4' fill='none' stroke='%23202822' stroke-width='2.5'/%3E%3C/svg%3E"
+    />
+
+    <!-- O primeiro contato dela com o projeto é o preview do link no mensageiro. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Wedding OS" />
+    <meta property="og:title" content="Wedding OS · 13.03" />
+    <meta
+      property="og:description"
+      content="Luiz &amp; Mel Pitica · Aflora Secreta · 150 convidados · decisões questionáveis."
+    />
+    <meta property="og:url" content="https://luizgugapdr.github.io/wedding/" />
+    <meta property="og:image" content="https://luizgugapdr.github.io/wedding/assets/images/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Luiz &amp; Mel Pitica · Aflora Secreta · 13.03.2027" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Inter:wght@300..600&display=swap"
+    />
+
+    <link rel="stylesheet" href="./css/tokens.css" />
+    <link rel="stylesheet" href="./css/base.css" />
+    <link rel="stylesheet" href="./css/layout.css" />
+    <link rel="stylesheet" href="./css/components.css" />
+    <link rel="stylesheet" href="./css/animations.css" />
+    <link rel="stylesheet" href="./css/responsive.css" />
+  </head>
+
+  <body data-active-view="home">
+    <a class="skip-link" href="#main">Pular para o conteúdo</a>
+
+    <!--
+      Acesso privado. Fica escondido por padrão: se os módulos falharem, o convite
+      continua acessível. O cadeado é encanto, não segurança — o repositório é público.
+    -->
+    <dialog class="lock" data-lock data-stage="locked" aria-label="Acesso privado ao Wedding OS">
+      <div class="lock__drift" data-lock-drift aria-hidden="true"></div>
+
+      <p class="lock__bar">
+        <span>Wedding OS</span>
+        <span class="lock__bar-mid">Private access</span>
+        <span class="tabular">Session 13.03.2027</span>
+      </p>
+
+      <div class="lock__panel">
+        <p class="lock__date">13.03</p>
+
+        <button class="lock__seal" type="button" data-lock-seal aria-describedby="lock-hint">
+          <span class="visually-hidden">Iniciar verificação de acesso</span>
+          <svg class="lock-icon" viewBox="0 0 64 78" aria-hidden="true">
+            <path class="lock-icon__shackle" d="M20 34 V21 a12 12 0 0 1 24 0 V34" />
+            <rect class="lock-icon__body" x="8" y="34" width="48" height="40" rx="5" />
+            <circle class="lock-icon__keyhole" cx="32" cy="48" r="3.5" />
+            <path class="lock-icon__keyhole" d="M32 52 v8" />
+          </svg>
+        </button>
+
+        <p class="lock__vow" data-lock-vow></p>
+        <p class="lock__hint" id="lock-hint">Toque no cadeado</p>
+
+        <div class="lock__auth">
+          <p class="lock__heading">Acesso restrito</p>
+          <p class="lock__prompt">Digite a senha do primeiro contato do casal.</p>
+
+          <ul class="lock__indicators">
+            <li class="lock__indicator" data-live>Identity verification</li>
+            <li class="lock__indicator">Private session</li>
+            <li class="lock__indicator">1 attempt required</li>
+          </ul>
+
+          <form class="lock__form" data-lock-form novalidate>
+            <label class="visually-hidden" for="lock-phrase">Senha do primeiro contato</label>
+            <input
+              class="lock__input"
+              id="lock-phrase"
+              name="phrase"
+              type="text"
+              placeholder="Nossa senha..."
+              autocomplete="off"
+              autocapitalize="none"
+              autocorrect="off"
+              spellcheck="false"
+              enterkeyhint="go"
+            />
+            <button class="cta" type="submit">
+              <span>Desbloquear</span>
+              <span class="cta__arrow" aria-hidden="true">→</span>
+            </button>
+          </form>
+
+          <div class="lock__feedback" aria-live="assertive">
+            <p class="lock__verdict" data-lock-verdict></p>
+            <p class="lock__reason" data-lock-reason></p>
+            <p class="lock__log" data-lock-log></p>
+          </div>
+
+          <dl class="lock__dossier" data-lock-dossier></dl>
+        </div>
+      </div>
+
+      <div class="lock__trail" data-lock-trail aria-hidden="true"></div>
+
+      <figure class="reveal" data-lock-reveal hidden>
+        <p class="reveal__eyebrow" data-lock-reveal-eyebrow></p>
+        <img class="reveal__photo" data-lock-reveal-photo alt="" />
+        <figcaption class="reveal__caption">
+          <p class="reveal__title" data-lock-reveal-title></p>
+          <p class="reveal__note" data-lock-reveal-note></p>
+        </figcaption>
+      </figure>
+    </dialog>
+
+    <header class="os-chrome" data-chrome hidden>
+      <a class="os-chrome__mark" href="#home">
+        <span>13.03</span>
+        <span class="os-chrome__venue">Wedding OS</span>
+      </a>
+
+      <p class="os-chrome__path" data-chrome-path aria-live="polite">
+        <span>13.03</span>
+        <span aria-hidden="true">/</span>
+        <b data-chrome-view>Universe</b>
+      </p>
+
+      <a class="os-chrome__back" href="#home">Universe</a>
+
+      <div class="os-chrome__telemetry">
+        <p class="meter" data-chrome-progress>
+          <span class="meter__track" aria-hidden="true">
+            <span class="meter__fill"></span>
+          </span>
+          <span class="meter__value tabular">—</span>
+          <span class="meter__unit">readiness</span>
+        </p>
+        <p class="micro tabular" data-chrome-secrets>— / — segredos</p>
+      </div>
+    </header>
+
+    <main id="main" class="views">
+      <section
+        class="view shell"
+        id="home"
+        data-view="home"
+        data-view-label="Universe"
+        tabindex="-1"
+      >
+        <div class="hero" data-pointer>
+          <!--
+            O texto abaixo é fallback de aprimoramento progressivo: se os módulos falharem,
+            o convite continua legível. Em execução normal, data.js sobrescreve tudo isso.
+          -->
+          <div class="hero__grid">
+            <span class="hero__date" aria-hidden="true" data-pointer-layer="0.5">13.03</span>
+
+            <p class="hero__eyebrow" data-reveal style="--reveal-index: 0">
+              <span class="hero__dot" aria-hidden="true"></span>
+              <span data-entry-status>Sessão iniciada</span>
+            </p>
+
+            <h1 class="hero__names" data-reveal style="--reveal-index: 1">
+              <span class="hero__name" data-entry-groom>Luiz</span>
+              <span class="hero__amp" aria-hidden="true">&amp;</span>
+              <span class="hero__name" data-entry-bride>Mel Pitica</span>
+            </h1>
+
+            <p class="hero__tagline" data-reveal style="--reveal-index: 2" data-entry-tagline>
+              Um casamento. 150 convidados. Decisões questionáveis.
+            </p>
+
+            <dl class="hero__facts" data-reveal style="--reveal-index: 3">
+              <div>
+                <dt>Local</dt>
+                <dd data-entry-venue>Aflora Secreta</dd>
+              </div>
+              <div>
+                <dt>Data</dt>
+                <dd class="tabular" data-entry-date>13 . 03 . 2027</dd>
+              </div>
+              <div>
+                <dt>Convidados</dt>
+                <dd class="tabular" data-entry-guests>150</dd>
+              </div>
+            </dl>
+
+            <div class="hero__clock" data-reveal style="--reveal-index: 4">
+              <div class="countdown" role="timer" data-countdown>
+                <div class="countdown__unit">
+                  <span class="countdown__value tabular">13.03</span>
+                  <span class="countdown__label">2027</span>
+                </div>
+              </div>
+              <p class="hero__deadline">
+                Pendências até 13.02.2027
+                <span class="tabular" data-deadline-days></span>
+              </p>
+            </div>
+
+            <div class="hero__actions" data-reveal style="--reveal-index: 5">
+              <button class="cta" type="button" data-explore data-magnetic>
+                <span>Explore o 13.03</span>
+                <span class="cta__arrow" aria-hidden="true">↓</span>
+              </button>
+            </div>
+
+            <svg class="hero__seal" viewBox="0 0 120 120" aria-hidden="true" data-pointer-layer="1.3">
+              <defs>
+                <path id="seal-path" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0" />
+              </defs>
+              <text>
+                <textPath href="#seal-path">
+                  SUMMER · LOVE · CHAOS · AFLORA SECRETA · SUMMER · LOVE · CHAOS · AFLORA SECRETA ·
+                </textPath>
+              </text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="hub" id="hub">
+          <div class="section__head">
+            <p class="eyebrow" data-reveal><span class="eyebrow__index">00</span> Wedding Universe</p>
+            <h2 class="display" data-reveal style="--reveal-index: 1">Oito destinos.</h2>
+            <p class="lede" data-reveal style="--reveal-index: 2">
+              Um já está aberto. Os outros aguardam liberação do departamento responsável.
+            </p>
+          </div>
+
+          <nav class="universe" data-universe aria-label="Destinos do Wedding OS"></nav>
+
+          <output class="hub__alert" data-hub-alert></output>
+
+          <p class="hub__foot">
+            <span class="micro">Decision Engine</span>
+            <a class="btn" href="#decisions" data-decisions-shortcut>Abrir</a>
+          </p>
+        </div>
+      </section>
+
+      <section
+        class="view shell"
+        id="control-center"
+        data-view="control-center"
+        data-view-label="Control Center"
+        tabindex="-1"
+      >
+        <div class="section__head">
+          <p class="eyebrow" data-reveal><span class="eyebrow__index">01</span> Control Center</p>
+          <h2 class="display" data-reveal style="--reveal-index: 1" data-overview-title>
+            12 itens ainda esperam veredito.
+          </h2>
+        </div>
+
+        <div class="readiness" data-reveal style="--reveal-index: 2">
+          <p class="readiness__value tabular" data-gauge="progress">0%</p>
+          <p class="readiness__label">Operational readiness</p>
+          <div class="meter__track readiness__meter" aria-hidden="true">
+            <span class="meter__fill"></span>
+          </div>
+          <p class="readiness__note">
+            <span class="tabular" data-gauge="compatibility">0%</span>
+            <span data-gauge-band></span>
+          </p>
+        </div>
+
+        <div class="readouts" data-readouts data-reveal style="--reveal-index: 3"></div>
+
+        <section class="section">
+          <div class="section__head">
+            <p class="eyebrow" data-reveal><span class="eyebrow__index">01.1</span> Cronograma</p>
+            <h3 class="display" data-reveal style="--reveal-index: 1">
+              O tempo ainda está do nosso lado.
+            </h3>
+          </div>
+
+          <div class="split">
+            <div class="bars" data-reveal data-reveal-once style="--reveal-index: 2">
+              <div class="bar" data-bar="elapsed">
+                <p class="micro">Tempo decorrido</p>
+                <p class="bar__value tabular" data-bar-value>00%</p>
+                <div class="bar__track" aria-hidden="true"><span class="bar__fill"></span></div>
+              </div>
+
+              <div class="bar" data-bar="organized">
+                <p class="micro">Organização</p>
+                <p class="bar__value tabular" data-bar-value>00%</p>
+                <div class="bar__track" aria-hidden="true"><span class="bar__fill"></span></div>
+              </div>
+            </div>
+
+            <div data-reveal style="--reveal-index: 3">
+              <!-- Datas de fallback: data.js reescreve em execução normal. -->
+              <ol class="milestones" data-milestones>
+                <li>
+                  <time class="milestones__date tabular" datetime="2026-09-02">02.09.2026</time>
+                  <span class="micro">Início</span>
+                </li>
+                <li>
+                  <time class="milestones__date tabular" datetime="2027-02-13">13.02.2027</time>
+                  <span class="micro">Fim das pendências</span>
+                </li>
+                <li>
+                  <time class="milestones__date tabular" datetime="2027-03-13">13.03.2027</time>
+                  <span class="micro">Cerimônia</span>
+                </li>
+              </ol>
+
+              <p class="micro schedule__days" data-schedule-days></p>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section
+        class="view shell"
+        id="decisions"
+        data-view="decisions"
+        data-view-label="Decision Engine"
+        tabindex="-1"
+      >
+        <div class="section__head">
+          <p class="eyebrow" data-reveal><span class="eyebrow__index">02</span> Decision Engine</p>
+          <h2 class="display" data-reveal style="--reveal-index: 1">A lista, item por item.</h2>
+          <p class="lede" data-reveal style="--reveal-index: 2">
+            Toda decisão passa por dois votos. Um deles tem poder de veto ilimitado.
+          </p>
+        </div>
+
+        <div class="board" data-board data-reveal style="--reveal-index: 3"></div>
+
+        <section class="section">
+          <div class="decisions__bar" data-reveal>
+            <p class="micro tabular">
+              <span data-decisions-count>—</span> · <span data-decisions-open>—</span>
+            </p>
+            <button class="btn" type="button" data-idea-open>+ Nova ideia</button>
+            <output class="micro" data-idea-feedback></output>
+          </div>
+
+          <div data-decisions data-reveal style="--reveal-index: 1"></div>
+        </section>
+      </section>
+    </main>
+
+    <dialog class="modal" data-idea-modal aria-labelledby="idea-title">
+      <form class="modal__form" method="dialog" data-idea-form>
+        <h2 class="modal__title" id="idea-title">Nova ideia</h2>
+        <p class="micro">Entra em análise e passa a contar no progresso.</p>
+
+        <label class="field">
+          <span class="field__label">Ideia</span>
+          <input
+            class="field__input"
+            type="text"
+            name="title"
+            maxlength="80"
+            required
+            pattern=".*\S.*"
+            title="Escreva ao menos uma palavra."
+          />
+        </label>
+
+        <div class="field-row">
+          <label class="field">
+            <span class="field__label">Categoria</span>
+            <select class="field__input" name="category"></select>
+          </label>
+          <label class="field">
+            <span class="field__label">Prioridade</span>
+            <select class="field__input" name="priority"></select>
+          </label>
+        </div>
+
+        <fieldset class="field">
+          <legend class="field__label">Proposta por</legend>
+          <div class="choice" data-idea-proposer></div>
+        </fieldset>
+
+        <label class="field">
+          <span class="field__label">Comentário</span>
+          <textarea class="field__input" name="note" rows="2" maxlength="140"></textarea>
+        </label>
+
+        <div class="modal__actions">
+          <button class="btn" type="button" data-idea-cancel>Cancelar</button>
+          <button class="btn btn--primary" type="submit" value="create">Adicionar</button>
+        </div>
+      </form>
+    </dialog>
+
+    <footer class="os-footer" data-footer>
+      <p>
+        <strong>Ficção.</strong> Wedding OS é uma brincadeira privada de um casal. Nenhuma das pessoas,
+        marcas ou locais citados tem qualquer relação com este evento, e nada aqui descreve fatos reais.
+      </p>
+      <p>Nenhum convite foi enviado. Nenhum contrato foi assinado. Nenhum estádio foi contatado.</p>
+
+      <div class="os-footer__actions">
+        <button class="btn" type="button" data-lock-again>Bloquear Wedding OS</button>
+        <button class="btn btn--danger" type="button" data-reset>Reset Wedding OS</button>
+        <output class="micro" data-reset-feedback></output>
+      </div>
+    </footer>
+
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,320 @@
+/**
+ * Mobile-first. As regras acima destes breakpoints assumem tela pequena.
+ * Alvos validados: 375 · 768 · 1024 · 1440.
+ */
+
+/* Abaixo de 768: composição própria, não desktop encolhido. */
+@media (max-width: 47.99em) {
+  .section {
+    padding-block: var(--space-2xl);
+  }
+
+  .os-chrome {
+    gap: var(--space-md);
+  }
+
+  /* Em 375px só sobrevive a métrica mais importante do chrome. */
+  .os-chrome__venue,
+  .os-chrome__path,
+  .meter__unit,
+  .os-chrome__telemetry [data-chrome-secrets] {
+    display: none;
+  }
+
+  /* Sem palco fixo não há dobra impossível: a view respira e rola por dentro. */
+  .view {
+    padding-top: calc(var(--chrome-height) + var(--space-lg));
+    padding-bottom: var(--space-2xl);
+  }
+
+  .hero {
+    min-height: 0;
+    padding-block: var(--space-lg) var(--space-xl);
+  }
+
+  /* No mobile a Hero vira uma coluna e o 13.03 sai de trás dos nomes. */
+  .hero__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-xs);
+  }
+
+  .hero__names {
+    font-size: var(--display-md);
+  }
+
+  .hero__tagline {
+    font-size: var(--text-md);
+    max-width: none;
+    margin-top: var(--space-xs);
+  }
+
+  .hero__facts {
+    gap: var(--space-md);
+    margin-top: var(--space-xs);
+    padding-top: var(--space-sm);
+  }
+
+  .hero__facts dd {
+    font-size: var(--text-md);
+  }
+
+  .hero__clock {
+    grid-column: 1;
+    grid-row: auto;
+    justify-items: start;
+    text-align: left;
+    margin-top: var(--space-xs);
+  }
+
+  .hero__date {
+    inset: auto auto -0.06em -0.06em;
+    font-size: clamp(5rem, 40vw, 11rem);
+    opacity: 0.5;
+  }
+
+  .hero__seal {
+    top: auto;
+    bottom: 0;
+    width: 4.5rem;
+  }
+
+  .hero__actions {
+    margin-top: var(--space-sm);
+  }
+
+  /* Sem hover no toque: descrição e status ficam sempre visíveis. */
+  /* Em 320px "Aguardando liberação" sozinho já estoura a linha: ele desce. */
+  .universe__row {
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    padding: var(--space-md) var(--space-2xs);
+  }
+
+  .universe__row:hover,
+  .universe__row:focus-visible {
+    padding-left: var(--space-2xs);
+  }
+
+  .universe__note {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  .universe__status {
+    grid-area: auto / 2;
+    white-space: normal;
+  }
+
+  .universe__row[data-ready='false'] .universe__status {
+    justify-self: start;
+  }
+
+  .universe__arrow {
+    display: none;
+  }
+
+  .split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .section__head {
+    gap: var(--space-sm);
+  }
+
+  .section__head .display {
+    font-size: var(--display-sm);
+  }
+
+  .readiness__value {
+    font-size: var(--display-md);
+  }
+
+  .readiness__meter {
+    margin-top: var(--space-md);
+  }
+
+  .readouts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .readout {
+    padding-block: var(--space-md);
+  }
+
+  /* Em duas colunas estreitas o valor grande partiria "Aguardando" ao meio. */
+  .readout__value {
+    font-size: var(--text-lg);
+    line-height: 1.15;
+  }
+
+  /* O teclado do celular come metade da tela: o painel não pode ficar centrado. */
+  .lock {
+    align-content: start;
+    padding-block: var(--space-2xl);
+  }
+
+  .lock__panel {
+    gap: var(--space-md);
+  }
+
+  .lock__form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Em tela estreita o painel toma quase tudo: as frases longas encolhem para
+     caber no que sobra das bordas. */
+  .lock__drift {
+    --drift-scale: 0.46;
+  }
+
+  .lock__word {
+    opacity: 0.26;
+  }
+
+  /* Os três rótulos não cabem numa linha em 375px, e três linhas comem a dobra. */
+  .lock__bar {
+    justify-content: space-between;
+    padding: var(--space-sm) var(--shell-pad);
+  }
+
+  .lock__bar span {
+    white-space: nowrap;
+  }
+
+  .lock__bar span:last-child {
+    display: none;
+  }
+
+  .lock__dossier {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-sm);
+  }
+
+  .milestones {
+    justify-content: flex-start;
+    gap: var(--space-md) var(--space-xl);
+  }
+
+  .countdown {
+    gap: var(--space-md);
+  }
+
+  .board {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-xl);
+  }
+
+  /* O voto desce para baixo do título: não cabe ao lado em tela estreita. */
+  .decision {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .decision__note {
+    grid-area: auto;
+  }
+
+  .votes {
+    grid-area: auto;
+    margin-top: var(--space-xs);
+  }
+
+  .field-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Abaixo de 1024 o chrome fica só com marca, volta e prontidão. */
+@media (max-width: 63.99em) {
+  .os-chrome__path {
+    display: none;
+  }
+}
+
+/* Faixa de tablet: a janela encolheu, as frases longas encolhem junto. */
+@media (min-width: 48em) and (max-width: 63.99em) {
+  .lock__drift {
+    --drift-scale: 0.62;
+  }
+
+  .lock__word {
+    opacity: 0.34;
+  }
+}
+
+/**
+ * Janela baixa de notebook. A Hero não pode empurrar o índice do universo para
+ * fora de vista: se ela ocupar tudo, a Home volta a ser uma página que rola.
+ */
+@media (max-height: 46em) {
+  /* Janela baixa: cada rem de respiro cobrado aqui é o CTA voltando para a dobra. */
+  .view {
+    padding-top: calc(var(--chrome-height) + var(--space-xs));
+  }
+
+  .hero {
+    min-height: 0;
+    padding-block: var(--space-xs) var(--space-md);
+  }
+
+  .hero__grid {
+    gap: var(--space-sm) var(--space-2xl);
+  }
+
+  .hero__facts {
+    margin-top: var(--space-2xs);
+    padding-top: var(--space-xs);
+  }
+
+  .hero__actions {
+    margin-top: var(--space-sm);
+  }
+
+  .hero__names {
+    font-size: var(--display-md);
+  }
+
+  .hero__tagline {
+    font-size: var(--text-md);
+  }
+
+  .countdown__value {
+    font-size: var(--display-sm);
+  }
+
+  .section__head {
+    gap: var(--space-sm);
+  }
+
+  .section__head .display {
+    font-size: var(--display-sm);
+  }
+
+  .readiness__value {
+    font-size: var(--display-md);
+  }
+
+  .readiness__meter {
+    margin-top: var(--space-md);
+  }
+
+  .lock {
+    align-content: start;
+  }
+
+  .lock__panel {
+    gap: var(--space-sm);
+  }
+
+  .lock-icon {
+    width: 4rem;
+  }
+}
+
+/* 1440+ — respiro extra sem esticar a medida de leitura. */
+@media (min-width: 90em) {
+  .section {
+    padding-block: var(--space-3xl);
+  }
+}
