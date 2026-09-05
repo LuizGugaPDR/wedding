@@ -132,7 +132,8 @@ export function trailHearts(escopo, palcoAtual) {
   });
 }
 
-const CADENCIA = 620;
+/** Intervalo entre corações da chuva. Curto: a tela precisa ficar cheia. */
+const CADENCIA = 100;
 
 /** Ondas sucessivas: uma só rajada vira estouro de pipoca, três viram explosão. */
 const ONDAS = [0, 230, 500];
@@ -230,8 +231,8 @@ export function burstReveal(palco, foto) {
 }
 
 /**
- * Corações grandes atravessando a revelação. Raros de propósito: eles existem
- * para dar cor ao gelo liso do fundo, não para virar chuva.
+ * Chuva de corações atravessando a revelação. Densa de propósito: eles preenchem
+ * todo o gelo em volta da foto, do minúsculo ao enorme, e nenhum fica parado.
  *
  * @param {Element} palco Camada onde os corações caem.
  * @returns {() => void} Encerra a chuva e limpa o que sobrou.
@@ -246,7 +247,12 @@ export function rainHearts(palco) {
     heart.setAttribute('class', 'heart heart--rain');
     heart.setAttribute('viewBox', '0 0 24 24');
     heart.style.left = `${Math.random() * 100}%`;
-    heart.style.width = `${2 + Math.random() * 3.5}rem`;
+
+    // Sorteio ao quadrado: minúsculos em maioria, gigantes raros. Distribuição
+    // linear daria um monte de coração médio, que é justamente o que não se vê.
+    const escala = Math.random() ** 2;
+    heart.style.width = `${0.45 + escala * 8.5}rem`;
+    heart.style.opacity = String(0.5 + (1 - escala) * 0.5);
 
     const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     path.setAttribute('d', HEART);
@@ -254,23 +260,26 @@ export function rainHearts(palco) {
     palco.append(heart);
     soltos.add(heart);
 
-    const deriva = (Math.random() * 2 - 1) * 150;
-    const giro = (Math.random() * 2 - 1) * 70;
-    const duracao = 9000 + Math.random() * 6000;
+    const deriva = (Math.random() * 2 - 1) * 220;
+    const meio = (Math.random() * 2 - 1) * 120;
+    const giro = (Math.random() * 2 - 1) * 140;
+    // O pequeno cai mais rápido que o gigante: profundidade sem precisar de blur.
+    const duracao = 6000 + escala * 7000 + Math.random() * 3000;
 
     const queda = heart.animate(
       [
-        { opacity: 0, transform: 'translateY(-24vh) rotate(0deg)' },
-        { opacity: 1, offset: 0.12 },
-        { opacity: 1, offset: 0.85 },
-        { opacity: 0, transform: `translate(${deriva}px, 116vh) rotate(${giro}deg)` },
+        { opacity: 0, transform: 'translate(0, -28vh) rotate(0deg)' },
+        { opacity: 1, offset: 0.1 },
+        { transform: `translate(${meio}px, 44vh) rotate(${giro / 2}deg)`, offset: 0.5 },
+        { opacity: 1, offset: 0.88 },
+        { opacity: 0, transform: `translate(${deriva}px, 122vh) rotate(${giro}deg)` },
       ],
       { duration: duracao, easing: 'linear' },
     );
 
     // A revelação dura oito segundos: sem semear a queda no meio, a foto aparece
     // com a tela ainda vazia e os corações só chegam quando ela já saiu.
-    if (avancado) queda.currentTime = Math.random() * duracao * 0.8;
+    if (avancado) queda.currentTime = Math.random() * duracao * 0.9;
 
     queda.addEventListener('finish', () => {
       heart.remove();
@@ -278,7 +287,7 @@ export function rainHearts(palco) {
     });
   };
 
-  for (let i = 0; i < 9; i += 1) soltar(true);
+  for (let i = 0; i < 58; i += 1) soltar(true);
   const relogio = setInterval(soltar, CADENCIA);
 
   return () => {

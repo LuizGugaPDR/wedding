@@ -53,21 +53,21 @@ function readouts() {
   ).length;
 
   return [
-    { label: 'Guest acquisition', value: `${guests.length} / ${wedding.guestCount}` },
+    { label: 'Convidados na lista', value: `${guests.length} / ${wedding.guestCount}` },
     {
-      label: 'Decisions approved',
+      label: 'Decisões aprovadas',
       value: String(counts.unanimous).padStart(2, '0'),
       route: 'decisions',
     },
     {
-      label: 'Decisions pending',
+      label: 'Decisões em aberto',
       value: String(counts.pending + counts.analysis).padStart(2, '0'),
       route: 'decisions',
     },
-    { label: 'Artists confirmed', value: `${confirmados} / ${attractions.length}` },
-    { label: 'Secrets discovered', value: `${secrets.found} / ${secrets.total}`, tone: 'discovery' },
-    { label: 'Relationship stability', value: `${state.selectors.compatibility()}%` },
-    { label: 'Melissa escape risk', value: escapeRiskFor(state.selectors.compatibility()) },
+    { label: 'Atrações confirmadas', value: `${confirmados} / ${attractions.length}` },
+    { label: 'Segredos encontrados', value: `${secrets.found} / ${secrets.total}`, tone: 'discovery' },
+    { label: 'Estabilidade do casal', value: `${state.selectors.compatibility()}%` },
+    { label: 'Risco de fuga da noiva', value: escapeRiskFor(state.selectors.compatibility()) },
     ...operations.map((op) => ({ label: op.label, value: op.value, tone: op.tone })),
   ];
 }
@@ -105,24 +105,19 @@ export function mountReadouts() {
   );
 }
 
-/** Índice interativo dos oito destinos. Sem cards: lista tipográfica. */
-export function mountUniverse({ onLocked } = {}) {
+/** Índice dos oito destinos. Sem cards: lista tipográfica. */
+export function mountUniverse() {
   const host = $('[data-universe]');
 
   host.replaceChildren(
     ...universe.map((destino) => {
       const aberto = Boolean(destino.route);
-      const row = document.createElement(aberto ? 'a' : 'button');
+      // Bloqueado não é botão: aparece no índice, mas não oferece clique nenhum.
+      const row = document.createElement(aberto ? 'a' : 'div');
       row.className = 'universe__row';
       row.dataset.ready = String(aberto);
 
-      if (aberto) {
-        row.href = `#${destino.route}`;
-      } else {
-        // Não é `aria-disabled`: o botão responde de verdade, avisando por que não abre.
-        row.type = 'button';
-        row.addEventListener('click', () => onLocked?.(destino));
-      }
+      if (aberto) row.href = `#${destino.route}`;
 
       const index = document.createElement('span');
       index.className = 'universe__index tabular';

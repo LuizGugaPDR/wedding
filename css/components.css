@@ -134,13 +134,95 @@
 
 /* ---- Hero ------------------------------------------------------------------ */
 
-/* Abertura, não tela inteira: o índice do universo precisa espiar por baixo. */
+/* A Home é o HUB inteiro numa viewport: resumo à esquerda, destinos à direita. */
 .hero {
   position: relative;
   display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr);
   align-content: center;
-  min-height: min(70svh, 44rem);
-  padding-block: var(--space-xl);
+  align-items: center;
+  gap: var(--space-lg) var(--space-2xl);
+  width: 100%;
+  max-width: var(--shell-max);
+  min-height: 0;
+  margin-inline: auto;
+  overflow: hidden;
+}
+
+.hero__grid,
+.hub {
+  min-height: 0;
+}
+
+/* Camada do 13.03. Vive fora das cenas para permanecer enquanto elas trocam. */
+.markdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Aberta uma cena, ele recua para sombra em vez de sumir. */
+body:not([data-active-view='home']) .hero__mark {
+  opacity: 0.05;
+  scale: 1.18;
+}
+
+/* ---- Deck: etapas dentro da mesma viewport --------------------------------- */
+/* Nenhuma cena rola. O que não cabe vira etapa, com navegação explícita. */
+
+[data-deck] > * {
+  display: none;
+}
+
+[data-deck] > [data-deck-active] {
+  display: grid;
+}
+
+/* Especificidade acima de `.decision`/`.guest`, que também declaram display. */
+[data-deck] [data-deck-hidden] {
+  display: none;
+}
+
+.deck-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+/* `display: flex` venceria o `[hidden]` do agente de usuário. */
+.deck-nav[hidden] {
+  display: none;
+}
+
+.deck-nav__dots {
+  display: flex;
+  gap: var(--space-xs);
+  margin-inline: auto var(--space-xs);
+}
+
+.deck-nav__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  padding: 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  background-color: transparent;
+  transition: var(--transition-control);
+}
+
+.deck-nav__dot[aria-current='true'] {
+  border-color: var(--color-accent-deep);
+  background-color: var(--color-accent-deep);
+}
+
+.deck-nav__step {
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-micro);
+  text-transform: uppercase;
+  color: var(--color-text-dim);
 }
 
 /**
@@ -265,9 +347,8 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr);
   align-content: center;
-  gap: var(--space-md) var(--space-2xl);
+  gap: var(--space-sm);
 }
 
 .hero__eyebrow {
@@ -314,9 +395,9 @@
 
 .hero__tagline {
   grid-column: 1;
-  max-width: 30ch;
-  margin-top: var(--space-md);
-  font-size: var(--text-lg);
+  max-width: 34ch;
+  margin-top: var(--space-2xs);
+  font-size: var(--text-md);
   color: var(--color-text-dim);
 }
 
@@ -324,9 +405,9 @@
   grid-column: 1;
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-xl);
-  margin-top: var(--space-md);
-  padding-top: var(--space-md);
+  gap: var(--space-md);
+  margin-top: var(--space-xs);
+  padding-top: var(--space-xs);
   border-top: var(--border-ink);
 }
 
@@ -347,13 +428,12 @@
 /* Informação de apoio: rótulo em cima, números em corpo de UI e não de display.
    O countdown não pode disputar atenção com os nomes. */
 .hero__clock {
-  grid-column: 2;
-  grid-row: 3 / span 3;
+  grid-column: 1;
   display: grid;
-  gap: var(--space-xs);
-  align-content: end;
-  justify-items: end;
-  text-align: right;
+  gap: var(--space-2xs);
+  align-content: start;
+  justify-items: start;
+  margin-top: var(--space-xs);
 }
 
 .hero__clock-label,
@@ -366,7 +446,7 @@
 
 .hero__actions {
   grid-column: 1;
-  margin-top: var(--space-lg);
+  margin-top: var(--space-sm);
 }
 
 /* ---- CTA ------------------------------------------------------------------- */
@@ -436,7 +516,11 @@
 /* ---- Wedding Universe (hub) ------------------------------------------------ */
 
 .hub {
-  padding-top: var(--space-2xl);
+  position: relative;
+  z-index: 1;
+  display: grid;
+  align-content: center;
+  gap: var(--space-sm);
 }
 
 .universe {
@@ -446,11 +530,11 @@
 
 .universe__row {
   display: grid;
-  grid-template-columns: 3.5rem minmax(0, 1fr) auto 1.25rem;
+  grid-template-columns: 2.5rem minmax(0, 1fr) auto 1rem;
   align-items: center;
-  gap: var(--space-2xs) var(--space-lg);
+  gap: 0 var(--space-md);
   width: 100%;
-  padding: var(--space-lg) var(--space-md);
+  padding: var(--space-xs) var(--space-sm);
   border: 0;
   border-bottom: var(--border-hairline);
   background-color: transparent;
@@ -465,15 +549,31 @@
 }
 
 /* O fundo muda pouquíssimo: é confirmação de alvo, não destaque de card. */
-.universe__row:hover,
-.universe__row:focus-visible {
+.universe__row[data-ready='true']:hover,
+.universe__row[data-ready='true']:focus-visible {
   padding-left: var(--space-xl);
   background-color: var(--color-bg-deep);
 }
 
 .universe__row[data-ready='false'] {
+  padding-block: 0.2rem;
   color: var(--color-text-faint);
   cursor: default;
+}
+
+/* Hierarquia: o destino pronto ocupa o corpo maior, o que espera recua. */
+.universe__row[data-ready='false'] .universe__label {
+  font-size: var(--text-md);
+  letter-spacing: var(--tracking-micro);
+}
+
+/* Seta é promessa de destino. Bloqueado não vai a lugar nenhum. */
+.universe__row[data-ready='false'] .universe__arrow {
+  visibility: hidden;
+}
+
+.universe__row[data-ready='false'] .universe__note {
+  display: none;
 }
 
 .universe__index {
@@ -484,8 +584,8 @@
   transition: color var(--dur-md) var(--ease-out);
 }
 
-.universe__row:hover .universe__index,
-.universe__row:focus-visible .universe__index {
+.universe__row[data-ready='true']:hover .universe__index,
+.universe__row[data-ready='true']:focus-visible .universe__index {
   color: var(--color-terracotta-deep);
 }
 
@@ -508,8 +608,8 @@
     translate var(--dur-md) var(--ease-out);
 }
 
-.universe__row:hover .universe__note,
-.universe__row:focus-visible .universe__note {
+.universe__row[data-ready='true']:hover .universe__note,
+.universe__row[data-ready='true']:focus-visible .universe__note {
   opacity: 1;
   translate: 0 0;
 }
@@ -551,20 +651,9 @@
 .hub__foot {
   display: flex;
   align-items: baseline;
-  gap: var(--space-md);
+  gap: var(--space-sm) var(--space-md);
   flex-wrap: wrap;
   margin-top: var(--space-lg);
-}
-
-/* Resposta a um destino ainda trancado. Tom operacional, não erro. */
-.hub__alert {
-  display: block;
-  min-height: 1.4em;
-  margin-top: var(--space-md);
-  font-size: var(--text-2xs);
-  letter-spacing: var(--tracking-micro);
-  text-transform: uppercase;
-  color: var(--color-accent-deep);
 }
 
 /* ---- Control Center -------------------------------------------------------- */
@@ -617,10 +706,9 @@
  */
 .readouts {
   display: grid;
-  /* 16rem é a largura em que "Aguardando liberação" cabe sem partir a palavra. */
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-  column-gap: var(--space-xl);
-  margin-top: var(--space-2xl);
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  column-gap: var(--space-lg);
+  margin-top: var(--space-md);
   border-top: 1px solid var(--color-border-strong);
 }
 
@@ -805,6 +893,19 @@ a.readout:focus-visible .readout__value {
 
 /* ---- Conselho -------------------------------------------------------------- */
 
+/* O conselho é contexto do Decision Engine, não o assunto: ele encolhe para as
+   decisões caberem na mesma viewport. */
+.board {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xs);
+}
+
+.officer__duties {
+  display: none;
+}
+
 .officer {
   display: grid;
   gap: var(--space-2xs);
@@ -861,7 +962,7 @@ a.readout:focus-visible .readout__value {
 }
 
 .decision-group {
-  padding-top: var(--space-2xl);
+  padding-top: var(--space-xs);
 }
 
 .decision-group__title {
@@ -885,10 +986,29 @@ a.readout:focus-visible .readout__value {
 .decision {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  align-items: baseline;
-  gap: var(--space-xs) var(--space-lg);
-  padding-block: var(--space-lg);
+  align-items: center;
+  gap: 0 var(--space-md);
+  padding-block: var(--space-xs);
   border-top: var(--border-hairline);
+}
+
+/* A nota é contexto, não título: aparece ao mirar a linha, como no índice de
+   destinos. É o que deixa seis decisões caberem numa viewport sem rolagem. */
+.decision__note {
+  grid-area: 2 / 1;
+  max-width: 52ch;
+  font-size: var(--text-2xs);
+  color: var(--color-text-faint);
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  transition: opacity var(--dur-md) var(--ease-out);
+}
+
+.decision:hover .decision__note,
+.decision:focus-within .decision__note {
+  opacity: 1;
+  height: auto;
 }
 
 .decision__head {
@@ -904,13 +1024,6 @@ a.readout:focus-visible .readout__value {
   font-size: var(--text-lg);
   font-weight: 400;
   letter-spacing: var(--tracking-tight);
-}
-
-.decision__note {
-  grid-area: 2 / 1;
-  max-width: 52ch;
-  font-size: var(--text-xs);
-  color: var(--color-text-faint);
 }
 
 .votes {
@@ -969,77 +1082,52 @@ a.readout:focus-visible .readout__value {
 /* ---- Guest Intelligence ---------------------------------------------------- */
 /* Camadas empilhadas, não cards: a escala do nome é que diz quem é gente de verdade. */
 
+/* Cinco linhas dividindo a altura livre: o cartaz ocupa a tela inteira e encolhe
+   junto com ela. `minmax(0, 1fr)` e não `1fr`: o mínimo automático do grid é o
+   conteúdo, e bastava um sexto nome para a linha se recusar a encolher. */
 .roster {
   display: grid;
-  gap: var(--space-3xl);
+  grid-auto-rows: minmax(0, 1fr);
+  gap: var(--space-2xs);
+  min-height: 0;
+  height: 100%;
 }
 
-.tier__head {
+.act {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: baseline;
-  gap: var(--space-sm) var(--space-md);
-  padding-bottom: var(--space-sm);
-  border-bottom: var(--border-ink);
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0 var(--space-md);
+  min-height: 0;
+  padding: var(--space-2xs) 0;
+  border-bottom: var(--border-hairline);
+  overflow: hidden;
+  transition: padding var(--dur-md) var(--ease-out);
 }
 
-.tier__label {
+.act:hover {
+  padding-left: var(--space-md);
+}
+
+.act__index {
+  grid-row: 1 / span 2;
+  font-size: var(--text-2xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-micro);
+  color: var(--color-text-faint);
+}
+
+.act__name {
   font-family: var(--font-display);
-  font-size: var(--display-sm);
+  /* Depende da altura também: a linha divide a viewport, não só a largura. */
+  font-size: clamp(1.25rem, 0.2rem + 1.6vh + 1.1vw, 3.5rem);
+  line-height: 1;
   letter-spacing: var(--tracking-display);
   text-transform: uppercase;
 }
 
-.tier__count {
-  font-size: var(--text-lg);
-  font-weight: 700;
-  color: var(--color-accent-deep);
-}
-
-.tier__note {
-  grid-column: 1 / -1;
-  max-width: 42ch;
-  font-size: var(--text-xs);
-  color: var(--color-text-dim);
-}
-
-.tier__list {
-  display: grid;
-}
-
-/* O delírio recua: nome menor e tom mais leve que o círculo interno. */
-.tier[data-tier='vip'] .guest__name {
-  font-size: var(--text-lg);
-}
-
-.tier[data-tier='improvavel'] .guest__name {
-  font-size: var(--text-md);
-  color: var(--color-text-dim);
-}
-
-.guest {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  gap: var(--space-xs) var(--space-md);
-  padding: var(--space-md) var(--space-2xs);
-  border-bottom: var(--border-hairline);
-  transition: padding var(--dur-md) var(--ease-out);
-}
-
-.guest:hover {
-  padding-left: var(--space-md);
-}
-
-.guest__name {
-  font-family: var(--font-display);
-  font-size: var(--display-sm);
-  line-height: 1.1;
-  letter-spacing: var(--tracking-tight);
-}
-
 /* Marca discreta de quem o casal digitou, para separar da lista original. */
-.guest[data-custom] .guest__name::after {
+.act[data-custom] .act__name::after {
   content: '\002B';
   margin-left: 0.3em;
   font-size: 0.55em;
@@ -1047,17 +1135,163 @@ a.readout:focus-visible .readout__value {
   color: var(--color-accent-deep);
 }
 
-.guest__role {
-  grid-column: 1;
+.act__role {
+  grid-column: 2;
   font-size: var(--text-2xs);
   letter-spacing: var(--tracking-micro);
   text-transform: uppercase;
   color: var(--color-text-dim);
 }
 
-.guest .status {
-  grid-column: 2;
+.act .status {
+  grid-column: 3;
   grid-row: 1 / span 2;
+}
+
+/* ---- Show da noite --------------------------------------------------------- */
+
+.showdown {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background-color: var(--color-cream);
+}
+
+.showdown::backdrop {
+  background-color: color-mix(in srgb, var(--color-forest) 60%, transparent);
+}
+
+.showdown__card {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: var(--space-md);
+  height: 100%;
+  padding: var(--space-xl) var(--shell-pad);
+  text-align: center;
+}
+
+.showdown__eyebrow {
+  font-size: var(--text-2xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-micro);
+  text-transform: uppercase;
+  color: var(--color-terracotta-deep);
+}
+
+.showdown__side {
+  max-width: 18ch;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 1rem + 6vw, 5.5rem);
+  line-height: 0.95;
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.showdown__cue {
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-micro);
+  text-transform: uppercase;
+  color: var(--color-terracotta-deep);
+}
+
+/* O nome é o alvo do clique: a seta aponta para ele e chama a evidência. */
+.showdown__opponent {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-2xs) var(--space-md);
+  border: 0;
+  background-color: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.showdown__arrow {
+  font-size: var(--text-lg);
+  line-height: 1;
+  color: var(--color-terracotta-deep);
+  translate: 0 0;
+  animation: showdown-point 1.6s var(--ease-out) infinite;
+}
+
+@keyframes showdown-point {
+  0%,
+  100% {
+    translate: 0 -0.15em;
+  }
+
+  50% {
+    translate: 0 0.15em;
+  }
+}
+
+.showdown__name {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 1rem + 6vw, 5.5rem);
+  line-height: 0.95;
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-color: var(--color-terracotta);
+  text-underline-offset: 0.12em;
+  transition: color var(--dur-md) var(--ease-out);
+}
+
+.showdown__opponent:hover .showdown__name,
+.showdown__opponent:focus-visible .showdown__name {
+  color: var(--color-terracotta-deep);
+}
+
+.showdown__versus {
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-micro);
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+}
+
+.showdown__note {
+  max-width: 40ch;
+  font-size: var(--text-xs);
+  color: var(--color-text-dim);
+}
+
+/* A evidência toma a tela inteira: é o clímax da piada. */
+.showdown__evidence {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: var(--space-md);
+  margin: 0;
+  padding: var(--space-md) var(--shell-pad);
+  background-color: color-mix(in srgb, var(--color-coffee) 16%, var(--color-cream));
+}
+
+.showdown__evidence[hidden] {
+  display: none;
+}
+
+/* `width/height` e não `max-*`: com `max-` a imagem nunca passa do tamanho
+   natural, e esta é pequena — ficaria um selo no meio da tela. */
+.showdown__evidence img {
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Com a evidência aberta o cartaz sai de cena em vez de vazar por baixo. */
+.showdown[data-evidence] .showdown__card {
+  visibility: hidden;
 }
 
 /* ---- Status ---------------------------------------------------------------- */
@@ -1420,19 +1654,210 @@ a.readout:focus-visible .readout__value {
 
 .reveal__caption {
   display: grid;
-  gap: var(--space-xs);
-  max-width: 34rem;
+  gap: var(--space-2xs);
+  max-width: 26rem;
 }
 
+/* Legenda discreta: quem tem que ocupar a tela é a foto, não a frase. */
 .reveal__title {
+  font-size: var(--text-md);
+  line-height: 1.45;
+  text-wrap: balance;
+}
+
+/* ---- Operação 13.03 -------------------------------------------------------- */
+
+.puzzle {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(15rem, 22rem);
+  gap: var(--space-xl);
+  min-height: 0;
+  height: 100%;
+}
+
+/* O tabuleiro é um quadrado que cabe no que sobrou: mede a si mesmo em vez de
+   depender de breakpoint, que é o que mantém a cena sem rolagem. */
+.puzzle__board {
+  container-type: size;
+  display: grid;
+  place-items: center;
+  min-height: 0;
+  height: 100%;
+}
+
+.puzzle__grid {
+  --puzzle-size: 20;
+
+  display: grid;
+  grid-template-rows: repeat(var(--puzzle-size), 1fr);
+  width: 100cqmin;
+  height: 100cqmin;
+  padding: 0.6cqmin;
+  border: 1px solid var(--color-border-strong);
+  background-color: var(--color-cream-deep);
+  font-variant-numeric: tabular-nums;
+  touch-action: none;
+}
+
+.puzzle__row {
+  display: grid;
+  grid-template-columns: repeat(var(--puzzle-size), 1fr);
+}
+
+.puzzle__cell {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  background-color: transparent;
+  color: var(--color-text-dim);
+  font-family: var(--font-ui);
+  font-size: 2.9cqmin;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-sm) var(--ease-out),
+    color var(--dur-sm) var(--ease-out);
+}
+
+.puzzle__cell:hover {
+  color: var(--color-text);
+}
+
+.puzzle__cell:focus-visible {
+  outline: 2px solid var(--color-terracotta-deep);
+  outline-offset: -2px;
+}
+
+.puzzle__cell.is-picking {
+  background-color: var(--color-terracotta-deep);
+  color: var(--color-cream);
+}
+
+.puzzle__cell.is-found {
+  background-color: var(--color-mint);
+  color: var(--color-moss);
+  font-weight: 700;
+}
+
+/* Erro não usa vermelho de semáforo: some, e é isso. */
+.puzzle__cell.is-wrong {
+  animation: puzzle-wrong 420ms var(--ease-out);
+}
+
+@keyframes puzzle-wrong {
+  0% {
+    background-color: var(--color-terracotta-deep);
+    color: var(--color-cream);
+  }
+
+  100% {
+    background-color: transparent;
+    color: var(--color-text-dim);
+  }
+}
+
+.puzzle__panel {
+  display: grid;
+  align-content: center;
+  gap: var(--space-md);
+  min-height: 0;
+}
+
+.puzzle__score {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+}
+
+.puzzle__count {
+  font-family: var(--font-display);
+  font-size: var(--display-md);
+  line-height: 1;
+  letter-spacing: var(--tracking-display);
+}
+
+.puzzle__list {
+  display: grid;
+  gap: var(--space-2xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.puzzle__word {
+  position: relative;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-micro);
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+  transition: color var(--dur-md) var(--ease-out);
+}
+
+/* Risco desenhado, não `line-through`: ele entra da esquerda quando a palavra cai. */
+.puzzle__word::after {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  top: 50%;
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-leaf);
+  scale: 0 1;
+  transform-origin: left;
+  transition: scale var(--dur-md) var(--ease-out);
+}
+
+.puzzle__word[data-found] {
+  color: var(--color-moss);
+}
+
+.puzzle__word[data-found]::after {
+  scale: 1 1;
+}
+
+.puzzle__feedback {
+  min-height: 2.4em;
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-micro);
+  text-transform: uppercase;
+  color: var(--color-terracotta-deep);
+}
+
+.puzzle__feedback[data-tone='dica'] {
+  color: var(--color-text-dim);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.puzzle__feedback[data-tone='saga'] {
+  color: var(--color-moss);
+}
+
+.puzzle__done {
+  display: grid;
+  gap: var(--space-xs);
+  justify-items: start;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-border-strong);
+}
+
+.puzzle__done[hidden] {
+  display: none;
+}
+
+.puzzle__done-title {
   font-family: var(--font-display);
   font-size: var(--display-sm);
   line-height: 1.05;
   letter-spacing: var(--tracking-display);
-  text-wrap: balance;
+  text-transform: uppercase;
 }
 
-.reveal__note {
+.puzzle__done-note {
   font-size: var(--text-xs);
   color: var(--color-text-dim);
 }

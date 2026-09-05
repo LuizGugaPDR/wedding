@@ -67,6 +67,8 @@ docs/    PRODUCT · DESIGN · SPRINTS
 | `js/storage.js` | Única camada autorizada a tocar `localStorage`. |
 | `js/router.js` | Roteador de views por hash. Uma só linguagem de transição. |
 | `js/lock.js` | Acesso privado: cadeado, verificação e sequência de liberação. |
+| `js/deck.js` | Paginação por medição: quebra a cena em etapas para nada precisar rolar. |
+| `js/scenes.js` | A roda do mouse como gesto de navegação: recolhe o destino ao hub. |
 | `js/scroll.js` | Único lugar que observa viewport. Reveal de blocos. |
 | `js/interactions.js` | Resposta ao ponteiro e atração magnética. |
 | `js/countdown.js` | Contagem regressiva para 13.03.2027 e dias até o deadline. |
@@ -77,11 +79,17 @@ docs/    PRODUCT · DESIGN · SPRINTS
 
 ## Navegação por destinos
 
-Wedding OS não é uma página longa: é uma aplicação de views em tela cheia.
+Wedding OS não rola. O `body` ocupa `100dvh` com `overflow: hidden` e cada destino é um estado
+que ocupa a mesma tela.
 
-- A Home é o **hub**. O índice do 13.03 Universe lista oito destinos; um está aberto.
-- Cada destino é uma `[data-view]` com rota própria: `#home`, `#control-center`, `#decisions`.
-- A rolagem **nunca** troca de destino. Ela existe só dentro de uma view, quando o conteúdo pede.
+- A Home é o **hub completo**: resumo do evento e índice dos oito destinos, tudo em uma tela.
+- Cada destino é uma `[data-view]` com rota própria: `#home`, `#control-center`, `#guests`,
+  `#decisions`.
+- Conteúdo que não cabe é **paginado**, nunca rolado. O deck mede a altura livre e monta as
+  etapas; um grupo grande demais é quebrado pelas próprias linhas, e todas continuam
+  alcançáveis pelo pager.
+- **Rolar para cima recolhe o destino ao hub.** É gesto, não rolagem. `Esc` e o `← UNIVERSE`
+  fazem o mesmo.
 - A transição é uma só: sai subindo, entra subindo, 200 ms + 380 ms.
 - Sem JS nenhuma view fica escondida e os `href="#id"` voltam a ser âncoras — a experiência
   degrada para uma página longa em vez de sumir.

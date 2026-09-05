@@ -84,7 +84,6 @@ export function mountLock({ onUnlock }) {
   function mountReveal() {
     document.querySelector('[data-lock-reveal-eyebrow]').textContent = access.reveal.eyebrow;
     document.querySelector('[data-lock-reveal-title]').textContent = access.reveal.title;
-    document.querySelector('[data-lock-reveal-note]').textContent = access.reveal.note;
     reveal.style.setProperty('--reveal-fade', `${access.reveal.fade}ms`);
 
     const foto = document.querySelector('[data-lock-reveal-photo]');

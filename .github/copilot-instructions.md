@@ -207,15 +207,25 @@ A experiência é entregue por link e aberta no celular. **Falha de rede não po
 
 ### Navegação por destinos
 
-**Wedding OS não é uma página que rola. É uma aplicação de views em tela cheia.**
+**Wedding OS não rola. Nunca. É uma aplicação de estados presa a uma viewport.**
 
-- A Home é o **hub**: hero curta + índice tipográfico dos oito destinos. Sem cards.
+- `body` ocupa `100dvh` com `overflow: hidden`. Nada no produto depende de rolagem para ser
+  descoberto — se o usuário sentir que está descendo uma página, é bug.
+- A Home é o **hub completo**: resumo do evento + índice dos oito destinos, tudo em uma tela.
 - Cada destino é uma `[data-view]` com rota no hash. `js/router.js` é o único dono da rota.
-- **A rolagem nunca troca de destino.** Ela existe só dentro de uma view, quando o conteúdo
-  realmente pede. Nada de `.scene`, palco `sticky` ou trilho de capítulos.
-- Trocar de view move o foco para a view e volta ao topo.
+- Conteúdo que não cabe é **paginado, não rolado**. `js/deck.js` mede a altura livre e empacota
+  os blocos já renderizados em etapas; bloco maior que a tela é quebrado pelas próprias linhas.
+  Toda linha continua alcançável pelo pager. Nada é escondido sem caminho de volta.
+- Como o deck **mede** em vez de assumir, a mesma lista rende 1 etapa em 1920 e 11 em 1280×600.
+  Não criar breakpoint para consertar contagem de etapas.
+- **A roda do mouse é gesto de navegação**, não rolagem: recolhe o destino de volta ao hub,
+  com limiar e trava para o trackpad não disparar em série (`js/scenes.js`). `Esc` e o
+  `← UNIVERSE` fazem o mesmo — o gesto nunca é o único caminho.
+- Trocar de view move o foco para a view.
 - `js/scroll.js` sobrou como observador de viewport para o reveal. Componente nenhum escuta
   scroll por conta própria.
+- O `13.03` é persistente e vive atrás de tudo, sombreado: forte na Home, quase apagado quando
+  um destino está aberto.
 - O chrome persistente mostra marca, breadcrumb `13.03 / DESTINO`, `← UNIVERSE` e prontidão.
 - Destino ainda não construído continua visível e clicável: responde com mensagem operacional,
   nunca fica inerte.

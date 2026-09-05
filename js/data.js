@@ -241,15 +241,15 @@ export const universe = Object.freeze([
   {
     id: 'control-center',
     index: '01',
-    label: 'Control Center',
+    label: 'Centro de Controle',
     note: 'Prontidão operacional, riscos e o que ninguém decidiu ainda.',
     route: 'control-center',
   },
   {
     id: 'guest-intelligence',
     index: '02',
-    label: 'Guest Intelligence',
-    note: 'Treze nomes, três camadas e um departamento de delírio.',
+    label: 'Atrações principais',
+    note: 'Cinco nomes no topo do cartaz. Nenhum contrato foi assinado.',
     route: 'guests',
   },
   {
@@ -262,35 +262,35 @@ export const universe = Object.freeze([
   {
     id: 'experience-map',
     index: '04',
-    label: 'Experience Map',
+    label: 'Mapa da Experiência',
     note: 'Onze áreas. Uma delas não aparece no mapa impresso.',
     route: null,
   },
   {
     id: 'escape-plan',
     index: '05',
-    label: 'Escape Plan',
+    label: 'Plano de Fuga',
     note: 'Rosa, Caribe, Grécia. Retorno opcional.',
     route: null,
   },
   {
     id: 'after-protocol',
     index: '06',
-    label: 'After Protocol',
+    label: 'Protocolo do After',
     note: 'Destino absolutamente questionável.',
     route: null,
   },
   {
     id: 'classified',
     index: '07',
-    label: 'Classified',
+    label: 'Confidencial',
     note: 'Requer autorização de segurança.',
     route: null,
   },
   {
     id: 'contract',
     index: '08',
-    label: 'Contract 13.03',
+    label: 'Contrato 13.03',
     note: 'Assinatura pendente de uma das partes.',
     route: null,
   },
@@ -358,8 +358,7 @@ export const access = Object.freeze({
     image: './assets/images/casal.jpg',
     alt: 'Luiz e Mel Pitica',
     eyebrow: 'Evidência 001',
-    title: 'Os dois responsáveis por tudo isso.',
-    note: 'Um perguntou. A outra demorou para responder.',
+    title: 'Eu tenho elogios melhores pra você, mas seu ego ainda não está preparado',
     fade: 1500,
     // Sete segundos parados: é tempo de ler sem pressa, não de relance.
     hold: 7000,
@@ -368,9 +367,9 @@ export const access = Object.freeze({
 
 /** Leituras fixas do Control Center. As derivadas são compostas em dashboard.js. */
 export const operations = Object.freeze([
-  { id: 'legal-risk', label: 'Legal risk', value: 'Extremo', tone: 'accent' },
-  { id: 'budget', label: 'Budget status', value: 'Não pergunte', tone: 'plain' },
-  { id: 'galo', label: 'Galo deployment', value: 'Aguardando liberação', tone: 'discovery' },
+  { id: 'legal-risk', label: 'Risco jurídico', value: 'Extremo', tone: 'accent' },
+  { id: 'budget', label: 'Situação do orçamento', value: 'Não pergunte', tone: 'plain' },
+  { id: 'galo', label: 'Operação Galo', value: 'Aguardando liberação', tone: 'discovery' },
 ]);
 
 /** Risco de fuga da noiva, derivado da compatibilidade. Da mais alta para a mais baixa. */
@@ -391,49 +390,43 @@ export const guestStatus = Object.freeze({
   'confirmado-delirio': 'Confirmado pelo departamento de delírio',
 });
 
-/** As três camadas da lista, da gente que existe até o delírio puro. */
+/** Camada única: o cartaz só tem topo. */
 export const guestTiers = Object.freeze([
   {
     id: 'inner',
     index: '01',
-    label: 'Círculo interno',
-    note: 'Gente que existe, atende o telefone e provavelmente vai mesmo.',
-  },
-  {
-    id: 'vip',
-    index: '02',
-    label: 'Mesa VIP',
-    note: 'Nenhum convite foi enviado. A mesa segue reservada.',
-  },
-  {
-    id: 'improvavel',
-    index: '03',
-    label: 'Departamento de delírio',
-    note: 'Confirmados por uma autoridade que não existe.',
+    label: 'Atrações principais',
+    note: 'Os nomes que abrem o cartaz. Metade atende o telefone; a outra metade nem sabe que ele existe.',
   },
 ]);
 
 /**
- * tier: inner (gente de verdade) · vip · improvavel (puro delírio).
- * Ninguém aqui foi convidado de verdade. Quem não é do círculo interno fica com
- * `confirmado-delirio` de propósito: o repósitorio é público e nada pode soar
- * como afirmação factual sobre pessoa real.
+ * Cinco nomes, uma camada. Ninguém aqui foi convidado de verdade: quem é pessoa
+ * pública fica com `confirmado-delirio` de propósito, porque o repositório é
+ * público e nada pode soar como afirmação factual sobre gente real.
  */
 export const guests = Object.freeze([
-  { id: 'savel', name: 'Savel', tier: 'inner', role: 'Portador das alianças', status: 'confirmado' },
-  { id: 'marcelo', name: 'Marcelo', tier: 'inner', role: 'Convidado de honra', status: 'confirmado' },
   { id: 'japa-nk', name: 'Japa NK', tier: 'inner', role: 'Convidado de honra', status: 'confirmado' },
-  { id: 'nino', name: 'Nino e companhia', tier: 'inner', role: 'Delegação completa', status: 'confirmado' },
-  { id: 'neymar', name: 'Neymar', tier: 'vip', role: 'Mesa 01', status: 'confirmado-delirio' },
-  { id: 'vini-jr', name: 'Vini Jr.', tier: 'vip', role: 'Mesa 01', status: 'confirmado-delirio' },
-  { id: 'ronaldinho', name: 'Ronaldinho Gaúcho', tier: 'vip', role: 'Presença cerimonial', status: 'confirmado-delirio' },
-  { id: 'kaio-jorge', name: 'Kaio Jorge', tier: 'vip', role: 'Mesa 02', status: 'confirmado-delirio' },
-  { id: 'snoop-dogg', name: 'Snoop Dogg', tier: 'improvavel', role: 'Convidado internacional', status: 'confirmado-delirio' },
-  { id: 'anitta', name: 'Anitta', tier: 'improvavel', role: 'Convidada e atração', status: 'confirmado-delirio' },
-  { id: 'padre-marcelo-rossi', name: 'Padre Marcelo Rossi', tier: 'improvavel', role: 'Celebrante pretendido', status: 'confirmado-delirio' },
-  { id: 'ryan-sp', name: 'Ryan SP', tier: 'improvavel', role: 'Convidado e atração', status: 'confirmado-delirio' },
-  { id: 'wesley-alemao', name: 'Wesley Alemão', tier: 'improvavel', role: 'Convidado e atração', status: 'confirmado-delirio' },
+  { id: 'snoop-dogg', name: 'Snoop Dogg', tier: 'inner', role: 'Convidado internacional', status: 'confirmado-delirio' },
+  { id: 'mariah', name: '@mariah__luizaa0', tier: 'inner', role: 'Cuida do pet no dia', status: 'confirmado' },
+  { id: 'mc-gw', name: 'MC GW', tier: 'inner', role: 'Atração do after', status: 'confirmado-delirio' },
+  { id: 'mc-ig', name: 'MC IG', tier: 'inner', role: 'Topo do cartaz', status: 'confirmado-delirio' },
 ]);
+
+/**
+ * Show da noite. Cartaz de luta, evidentemente fictício: não existe data, local
+ * nem contrato, e nada aqui descreve fato real sobre ninguém.
+ */
+export const showdown = Object.freeze({
+  eyebrow: 'Main event · 13.03',
+  challenger: 'As irmãs do Luiz',
+  versus: 'versus',
+  opponent: 'Kaio Jorge',
+  cue: 'Ver a evidência',
+  note: 'Sem data, sem local, sem contrato. Como todo o resto.',
+  image: './assets/images/main-event.png',
+  alt: 'Registro do adversário anunciado para o main event.',
+});
 
 /** Line-up ficcional. Nenhuma apresentação foi contratada, negociada ou sequer mencionada aos artistas. */
 export const attractions = Object.freeze([
@@ -451,9 +444,9 @@ export const attractions = Object.freeze([
 ]);
 
 export const stages = Object.freeze({
-  main: { label: 'Main Stage', description: 'O palco principal, virado para o pôr do sol.' },
-  sunset: { label: 'Sunset Stage', description: 'Aquecimento durante o coquetel.' },
-  after: { label: 'After Stage', description: 'Fora do Aflora. Fora de controle.' },
+  main: { label: 'Palco Principal', description: 'O palco principal, virado para o pôr do sol.' },
+  sunset: { label: 'Palco do Pôr do Sol', description: 'Aquecimento durante o coquetel.' },
+  after: { label: 'Palco do After', description: 'Fora do Aflora. Fora de controle.' },
 });
 
 export const experiences = Object.freeze([
@@ -473,15 +466,15 @@ export const experiences = Object.freeze([
 
 /** Coordenadas em % dentro do viewBox do mapa (Sprint 5). */
 export const mapAreas = Object.freeze([
-  { id: 'ceremony', label: 'Ceremony', x: 22, y: 24, description: 'Onde tudo começa e o Galo aterrissa.' },
-  { id: 'main-stage', label: 'Main Stage', x: 62, y: 18, description: 'Estrutura principal do line-up.' },
-  { id: 'cocktail-bar', label: 'Cocktail Bar', x: 44, y: 46, description: 'Operação de bebidas e tequila itinerante.' },
-  { id: 'pole-stage', label: 'Pole Stage', x: 74, y: 44, description: 'Palco satélite com iluminação própria.' },
-  { id: 'vip', label: 'VIP', x: 84, y: 66, description: 'Mesa 01 e adjacências.' },
-  { id: 'kids-zone', label: 'Kids Zone', x: 16, y: 62, description: 'Andar de baixo, monitorado.' },
-  { id: 'dark-room', label: 'Dark Room', x: 33, y: 76, description: 'Não sinalizado no mapa impresso.' },
-  { id: 'groom-ops', label: 'Groom Operations Center', x: 56, y: 70, description: 'Centro de comando do noivo.' },
-  { id: 'after-route', label: 'After Route', x: 70, y: 88, description: 'Saída coordenada rumo ao after.' },
+  { id: 'ceremony', label: 'Cerimônia', x: 22, y: 24, description: 'Onde tudo começa e o Galo aterrissa.' },
+  { id: 'main-stage', label: 'Palco Principal', x: 62, y: 18, description: 'Estrutura principal do line-up.' },
+  { id: 'cocktail-bar', label: 'Bar de Coquetéis', x: 44, y: 46, description: 'Operação de bebidas e tequila itinerante.' },
+  { id: 'pole-stage', label: 'Palco do Pole', x: 74, y: 44, description: 'Palco satélite com iluminação própria.' },
+  { id: 'vip', label: 'Mesa VIP', x: 84, y: 66, description: 'Mesa 01 e adjacências.' },
+  { id: 'kids-zone', label: 'Espaço Kids', x: 16, y: 62, description: 'Andar de baixo, monitorado.' },
+  { id: 'dark-room', label: 'Sala Escura', x: 33, y: 76, description: 'Não sinalizado no mapa impresso.' },
+  { id: 'groom-ops', label: 'Central do Noivo', x: 56, y: 70, description: 'Centro de comando do noivo.' },
+  { id: 'after-route', label: 'Rota do After', x: 70, y: 88, description: 'Saída coordenada rumo ao after.' },
 ]);
 
 export const honeymoon = Object.freeze({
@@ -498,18 +491,114 @@ export const sponsors = Object.freeze([
 ]);
 
 export const timeline = Object.freeze([
-  { version: '0.1.0', date: '2026-09-02', title: 'Project initialized', note: 'Lista criada durante um date.' },
-  { version: '0.2.0', date: '2026-09-03', title: 'Wedding OS deployed', note: 'A brincadeira virou software.' },
-  { version: '1.0.0-rc', date: '2027-02-13', title: 'Feature freeze', note: 'Fim do prazo para pendências.' },
-  { version: '1.0.0', date: '2027-03-13', title: 'Production deployment', note: 'Aflora Secreta.' },
+  { version: '0.1.0', date: '2026-09-02', title: 'Projeto iniciado', note: 'Lista criada durante um date.' },
+  { version: '0.2.0', date: '2026-09-03', title: 'Wedding OS no ar', note: 'A brincadeira virou software.' },
+  { version: '1.0.0-rc', date: '2027-02-13', title: 'Congelamento do escopo', note: 'Fim do prazo para pendências.' },
+  { version: '1.0.0', date: '2027-03-13', title: 'Entrada em produção', note: 'Aflora Secreta.' },
 ]);
 
 /** `hint` nunca é exibido antes da descoberta. Serve de documentação interna. */
 export const easterEggs = Object.freeze([
-  { id: 'galo', label: 'Galo Protocol', hint: 'Tirolesa acionada a partir do mascote.' },
-  { id: 'snoop', label: 'Snoop Mode', hint: 'Escondido no card do convidado internacional.' },
-  { id: 'classified', label: 'Classified', hint: 'Autorização de segurança com a data.' },
-  { id: 'after', label: 'After Protocol', hint: 'Disparado ao entrar na rota do after.' },
+  { id: 'galo', label: 'Protocolo Galo', hint: 'Tirolesa acionada a partir do mascote.' },
+  { id: 'snoop', label: 'Modo Snoop', hint: 'Escondido no card do convidado internacional.' },
+  { id: 'classified', label: 'Confidencial', hint: 'Autorização de segurança com a data.' },
+  { id: 'after', label: 'Protocolo do After', hint: 'Disparado ao entrar na rota do after.' },
   { id: 'treze-zero-tres', label: '13.03', hint: 'Interação repetida sobre a identidade no topo.' },
   { id: 'casal', label: 'Aquele date', hint: 'Guardado para o final emocional.' },
+  { id: 'operacao', label: 'Operação 13.03', hint: 'As oito evidências do caça-palavras.' },
+]);
+
+/**
+ * Operação 13.03 — caça-palavras.
+ *
+ * As posições são fixas de propósito: o grid precisa ser o mesmo em toda visita, e
+ * a seleção do usuário é validada contra estas coordenadas, não contra as letras.
+ * `dr`/`dc` são o passo por letra, então palavra com passo negativo aparece
+ * invertida na tela. `word` já vem sem acento — o acento vive só em `display`.
+ */
+export const evidenceBoard = Object.freeze({ size: 20, seed: 1303 });
+
+export const evidence = Object.freeze([
+  {
+    id: 'galo',
+    display: 'GALO',
+    word: 'GALO',
+    row: 2,
+    col: 3,
+    dr: 0,
+    dc: 1,
+    message: 'AIRSPACE IDENTIFIED',
+  },
+  {
+    id: 'anao',
+    display: 'ANÃO',
+    word: 'ANAO',
+    row: 10,
+    col: 3,
+    dr: -1,
+    dc: 0,
+    message: 'SMALL ASSET. HIGH PRIORITY.',
+  },
+  {
+    id: 'darkroom',
+    display: 'DARKROOM',
+    word: 'DARKROOM',
+    row: 5,
+    col: 11,
+    dr: 0,
+    dc: -1,
+    message: 'RESTRICTED AREA LOCATED',
+  },
+  {
+    id: 'tequileiro',
+    display: 'TEQUILEIRO',
+    word: 'TEQUILEIRO',
+    row: 4,
+    col: 16,
+    dr: 1,
+    dc: 0,
+    message: 'OPERATIONAL ASSET LOCATED',
+  },
+  {
+    id: 'alvin',
+    display: 'ALVIN',
+    word: 'ALVIN',
+    row: 12,
+    col: 6,
+    dr: 1,
+    dc: 1,
+    message: 'CHIPMUNK PROTOCOL IDENTIFIED',
+  },
+  {
+    id: 'curupira',
+    display: 'CURUPIRA',
+    word: 'CURUPIRA',
+    row: 17,
+    col: 5,
+    dr: 0,
+    dc: 1,
+    message: 'COCKTAIL INTELLIGENCE RECOVERED',
+  },
+  {
+    id: 'acompanhante',
+    display: 'ACOMPANHANTE',
+    word: 'ACOMPANHANTE',
+    row: 3,
+    col: 2,
+    dr: 1,
+    dc: 0,
+    message: 'VIP SUPPORT IDENTIFIED',
+  },
+  // A mais difícil: 20 letras na diagonal, de baixo para cima, cruzando o grid inteiro.
+  {
+    id: 'ficantenamonoivorido',
+    display: 'FICANTENAMONOIVORIDO',
+    word: 'FICANTENAMONOIVORIDO',
+    row: 19,
+    col: 0,
+    dr: -1,
+    dc: 1,
+    message: 'RELATIONSHIP STATUS IDENTIFIED',
+    saga: ['FICANTE → NAMO → NOIVO → MARIDO', 'EVOLUTION PROTOCOL: ACTIVE'],
+  },
 ]);

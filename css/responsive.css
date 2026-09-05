@@ -3,8 +3,154 @@
  * Alvos validados: 375 · 768 · 1024 · 1440.
  */
 
+/**
+ * A escala das cenas responde à ALTURA, e não à largura: quem aperta uma
+ * experiência de viewport única é o eixo vertical. Abaixo de 900px de altura a
+ * composição encolhe em degraus até tudo caber sem rolagem.
+ */
+/* 60em (960px) e não 56: telas de 900 ainda deixavam uma decisão por etapa. */
+@media (max-height: 60em) {
+  .views {
+    --display-names: clamp(1.5rem, 3.6vw, 2.75rem);
+    --display-md: clamp(1.25rem, 1.1rem + 1.2vw, 1.75rem);
+    --space-lg: 0.75rem;
+    --space-xl: 1rem;
+    --space-2xl: 1.25rem;
+  }
+
+  .hero__tagline,
+  .lede {
+    display: none;
+  }
+
+  .board {
+    display: none;
+  }
+
+  .hub {
+    gap: var(--space-2xs);
+  }
+
+  .hub__foot {
+    margin-top: var(--space-2xs);
+  }
+
+  .universe__row[data-ready='true'] {
+    padding-block: var(--space-2xs);
+  }
+}
+
+@media (max-height: 46em) {
+  .views {
+    --display-names: clamp(1.375rem, 3vw, 2.25rem);
+    --text-lg: 1rem;
+    --space-md: 0.625rem;
+  }
+
+  .hero__facts,
+  .decision-group__title {
+    display: none;
+  }
+
+  /* Linha de uma altura só: é o que faz uma categoria inteira caber na etapa. */
+  .decision {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+    padding-block: var(--space-2xs);
+  }
+
+  .decision__head {
+    grid-area: 1 / 1;
+  }
+
+  .act__role {
+    display: none;
+  }
+
+  .votes {
+    grid-area: 1 / 3;
+  }
+
+  .section__head .lede,
+  .readiness__note {
+    display: none;
+  }
+
+  /* O índice inteiro tem prioridade sobre o rótulo e a nota de cada destino. */
+  .hub .eyebrow,
+  .universe__note {
+    display: none;
+  }
+
+  .hub__foot {
+    margin-top: 0;
+    gap: var(--space-2xs) var(--space-sm);
+  }
+
+  .hub__foot .btn {
+    padding-block: 0.25rem;
+  }
+
+  .universe__row[data-ready='false'] {
+    padding-block: 0.125rem;
+  }
+
+  /* Os títulos em português são mais longos: o índice inteiro vem antes deles. */
+  .universe__row[data-ready='true'] .universe__label {
+    font-size: var(--text-lg);
+  }
+}
+
+/* A coluna do hub fica estreita antes de virar mobile: a nota de hover ocupa uma
+   linha inteira do grid mesmo invisível, e aí os oito destinos deixam de caber. */
+@media (max-width: 64em) {
+  .universe__note {
+    display: none;
+  }
+
+  .puzzle {
+    grid-template-columns: minmax(0, 1fr) minmax(12rem, 16rem);
+    gap: var(--space-md);
+  }
+}
+
 /* Abaixo de 768: composição própria, não desktop encolhido. */
 @media (max-width: 47.99em) {
+  /* Em tela estreita o HUB vira coluna e o resumo perde o que é acessório: tudo
+     tem de caber numa viewport, sem rolagem. */
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-md);
+    align-content: start;
+  }
+
+  .hero__tagline,
+  .hero__deadline,
+  .hero__clock-label,
+  .universe__note,
+  .universe__status {
+    display: none;
+  }
+
+  .universe__row {
+    grid-template-columns: 2rem minmax(0, 1fr);
+    padding-block: var(--space-2xs);
+  }
+
+  .hero__facts {
+    gap: var(--space-sm);
+  }
+
+  /* Em 375px o conselho e os textos de apoio são os primeiros a sair. */
+  .board,
+  .lede {
+    display: none;
+  }
+
+  .section {
+    padding-block: var(--space-2xs);
+  }
+
   .section {
     padding-block: var(--space-2xl);
   }
@@ -55,8 +201,7 @@
   /* Archivo Black é bem mais larga que a serifada anterior: em 320px o rótulo do
      destino não cabe nem quebrado em duas linhas. Vale para toda display curta. */
   .universe__label,
-  .tier__label,
-  .guest__name {
+  .act__name {
     font-size: var(--text-lg);
   }
 
@@ -198,14 +343,14 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .guest {
-    grid-template-columns: minmax(0, 1fr);
+  .act {
+    grid-template-columns: auto minmax(0, 1fr);
   }
 
   /* "Confirmado pelo departamento de delírio" não cabe numa pílula de uma linha,
      e de duas linhas ela fica torta: aqui o status vira texto solto. */
-  .guest .status {
-    grid-column: 1;
+  .act .status {
+    grid-column: 2;
     grid-row: auto;
     padding: 0;
     border: 0;

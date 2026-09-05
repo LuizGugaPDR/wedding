@@ -3,7 +3,7 @@
  * Mutações passam obrigatoriamente por este módulo, que persiste e notifica assinantes.
  */
 
-import { decisions, easterEggs, guests, priorities, VOTE } from './data.js';
+import { decisions, easterEggs, evidence, guests, priorities, VOTE } from './data.js';
 import * as storage from './storage.js';
 
 export const DECISION_STATUS = Object.freeze({
@@ -26,6 +26,7 @@ function factoryState() {
     ideas: [],
     roster: [],
     secrets: [],
+    evidence: [],
     // O acesso não mora aqui: o cadeado fecha a cada visita, de propósito.
     prefs: { visited: false },
   };
@@ -65,6 +66,10 @@ function mergePersisted(persisted) {
   if (Array.isArray(persisted.secrets)) {
     const known = new Set(easterEggs.map((egg) => egg.id));
     next.secrets = persisted.secrets.filter((id) => known.has(id));
+  }
+  if (Array.isArray(persisted.evidence)) {
+    const known = new Set(evidence.map((item) => item.id));
+    next.evidence = persisted.evidence.filter((id) => known.has(id));
   }
   if (persisted.prefs) next.prefs = { ...next.prefs, ...persisted.prefs };
   return next;
@@ -183,6 +188,27 @@ export function discoverSecret(id) {
   const current = get();
   if (current.secrets.includes(id)) return false;
   current.secrets.push(id);
+  commit();
+  return true;
+}
+
+/** Só o último achado fecha a operação e libera o segredo correspondente. */
+export function findEvidence(id) {
+  const current = get();
+  if (current.evidence.includes(id)) return false;
+  current.evidence.push(id);
+  if (current.evidence.length === evidence.length && !current.secrets.includes('operacao')) {
+    current.secrets.push('operacao');
+  }
+  commit();
+  return true;
+}
+
+/** Sair da Operação zera o tabuleiro. O segredo, uma vez conquistado, fica. */
+export function clearEvidence() {
+  const current = get();
+  if (current.evidence.length === 0) return false;
+  current.evidence = [];
   commit();
   return true;
 }

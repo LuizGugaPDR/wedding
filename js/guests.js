@@ -1,26 +1,73 @@
 /**
- * Destino 02 · Guest Intelligence.
+ * Destino 02 · Atrações principais.
  *
- * A lista é tratada com rigor de sistema de RSVP — e é exatamente daí que vem a
- * piada, porque metade dela nunca foi convidada.
+ * Cinco nomes tratados com rigor de cartaz de festival — e é daí que vem a piada,
+ * porque nenhum deles foi convidado.
  */
 
-import { guestStatus, guestTiers } from './data.js';
+import { guestStatus, guestTiers, showdown } from './data.js';
 import * as state from './state.js';
 
 const $ = (selector, scope = document) => scope.querySelector(selector);
 
-function buildGuest(guest) {
+/** Cartaz do main event. Conteúdo vem de `data.js`, como todo o resto. */
+export function mountShowdown() {
+  const dialog = $('[data-showdown]');
+  const abrir = $('[data-showdown-open]');
+  if (!dialog || !abrir) return;
+
+  const foto = $('[data-showdown-photo]', dialog);
+  const imagem = $('[data-showdown-image]', dialog);
+
+  $('[data-showdown-eyebrow]').textContent = showdown.eyebrow;
+  $('[data-showdown-challenger]').textContent = showdown.challenger;
+  $('[data-showdown-versus]').textContent = showdown.versus;
+  $('[data-showdown-opponent]').textContent = showdown.opponent;
+  $('[data-showdown-cue]').textContent = showdown.cue;
+  $('[data-showdown-note]').textContent = showdown.note;
+  imagem.alt = showdown.alt;
+
+  const mostrarFoto = (visivel) => {
+    // A imagem só é buscada no primeiro clique: o cartaz abre sem esperar por ela.
+    if (visivel && !imagem.src) imagem.src = showdown.image;
+    foto.hidden = !visivel;
+    dialog.toggleAttribute('data-evidence', visivel);
+    $(visivel ? '[data-showdown-hide]' : '[data-showdown-reveal]', dialog).focus();
+  };
+
+  abrir.addEventListener('click', () => {
+    mostrarFoto(false);
+    dialog.showModal();
+  });
+  $('[data-showdown-reveal]', dialog).addEventListener('click', () => mostrarFoto(true));
+  $('[data-showdown-hide]', dialog).addEventListener('click', () => mostrarFoto(false));
+  $('[data-showdown-close]').addEventListener('click', () => dialog.close());
+
+  // Esc tratado aqui para o comportamento ser determinístico, como no resto do OS.
+  dialog.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    event.preventDefault();
+    // Com a evidência aberta, Esc recua para o cartaz em vez de fechar tudo.
+    if (foto.hidden) dialog.close();
+    else mostrarFoto(false);
+  });
+}
+
+function buildGuest(guest, ordem) {
   const row = document.createElement('article');
-  row.className = 'guest';
+  row.className = 'act';
   if (guest.custom) row.dataset.custom = '';
 
-  const name = document.createElement('h4');
-  name.className = 'guest__name';
+  const index = document.createElement('p');
+  index.className = 'act__index tabular';
+  index.textContent = String(ordem + 1).padStart(2, '0');
+
+  const name = document.createElement('h3');
+  name.className = 'act__name';
   name.textContent = guest.name;
 
   const role = document.createElement('p');
-  role.className = 'guest__role';
+  role.className = 'act__role';
   role.textContent = guest.role;
 
   const status = document.createElement('span');
@@ -28,51 +75,15 @@ function buildGuest(guest) {
   status.dataset.status = guest.status;
   status.textContent = guestStatus[guest.status] ?? guest.status;
 
-  row.append(name, role, status);
+  row.append(index, name, role, status);
   return row;
-}
-
-function buildTier(tier, pessoas) {
-  const bloco = document.createElement('section');
-  bloco.className = 'tier';
-  bloco.dataset.tier = tier.id;
-
-  const head = document.createElement('div');
-  head.className = 'tier__head';
-
-  const label = document.createElement('h3');
-  label.className = 'tier__label';
-  label.textContent = tier.label;
-
-  const count = document.createElement('p');
-  count.className = 'tier__count tabular';
-  count.textContent = `${pessoas.length}`;
-
-  const note = document.createElement('p');
-  note.className = 'tier__note';
-  note.textContent = tier.note;
-
-  head.append(label, count, note);
-
-  const lista = document.createElement('div');
-  lista.className = 'tier__list';
-  lista.append(...pessoas.map(buildGuest));
-
-  bloco.append(head, lista);
-  return bloco;
 }
 
 export function renderGuests() {
   const host = $('[data-roster]');
   const todos = state.allGuests();
 
-  host.replaceChildren(
-    ...guestTiers
-      .map((tier) => [tier, todos.filter((g) => g.tier === tier.id)])
-      // Camada vazia não vira bloco: ninguém precisa ver um título sem lista.
-      .filter(([, pessoas]) => pessoas.length > 0)
-      .map(([tier, pessoas]) => buildTier(tier, pessoas)),
-  );
+  host.replaceChildren(...todos.map(buildGuest));
 
   const proprios = state.get().roster.length;
   $('[data-roster-count]').textContent = `${todos.length} ${todos.length === 1 ? 'nome' : 'nomes'}`;
@@ -95,6 +106,8 @@ export function mountGuestForm() {
       return option;
     }),
   );
+  // Camada única não é escolha: o campo só aparece quando houver o que escolher.
+  tier.closest('.field').hidden = guestTiers.length < 2;
 
   trigger.addEventListener('click', () => {
     form.reset();

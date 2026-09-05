@@ -14,9 +14,12 @@ import {
   updateOverview,
 } from './dashboard.js';
 import { mountBoard, mountIdeaForm, renderDecisions } from './decisions.js';
-import { mountGuestForm, renderGuests } from './guests.js';
+import { mountDeck } from './deck.js';
+import { mountGuestForm, mountShowdown, renderGuests } from './guests.js';
+import { mountGesture } from './scenes.js';
 import { magnetize, trackPointer, trailHearts } from './interactions.js';
 import { mountLock } from './lock.js';
+import { mountPuzzle } from './puzzle.js';
 import { startRouter } from './router.js';
 import { observeReveals, revealAll } from './scroll.js';
 
@@ -45,17 +48,11 @@ function renderEntry(returning) {
 }
 
 /**
- * O CTA leva ao índice de destinos dentro da própria Home. É o único movimento
- * de rolagem da aplicação — e por isso é botão, não âncora: `#hub` é rota.
+ * O CTA deixou de rolar até o índice — ele já está na mesma tela. Agora abre o
+ * único destino liberado, que é o que a Home tem a oferecer.
  */
-function bindExplore() {
-  const hub = $('#hub');
-  $('[data-explore]').addEventListener('click', () => hub.scrollIntoView({ block: 'start' }));
-}
-
-function announceLocked(destino) {
-  $('[data-hub-alert]').textContent =
-    `${destino.label} · aguardando liberação. Control Center é o único destino aberto.`;
+function bindExplore(rota) {
+  $('[data-explore]').addEventListener('click', () => rota.go('control-center'));
 }
 
 /**
@@ -109,21 +106,54 @@ function boot() {
   document.body.toggleAttribute('data-returning', returning);
 
   renderEntry(returning);
-  bindExplore();
   bindReset();
   mountMilestones();
-  mountUniverse({ onLocked: announceLocked });
+  mountUniverse();
   mountBoard();
   mountIdeaForm();
   mountGuestForm();
+  mountShowdown();
+  const puzzle = mountPuzzle();
 
   const viewLabel = $('[data-chrome-view]');
-  startRouter({
+  const decks = {
+    'control-center': mountDeck($('[data-deck="control-center"]'), {
+      rotulo: 'Etapas do Control Center',
+      linha: '.readout, .timeline__item',
+    }),
+    decisions: mountDeck($('[data-decisions]'), { rotulo: 'Categorias de decisão', linha: '.decision' }),
+  };
+
+  // As etapas são medidas: mudou a altura da janela, muda quanta coisa cabe.
+  let remedir = 0;
+  window.addEventListener('resize', () => {
+    clearTimeout(remedir);
+    remedir = setTimeout(() => decks[document.body.dataset.activeView]?.sincronizar(), 180);
+  });
+
+  // Trancado, o chrome não existe e os blocos ainda não foram revelados: o que o
+  // deck mediu no boot não vale para a tela que ela vai realmente ver.
+  new MutationObserver(() => decks[document.body.dataset.activeView]?.sincronizar()).observe(
+    document.body,
+    { attributeFilter: ['data-locked'] },
+  );
+
+  const rota = startRouter({
     home: 'home',
     onChange(name, view) {
+      // A Operação recomeça do zero a cada entrada: sair é desistir da rodada.
+      if (document.body.dataset.activeView === 'puzzle' && name !== 'puzzle') state.clearEvidence();
       document.body.dataset.activeView = name;
       viewLabel.textContent = view.dataset.viewLabel;
+      decks[name]?.inicio();
     },
+  });
+
+  bindExplore(rota);
+  // Com uma cena aberta, o gesto para cima a recolhe de volta ao HUB.
+  mountGesture({
+    ativo: () => document.body.dataset.activeView !== 'home' && !document.body.hasAttribute('data-locked'),
+    noRecolher: () => rota.go('home'),
   });
 
   const render = () => {
@@ -133,6 +163,9 @@ function boot() {
     renderDecisions();
     renderGuests();
     mountReadouts();
+    // As etapas são os próprios blocos renderizados: mudou a lista, muda o deck.
+    decks.decisions.sincronizar();
+    puzzle.sincronizar();
   };
 
   state.subscribe(render);

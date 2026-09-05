@@ -177,22 +177,34 @@ Nenhum padrão novo sem substituir um destes.
 
 ## Navegação por destinos
 
-Wedding OS não é uma página que rola. Cada experiência é um destino em tela cheia.
+Wedding OS não rola. O `body` ocupa `100dvh` com `overflow: hidden` e cada experiência é um
+estado que ocupa a mesma tela.
 
 ```
-#home             hero + índice do 13.03 Universe   (hub)
+#home             resumo + índice do 13.03 Universe   (hub completo, uma tela)
   |  clique num destino
-#control-center   prontidão, riscos e cronograma    (aberto)
+#control-center   prontidão, riscos e cronograma      (aberto)
   |  DECISIONS PENDING
 #decisions        conselho + motor de decisões
-  |  <- UNIVERSE volta ao hub
+  |  <- UNIVERSE, Esc ou roda para cima volta ao hub
 ```
 
-`js/router.js` guarda a rota no hash, esconde as outras views e devolve o foco. A rolagem
-interna existe só quando o conteúdo de um destino pede — nunca para trocar de destino.
+`js/router.js` guarda a rota no hash, esconde as outras views e devolve o foco.
+
+`js/deck.js` resolve o conteúdo que não cabe: mede a altura livre da cena e empacota os blocos
+já renderizados em etapas. Bloco maior que a tela inteira é quebrado pelas próprias linhas, e
+toda linha continua alcançável pelo pager — nada some sem caminho de volta. Por medir em vez de
+assumir, a mesma lista de decisões rende 6 etapas em 1440×900 e 11 em 1280×600, sem breakpoint.
+
+`js/scenes.js` transforma a roda do mouse em gesto: rolar para cima recolhe o destino ao hub,
+com limiar de 90px e trava de 720ms para o trackpad não disparar em série. `Esc` e o
+`← UNIVERSE` fazem o mesmo, então o gesto nunca é o único caminho.
 
 `js/scroll.js` deixou de ser motor de narrativa: sobrou o reveal, e ele continua sendo o único
 lugar que observa viewport.
+
+O `13.03` vive atrás de tudo em `.markdrop`, fora das views: forte na Home, quase apagado
+quando um destino está aberto.
 
 ## Acesso privado
 

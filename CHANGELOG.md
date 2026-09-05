@@ -2,6 +2,90 @@
 
 Todas as mudanças relevantes do Wedding OS. Uma entrada por sprint.
 
+## [0.12.0] — 2026-09-04 · Operação 13.03, cartaz e português
+
+### Added
+- **Operação 13.03**: caça-palavras em view própria (`#puzzle`), com grid 20×20
+  determinístico. As oito evidências têm coordenadas fixas em `data.js` e o
+  preenchimento sai de um `mulberry32` com semente — o tabuleiro é o mesmo em toda
+  visita. Cinco direções, incluindo `FICANTENAMONOIVORIDO` na anti-diagonal, 20
+  letras cruzando o grid inteiro.
+- A validação compara o **caminho selecionado com as coordenadas da palavra**, não
+  com as letras: uma sequência que por acaso soletre GALO em outro canto não conta.
+- Seleção por pointer (mouse e touch no mesmo caminho) e por teclado, com roving
+  tabindex, `Enter` para ancorar e `Enter` para fechar o traço.
+- **Show da noite**: cartaz de main event em `<dialog>` de tela cheia, com a
+  evidência revelada sob demanda — a imagem só é buscada no primeiro clique.
+- Sétimo Easter Egg, liberado ao fechar as oito evidências.
+
+### Changed
+- **Todos os títulos passaram para o português**: destinos, medidores do Centro de
+  Controle, cronograma, breadcrumb, palcos e áreas do mapa.
+- O destino 02 virou **Atrações principais**, com cinco nomes. As cinco linhas
+  dividem a altura da viewport e encolhem junto com ela, em vez de paginar.
+- Destinos bloqueados deixaram de ser clicáveis: viram elemento inerte, sem foco
+  nem resposta. Quem está pronto ocupa o corpo maior; quem espera recua.
+- Chuva de corações da revelação muito mais densa, com sorteio ao quadrado — a
+  distribuição linear enchia a tela de coração médio, que é o que não se vê.
+- Legenda da foto reduzida de 28px na display para 16px na fonte de UI.
+
+### Fixed
+- **O deck media a tela errada.** Trancado, o chrome não existe e os blocos ainda
+  não foram revelados: o que ele mediu no boot não valia para a tela que ela vê.
+  Um observador de `data-locked` remede quando o sistema destranca.
+- `[data-deck-hidden]` perdia em especificidade para `.decision` e `.guest`. As
+  linhas não sumiam, o deck media estouro que não conseguia corrigir e fragmentava
+  a lista em uma decisão por etapa.
+- `.deck-nav { display: flex }` vencia o `[hidden]` do agente de usuário: a
+  navegação de etapas aparecia inerte, com `1 / 1` e os dois botões desabilitados.
+- O índice do hub era paginado e a Home abria na etapa 2, começando no destino 03.
+- `grid-auto-rows: 1fr` não encolhe abaixo do conteúdo: com cinco nomes cabia, com
+  seis estourava. Agora é `minmax(0, 1fr)`.
+- `max-width` nunca amplia imagem além do tamanho natural — a evidência abria como
+  um selo de 206px no meio da tela.
+- `.btn--lead` era uma classe sem nenhuma regra de CSS. Substituída por
+  `.btn--primary`, que já existia e mede 6,6:1.
+- O `RESET WEDDING OS` zerava o contador do caça-palavras mas deixava as células
+  marcadas.
+
+## [0.11.0] — 2026-09-04 · Uma viewport, oito estados
+
+### Added
+- **`js/deck.js`: paginação por medição.** A cena mede a altura livre real e empacota os blocos
+  já renderizados em quantas etapas couberem. Quando um grupo sozinho é maior que a tela, ele é
+  quebrado pelas **próprias linhas** — e toda linha continua alcançável pelo pager. Por medir em
+  vez de assumir, a mesma lista de decisões rende 6 etapas em 1440×900 e 11 em 1280×600, sem um
+  único breakpoint dedicado.
+- **`js/scenes.js`: a roda do mouse virou gesto.** Rolar para cima recolhe o destino de volta ao
+  hub, com limiar de 90px e trava de 720ms para o trackpad não disparar em série. `Esc` e o
+  `← UNIVERSE` continuam fazendo o mesmo: o gesto nunca é o único caminho.
+- Navegação de etapas com passo `N / M`, pontos rotulados pelo nome do bloco e botões
+  anterior/próximo. Uma etapa só não é etapa: a navegação some.
+
+### Changed
+- **Wedding OS deixou de rolar.** `body` ocupa `100dvh` com `overflow: hidden`. Nenhum conteúdo
+  depende mais de descer a página para ser descoberto.
+- **A Home virou hub completo**: resumo do evento e os oito destinos na mesma tela, em qualquer
+  tamanho. Era o pior caso do projeto, com 1275px de estouro.
+- O `13.03` saiu da Hero e virou camada persistente atrás de tudo (`.markdrop`): forte na Home,
+  quase apagado quando um destino está aberto.
+- Escala compacta de tipografia e espaço **escopada em `.views`**, para o cadeado — um `<dialog>`
+  fora dela — continuar exatamente como estava.
+- Blocos secundários (diretoria, ledes, notas de camada) recuam por altura de tela, não por
+  largura: é a altura que decide o que cabe.
+
+### Fixed
+- `[data-deck-hidden]` perdia em especificidade para `.decision` e `.guest`, que também declaram
+  `display`. As linhas não sumiam, o deck media estouro que não conseguia corrigir e fragmentava
+  a lista em uma decisão por etapa.
+- `.deck-nav { display: flex }` vencia o `[hidden]` do agente de usuário: a navegação de etapas
+  aparecia inerte, com `1 / 1` e os dois botões desabilitados, mesmo quando havia uma etapa só.
+- O limite do deck ignorava padding e margem dos ancestrais entre o container e a borda da cena.
+  Agora esse rodapé é medido, e sobra imprevista dispara um reempacotamento — que só continua
+  enquanto estiver de fato melhorando.
+- `.hero { height: 100% }` dentro de um grid `align-content: start` resolvia contra uma linha
+  automática e crescia com o conteúdo em vez de caber.
+
 ## [0.10.0] — 2026-09-04 · Paleta do cardápio
 
 ### Changed

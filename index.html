@@ -137,7 +137,6 @@
         <img class="reveal__photo" data-lock-reveal-photo alt="" />
         <figcaption class="reveal__caption">
           <p class="reveal__title" data-lock-reveal-title></p>
-          <p class="reveal__note" data-lock-reveal-note></p>
         </figcaption>
         <div class="reveal__rain" data-lock-rain aria-hidden="true"></div>
       </figure>
@@ -154,10 +153,10 @@
       <p class="os-chrome__path" data-chrome-path aria-live="polite">
         <span>13.03</span>
         <span aria-hidden="true">/</span>
-        <b data-chrome-view>Universe</b>
+        <b data-chrome-view>Universo</b>
       </p>
 
-      <a class="os-chrome__back" href="#home">Universe</a>
+      <a class="os-chrome__back" href="#home">Universo</a>
 
       <div class="os-chrome__telemetry">
         <p class="meter" data-chrome-progress>
@@ -165,18 +164,24 @@
             <span class="meter__fill"></span>
           </span>
           <span class="meter__value tabular">—</span>
-          <span class="meter__unit">readiness</span>
+          <span class="meter__unit">prontidão</span>
         </p>
         <p class="micro tabular" data-chrome-secrets>— / — segredos</p>
       </div>
     </header>
 
     <main id="main" class="views">
+      <!-- O 13.03 vive fora das cenas: é o elemento que permanece enquanto o resto
+           se reorganiza, e recua para quase sombra quando uma cena abre. -->
+      <div class="markdrop" aria-hidden="true">
+        <span class="hero__mark" data-pointer-layer="0.35">13.03</span>
+      </div>
+
       <section
         class="view"
         id="home"
         data-view="home"
-        data-view-label="Universe"
+        data-view-label="Universo"
         tabindex="-1"
       >
         <div class="hero" data-pointer>
@@ -192,8 +197,6 @@
 
             <span class="hero__wash"></span>
 
-            <span class="hero__mark" data-pointer-layer="0.35">13.03</span>
-
             <span class="hero__tag hero__tag--a" data-pointer-layer="1.4">Galo airspace</span>
             <span class="hero__tag hero__tag--b" data-pointer-layer="1.2">After protocol</span>
             <span class="hero__tag hero__tag--c" data-pointer-layer="1.5">150 convidados</span>
@@ -204,7 +207,7 @@
             O texto abaixo é fallback de aprimoramento progressivo: se os módulos falharem,
             o convite continua legível. Em execução normal, data.js sobrescreve tudo isso.
           -->
-          <div class="hero__grid shell">
+          <div class="hero__grid">
             <p class="hero__eyebrow" data-reveal style="--reveal-index: 0">
               <span class="hero__dot" aria-hidden="true"></span>
               <span data-entry-status>Sessão iniciada</span>
@@ -258,25 +261,22 @@
               </button>
             </div>
           </div>
-        </div>
 
-        <div class="hub shell" id="hub">
-          <div class="section__head">
-            <p class="eyebrow" data-reveal><span class="eyebrow__index">00</span> Wedding Universe</p>
-            <h2 class="display" data-reveal style="--reveal-index: 1">Oito destinos.</h2>
-            <p class="lede" data-reveal style="--reveal-index: 2">
-              Um já está aberto. Os outros aguardam liberação do departamento responsável.
+          <div class="hub" id="hub">
+            <div class="section__head">
+              <p class="eyebrow" data-reveal><span class="eyebrow__index">00</span> Universo 13.03</p>
+              <h2 class="display" data-reveal style="--reveal-index: 1">Oito destinos.</h2>
+            </div>
+
+            <nav class="universe" data-universe aria-label="Destinos do Wedding OS"></nav>
+
+            <p class="hub__foot">
+              <span class="micro">Motor de Decisões</span>
+              <a class="btn" href="#decisions" data-decisions-shortcut>Abrir</a>
+              <a class="btn btn--primary" href="#puzzle">Palavra cruzada →</a>
+              <button class="btn btn--primary" type="button" data-showdown-open>Show da noite →</button>
             </p>
           </div>
-
-          <nav class="universe" data-universe aria-label="Destinos do Wedding OS"></nav>
-
-          <output class="hub__alert" data-hub-alert></output>
-
-          <p class="hub__foot">
-            <span class="micro">Decision Engine</span>
-            <a class="btn" href="#decisions" data-decisions-shortcut>Abrir</a>
-          </p>
         </div>
       </section>
 
@@ -284,19 +284,21 @@
         class="view shell"
         id="control-center"
         data-view="control-center"
-        data-view-label="Control Center"
+        data-view-label="Centro de Controle"
         tabindex="-1"
       >
         <div class="section__head">
-          <p class="eyebrow" data-reveal><span class="eyebrow__index">01</span> Control Center</p>
+          <p class="eyebrow" data-reveal><span class="eyebrow__index">01</span> Centro de Controle</p>
           <h2 class="display" data-reveal style="--reveal-index: 1" data-overview-title>
             12 itens ainda esperam veredito.
           </h2>
         </div>
 
-        <div class="readiness" data-reveal style="--reveal-index: 2">
+        <div class="deck" data-deck="control-center">
+          <div class="cc-panel">
+            <div class="readiness" data-reveal style="--reveal-index: 2">
           <p class="readiness__value tabular" data-gauge="progress">0%</p>
-          <p class="readiness__label">Operational readiness</p>
+          <p class="readiness__label">Prontidão operacional</p>
           <div class="meter__track readiness__meter" aria-hidden="true">
             <span class="meter__fill"></span>
           </div>
@@ -306,9 +308,10 @@
           </p>
         </div>
 
-        <div class="readouts" data-readouts data-reveal style="--reveal-index: 3"></div>
+            <div class="readouts" data-readouts data-reveal style="--reveal-index: 3"></div>
+          </div>
 
-        <section class="section">
+          <section class="section cc-panel">
           <div class="section__head">
             <p class="eyebrow" data-reveal><span class="eyebrow__index">01.1</span> Cronograma</p>
             <h3 class="display" data-reveal style="--reveal-index: 1">
@@ -351,22 +354,22 @@
               <p class="micro schedule__days" data-schedule-days></p>
             </div>
           </div>
-        </section>
+          </section>
+        </div>
       </section>
 
       <section
         class="view shell"
         id="guests"
         data-view="guests"
-        data-view-label="Guest Intelligence"
+        data-view-label="Atrações principais"
         tabindex="-1"
       >
         <div class="section__head">
-          <p class="eyebrow" data-reveal><span class="eyebrow__index">02</span> Guest Intelligence</p>
-          <h2 class="display" data-reveal style="--reveal-index: 1">Todo mundo confirmado.</h2>
+          <p class="eyebrow" data-reveal><span class="eyebrow__index">02</span> Atrações principais</p>
+          <h2 class="display" data-reveal style="--reveal-index: 1">Cinco nomes no cartaz.</h2>
           <p class="lede" data-reveal style="--reveal-index: 2">
-            Três camadas, do círculo interno ao departamento de delírio. Nenhum convite foi
-            enviado a ninguém fora da primeira.
+            O topo da lista. Nenhum convite foi enviado, nenhum cachê foi negociado.
           </p>
         </div>
 
@@ -385,11 +388,10 @@
         class="view shell"
         id="decisions"
         data-view="decisions"
-        data-view-label="Decision Engine"
+        data-view-label="Motor de Decisões"
         tabindex="-1"
-      >
-        <div class="section__head">
-          <p class="eyebrow" data-reveal><span class="eyebrow__index">02</span> Decision Engine</p>
+      >        <div class="section__head">
+          <p class="eyebrow" data-reveal><span class="eyebrow__index">02</span> Motor de Decisões</p>
           <h2 class="display" data-reveal style="--reveal-index: 1">A lista, item por item.</h2>
           <p class="lede" data-reveal style="--reveal-index: 2">
             Toda decisão passa por dois votos. Um deles tem poder de veto ilimitado.
@@ -410,7 +412,72 @@
           <div data-decisions data-reveal style="--reveal-index: 1"></div>
         </section>
       </section>
+
+      <section
+        class="view"
+        id="puzzle"
+        data-view="puzzle"
+        data-view-label="Operação 13.03"
+        tabindex="-1"
+      >
+        <div class="puzzle" data-puzzle>
+          <div class="puzzle__board">
+            <div class="puzzle__grid" data-puzzle-grid aria-label="Grade da Operação 13.03"></div>
+          </div>
+
+          <div class="puzzle__panel">
+            <div class="section__head">
+              <p class="eyebrow" data-reveal>
+                <span class="eyebrow__index">09</span> Arquivo confidencial
+              </p>
+              <h2 class="display" data-reveal style="--reveal-index: 1">Operação 13.03</h2>
+              <p class="lede" data-reveal style="--reveal-index: 2">
+                8 evidências foram escondidas nos arquivos do casamento. Encontre todas.
+              </p>
+            </div>
+
+            <p class="puzzle__score">
+              <span class="puzzle__count tabular" data-puzzle-count>0 / 8</span>
+              <span class="micro">evidências</span>
+            </p>
+
+            <ul class="puzzle__list" data-puzzle-list></ul>
+
+            <output class="puzzle__feedback" data-puzzle-feedback></output>
+
+            <div class="puzzle__done" data-puzzle-done hidden>
+              <p class="puzzle__done-title">Todas as evidências foram encontradas.</p>
+              <p class="puzzle__done-note">
+                “Se você encontrou FICANTENAMONOIVORIDO, já está envolvida demais para fugir.”
+              </p>
+              <a class="btn btn--primary" href="#home">Voltar ao universo →</a>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
+
+    <dialog class="showdown" data-showdown aria-labelledby="showdown-title">
+      <div class="showdown__card">
+        <p class="showdown__eyebrow" data-showdown-eyebrow></p>
+        <p class="showdown__side" id="showdown-title" data-showdown-challenger></p>
+        <p class="showdown__versus" data-showdown-versus></p>
+
+        <p class="showdown__cue" data-showdown-cue></p>
+        <button class="showdown__opponent" type="button" data-showdown-reveal>
+          <span class="showdown__arrow" aria-hidden="true">↓</span>
+          <span class="showdown__name" data-showdown-opponent></span>
+        </button>
+
+        <p class="showdown__note" data-showdown-note></p>
+        <button class="btn btn--primary" type="button" data-showdown-close>Fechar</button>
+      </div>
+
+      <figure class="showdown__evidence" data-showdown-photo hidden>
+        <img alt="" data-showdown-image />
+        <button class="btn btn--primary" type="button" data-showdown-hide>Voltar ao cartaz</button>
+      </figure>
+    </dialog>
 
     <dialog class="modal" data-guest-modal aria-labelledby="guest-title">
       <form class="modal__form" method="dialog" data-guest-form>
